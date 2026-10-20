@@ -1,15 +1,9 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>ফলের বাগান</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@600;800&family=Hind+Siliguri:wght@500;700&display=swap">
 <style>
-html, body {
-  overscroll-behavior: none !important;
-  overscroll-behavior-y: none !important;
-  touch-action: pan-x pan-y;
-}
 /* Layout: one portrait column. Top bar (level, score, controls) > goals + moves > board on a wooden frame > booster tray.
    One committed look: night forest, warm wood panels, cream parchment, juicy fruit colours. */
 :root{
@@ -529,6 +523,24 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .lowfx .tile{animation:none!important}
 @media (prefers-reduced-motion:reduce){.tile{animation:none!important}}
 .tile.press .fr{filter:brightness(1.14) drop-shadow(0 3px 2px rgba(60,30,0,.4))}
+html,body{overscroll-behavior:none!important;overscroll-behavior-y:none!important}
+
+/* ---- language chooser ---- */
+#langsel{z-index:80}
+.langh{margin:0;font:800 clamp(36px,11vw,52px)/1.05 var(--font-d);background:linear-gradient(180deg,#fff7c2 10%,#ffd23f 55%,#ff9b2f 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 0 var(--wood-line))}
+.langh span{font-size:.7em}
+.langp{margin:6px 0 4px;font:700 17px/1.4 var(--font-b);color:#e5f5d2}
+.langbtns{display:grid;gap:12px;width:100%;max-width:280px;margin:8px auto 0}
+.langbtns .big{width:100%;padding:12px 20px}
+.langbtns .big span{font:800 24px/1.1 var(--font-d)}
+.langbtns .gold{background:linear-gradient(180deg,#ffe98a,#ffbf2b);box-shadow:inset 0 3px 0 rgba(255,255,255,.7),0 5px 0 #8f5c00,0 8px 12px rgba(0,0,0,.4);border-color:#b97a00}
+
+.shopcard,.gcard,.setcard,.achcard{max-width:100%;min-width:0;box-sizing:border-box}
+.shopcard{overflow:hidden}
+.shopbody,.tabs{min-width:0;max-width:100%}
+.pack small,.deal small,.ac small{overflow-wrap:anywhere}
+.deal{height:auto;min-height:68px;align-items:center}.deal b{font-size:15.5px}.deal small{font-size:12px;line-height:1.2}
+.shopbody>*{flex:none}
 
 </style>
 
@@ -838,6 +850,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
   <button class="alt sw" id="vibBtn">ভাইব্রেশন: চালু</button>
   <button class="alt sw" id="timBtn">সময়ের সীমা: চালু</button>
   <button class="alt sw" id="fxBtn">কম অ্যানিমেশন: বন্ধ</button>
+  <button class="alt sw" id="langBtn" data-noi18n></button>
   <button class="alt sw" id="tutBtn">টিপস আবার দেখো</button>
   <div class="sv"><b>সেভ কোড</b><small>ফোন বদলালে বা মুছে গেলে এই কোড দিয়ে সব ফিরিয়ে আনতে পারবে। কোডটা কোথাও লিখে বা মেসেজে রেখে দাও।</small>
     <textarea id="saveCode" rows="3" placeholder="কোড এখানে আসবে বা বসাও" spellcheck="false"></textarea>
@@ -860,6 +873,12 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
   <div class="gscene"><div class="ggrid" id="gGrid"></div><div class="gfly" aria-hidden="true"><svg class="b1" viewBox="0 0 100 100"><use href="#d-bfly"/></svg><svg class="b2" viewBox="0 0 100 100"><use href="#d-bfly2"/></svg><svg class="bd" viewBox="0 0 100 100"><use href="#d-bird"/></svg></div></div>
   <p class="ghint">খালি জায়গায় ট্যাপ করে কিছু কেনো আর সাজাও</p>
   <div class="gpick" id="gPick" hidden><div class="gpickin"><h3 id="gPickT"></h3><div class="gitems" id="gItems"></div><div class="btns"><button class="alt" id="gRemove">সরিয়ে দাও</button><button id="gCancel">থাক</button></div></div></div>
+</div></div>
+<div id="langsel" class="splash" hidden data-noi18n><div class="spcard">
+  <div class="spfruits" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#f0"/></svg><svg viewBox="0 0 100 100"><use href="#f3"/></svg><svg viewBox="0 0 100 100"><use href="#f4"/></svg><svg viewBox="0 0 100 100"><use href="#f2"/></svg></div>
+  <h1 class="langh">Fruit Garden<br><span>ফলের বাগান</span></h1>
+  <p class="langp">Choose your language<br>ভাষা বেছে নাও</p>
+  <div class="langbtns"><button class="big" id="langEn"><span>English</span></button><button class="big gold" id="langBn"><span>বাংলা</span></button></div>
 </div></div>
 <div id="splash" class="splash" hidden><div class="spcard">
   <div class="spfruits" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#f0"/></svg><svg viewBox="0 0 100 100"><use href="#f3"/></svg><svg viewBox="0 0 100 100"><use href="#f4"/></svg><svg viewBox="0 0 100 100"><use href="#f2"/></svg></div>
@@ -929,7 +948,7 @@ var SPIN_COST=50;
 
 /* ---------- saved progress ---------- */
 var KEY='fruit-forest-v1';
-var save={unlocked:1,stars:{},boost:{h:3,b:2,s:2,p:1},music:true,sfx:true,coins:0,seen:{},theme:'forest',themes:{forest:1},tune:'dawn',wheelDay:'',tut:false,name:'',best:{},ach:{},stats:{},vol:{m:.85,s:.8},vib:true,dailyCh:{day:'',done:false},endBest:0,timedBest:0,timer:true,lowfx:false,dm:{day:'',list:[],all:false},garden:{slots:{},harvest:''}};
+var save={unlocked:1,stars:{},boost:{h:3,b:2,s:2,p:1},music:true,sfx:true,coins:0,seen:{},theme:'forest',themes:{forest:1},tune:'dawn',wheelDay:'',tut:false,name:'',best:{},ach:{},stats:{},vol:{m:.85,s:.8},vib:true,dailyCh:{day:'',done:false},endBest:0,timedBest:0,timer:true,lowfx:false,dm:{day:'',list:[],all:false},lang:'',garden:{slots:{},harvest:''}};
 var fresh=true;
 try{
   var raw=localStorage.getItem(KEY);
@@ -2157,6 +2176,7 @@ async function afterMove(){
   checkAch();
 }
 function shareText(txt){
+  txt=trText(txt);
   try{if(navigator.share){navigator.share({text:txt}).catch(function(){});return;}}catch(e){}
   try{window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');}catch(e){}
 }
@@ -2746,7 +2766,7 @@ applyTheme(save.theme);
 $('#homeLvl').textContent=save.unlocked;
 syncAudioBtns();updBoosters();syncCoins();syncTunes();fit();
 syncName();
-if(!TEST){showSplash();A.prewarm();A.unlock();}
+if(!TEST){A.prewarm();A.unlock();}
 
 if(DBG){window.__dbg={startLevel:startLevel,trySwap:trySwap,findMove:findMove,findRuns:findRuns,
   grid:function(){return grid;},S:function(){return S;},lvl:function(){return lvl;},W:W,H:H,
@@ -2976,10 +2996,101 @@ ACH.push(ach('a14','মালি','বাগানে ৫টা জিনিস 
 ACH.push(ach('a15','মিশন-বীর','৩টা দিনের সব মিশন শেষ করো',80,function(){return save.stats.missAll||0;},3));
 syncMissDot();
 
-})();
-  document.addEventListener('touchmove', function (e) {
-    if (window.pageYOffset <= 0) {
-      e.preventDefault();
+/* stop the "pull down to refresh" gesture (browser and app wrappers) */
+(function(){
+  var ty=null;
+  function canScrollUp(el){
+    while(el&&el!==document.body&&el!==document.documentElement){
+      if(el.scrollTop>0){var oy=getComputedStyle(el).overflowY;if(oy==='auto'||oy==='scroll')return true;}
+      el=el.parentElement;
     }
-  }, { passive: false });
+    var se=document.scrollingElement||document.documentElement;
+    return se.scrollTop>0;
+  }
+  document.addEventListener('touchstart',function(e){ty=e.touches.length===1?e.touches[0].clientY:null;},{passive:true});
+  document.addEventListener('touchmove',function(e){
+    if(ty===null||e.touches.length!==1)return;
+    if(e.touches[0].clientY>ty&&!canScrollUp(e.target)&&e.cancelable)e.preventDefault();
+  },{passive:false});
+  document.addEventListener('touchend',function(){ty=null;},{passive:true});
+})();
+
+/* ---------- English / Bengali ---------- */
+var EN_DICT={"(দোকানে পাবে)": "(find it in the shop)", "(নতুন রেকর্ড!)": "(new record!)", "(বাকি চালের বোনাস": "(leftover-moves bonus", "(সঙ্গীর উপহার +": "(companion gift +", "+ সপ্তম দিনের বড় উপহার: কয়েন +150,": "+ Day-7 big gift: coins +150,", "+1 চাল": "+1 move", "+30 সেকেন্ড (50 কয়েন)": "+30 seconds (50 coins)", "+5 চাল": "+5 moves", "+5 চাল নিয়ে চালিয়ে যাও (": "Continue with +5 moves (", "· আজকেরটা নেওয়া হয়ে গেছে": "· Already taken today", "· আটকানো আছে": "· Locked", "· দিনে একবার": "· Once a day", "· সময়:": "· Time:", "· সেরা স্কোর:": "· Best score:", "। তুমি কত দূর যেতে পারো?": ". How far can you go?", "অবিশ্বাস্য!": "Unbelievable!", "অর্জন": "Achievements", "অর্জন:": "Achievement:", "অসাধারণ!": "Amazing!", "অসীম মোড": "Endless Mode", "অসীম মোডে 5000 পয়েন্ট": "Score 5000 points in Endless Mode", "অসীম সাধক": "Endless Master", "আগে কোড বসাও": "Paste a code first", "আগে তোমার নাম লেখো": "Type your name first", "আগের লেভেল জিতলে এটা খুলবে": "Win the previous level to unlock this", "আছে": "Owned", "আজ": "Today", "আজকের অর্ধেক দাম": "Today's half price", "আজকের উপহার আগেই নেওয়া হয়েছে, কয়েন +": "Today's gift was already taken, coins +", "আজকের চ্যালেঞ্জ": "Daily Challenge", "আজকের চ্যালেঞ্জ জিতেছো!": "You won today's challenge!", "আজকের ফসল তোলা হয়েছে": "Today's harvest is collected", "আজকের ফ্রি ঘোরানো": "Today's free spin", "আজকের মিশন": "Today's Missions", "আজকের সব মিশন শেষ ✓": "All of today's missions are done ✓", "আজকের সব মিশন শেষ! (+": "All of today's missions are done! (+", "আজকেরটা জেতা হয়েছে ✓": "Today's is won ✓", "আটকানো": "Locked", "আধা দাম ফেরত পেলে": "You got half the price back", "আবার খেলো": "Play again", "আবার শুরু করো": "Restart", "আমার বাগান": "My Garden", "আর": "and", "আর একটুর জন্য হলো না। আবার চেষ্টা করো।": "So close! Try again.", "আরও": "and", "আলাদা কিনলে": "Bought separately", "আশপাশের 9টা ঘর ভাঙে": "Breaks the 9 cells around it", "উপহার: কয়েন +": "Gift: coins +", "উষ্ণ সোনালি বালির রং": "Warm golden sand", "এই বুস্টার শেষ, দোকান থেকে কিনে নাও": "Out of this booster, buy more in the shop", "এই লক্ষ্যগুলো পূরণ করো": "Complete these goals", "একই রকম তিনটি বা তার বেশি ফল মিলিয়ে ফেলো": "Match three or more of the same fruit", "একটা ফল বা বাক্স ভাঙে": "Breaks one fruit or crate", "একটা বিশেষ লেভেল জেতো": "Win a special level", "একটু অপেক্ষা করো": "Wait a moment", "একসাথে 4টা মেলালে লাইন-ফল পাবে": "Match 4 at once to get a line fruit", "এখানে কিছু নেই": "Nothing here", "এখানে কী বসাবে?": "What will you place here?", "এখানে বদলাবে কী?": "What will you change it to?", "এটা বিশেষ লেভেল! জিতলে বড় উপহার পাবে।": "A special level! Win it for a big gift.", "কপি": "Copy", "কপি হয়েছে": "Copied", "কম অ্যানিমেশন:": "Low animation:", "কম্বো-বীর": "Combo Hero", "কয়েন": "coins", "কয়েন +": "Coins +", "কয়েন · সাশ্রয়": "coins · save", "কয়েন কম আছে। লেভেল জিতে কয়েন জমাও": "Not enough coins. Win levels to earn more", "কয়েন কম পড়ছে। লেভেল জিতলে কয়েন পাবে": "Not enough coins. Win levels to earn more", "কয়েন পেলে": "coins", "কয়েন লাগবে": "coins", "কয়েন)": "coins)", "কয়েন, সব শেষ হলে আরও +": "coins, plus", "কয়েনে": "coins", "কয়েনে ঘোরাও": "coins to spin", "কয়েনে যতবার খুশি।": "coins per spin, as many times as you like.", "কাঠের বাক্সের পাশে ফল ভাঙলে বাক্স ভাঙে।": "Break fruit next to a wooden crate to smash it.", "কাদা ছড়িয়েছে! কাদার পাশে ফল ভাঙো": "The mud spread! Break fruit next to the mud", "কাদা প্রতি চালে পাশের ফলে ছড়ায়! কাদার পাশে ফল ভাঙলে কাদা সাফ হয়। না ভাঙলে ছড়াতে থাকবে।": "Mud spreads to nearby fruit every move! Break fruit next to it to clean it. If you don't, it keeps spreading.", "কাদা-সাফাইকারী": "Mud Cleaner", "কী কাণ্ড!": "Wow!", "কোড এখানে আসবে বা বসাও": "The code appears here, or paste one", "কোড তৈরি। কপি করে রেখে দাও": "Code ready. Copy it and keep it safe", "কোড থেকে ফেরাও": "Restore from code", "কোড বানাও": "Make code", "কোডটা চেপে ধরে কপি করো": "Press and hold the code to copy it", "কোডটা ঠিক নেই": "That code is not valid", "কোনো বাদ্যযন্ত্র নেই। গুনগুন সুরটা কম্পিউটারে বানানো কণ্ঠের মতো আওয়াজ। একবার তৈরি হলে একটানা চলে, মাঝে আটকায় না।": "No instruments. The hum is a voice-like sound made by the computer. Once made, it plays continuously without stopping.", "খড়ের গাদা": "Haystack", "খাঁচায় আটকা ফল সরানো যায় না। পাশে মিলিয়ে সেটাকে ভাঙো।": "A caged fruit cannot be moved. Match next to it to break the cage.", "খাঁচার ফল সরানো যায় না, পাশে মিলিয়ে খাঁচা ভাঙো": "Caged fruit can't move. Match next to it to break the cage", "খালি জায়গায় ট্যাপ করে কিছু কেনো আর সাজাও": "Tap an empty spot to buy and decorate", "খেলা শুরু করো": "Play Now", "খেলার শব্দ": "Game sounds", "গভীর রাতের তারা": "Stars of the deep night", "গভীর সাগরের নীল": "Deep sea blue", "গান চালু করতে স্ক্রিনে একবার ট্যাপ করো": "Tap the screen once to start the music", "গান চালু বা বন্ধ": "Music on or off", "গানের শব্দ": "Music volume", "গোলাপি ফুলের আভা": "Pink flower glow", "ঘাসের ওপর দিয়ে বয়ে যাওয়া বাতাস, দূরের পাখি আর নরম গুনগুন": "Wind over the grass, distant birds and a soft hum", "ঘোরাতে": "Spinning costs", "চমৎকার!": "Excellent!", "চলছে": "In use", "চাঁদ": "Moon", "চাল": "Moves", "চাল দাও": "Make moves", "চাল শেষ!": "Out of moves!", "চাল:": "Moves:", "চালু": "On", "চালের ভাণ্ডার": "Moves Store", "চালের মধ্যে লক্ষ্য-পয়েন্ট ছুঁতে হবে। কম্বো করলে পয়েন্ট বেশি।": "Reach the target score within your moves. Combos give more points.", "ছানা · 20টা তারায় বড় হবে": "Chick · grows up at 20 stars", "ছানা কিচিরমিচির করছে!": "The chick is chirping!", "জায়গা": "Spot", "জিতে গেছো!": "You won!", "জিতেছো:": "You won:", "জোন": "Zone", "জোনাকির গুহা": "Firefly Cave", "জোনাকির রাত": "Firefly Night", "ঝকঝকে বরফের নীল": "Sparkling ice blue", "ঝরনার উপত্যকা": "Waterfall Valley", "ঝরনার ভোর": "Waterfall Dawn", "ঝলমলে ফল দুটো সোয়াইপ করে জায়গা বদলাও": "Swipe the two glowing fruits to swap them", "ঝিঁঝিঁ পোকা, মৃদু বাতাস আর ধীর গুনগুন সুর": "Crickets, a gentle breeze and a slow hum", "ঝোপ": "Bush", "টানা": "in a row", "টিউলিপ": "Tulip", "টিপস আবার দেখো": "Show tips again", "টিপসগুলো আবার দেখাবে": "The tips will show again", "ঠান্ডা নীল-সবুজ আলো": "Cool blue-green light", "ঠিক আছে": "OK", "ডিম · 6টা তারা পেলে ছানা বের হবে": "Egg · hatches at 6 stars", "ডিমটা গরম রাখতে তারা জমাও!": "Collect stars to keep the egg warm!", "তারার রাজা": "Star King", "তারার রাত": "Starry Night", "তুষার পাহাড়": "Snow Mountain", "তুষার সকাল": "Snowy Morning", "তোমার নাম কী?": "What's your name?", "থাক": "Cancel", "থিম": "Themes", "দারুণ!": "Great!", "দিন": "day", "দিনে একবার ফ্রি। এরপর": "One free spin a day. After that", "দৈনিক যোদ্ধা": "Daily Warrior", "দোকান": "Shop", "ধীরে আসা-যাওয়া ঢেউ আর খুব হালকা গুনগুন": "Slow rolling waves and a very light hum", "নতুন থিম খুলে গেছে:": "New theme unlocked:", "নতুন নাম লেখো": "Type a new name", "নতুন রেকর্ড!": "New record!", "নরম গুনগুন কণ্ঠ, দূরে ঝরনা আর পাখির ডাক": "A soft humming voice, a distant stream and birdsong", "নরম নীল আকাশ আর সাদা মেঘ": "Soft blue sky and white clouds", "নাম বদলাও": "Change Name", "নাম লেখো": "Type your name", "নিলাম": "Claim", "নীল সাগর": "Blue Sea", "পয়েন্ট": "Points", "পরের লেভেল": "Next Level", "পরের লেভেল থেকে সময় থাকবে": "A time limit starts from the next level", "পাঁচ চাল বাড়াও": "Add five moves", "পাইন গাছ": "Pine Tree", "পাকা ফলের সোনালি রং": "Golden ripe-fruit color", "পাখি · প্রতি লেভেলে +1 চাল উপহার": "Bird · +1 move gift every level", "পাখি তোমার সঙ্গে আছে!": "Your bird is with you!", "পাখির ঘর": "Bird House", "প্যাক": "Packs", "প্রতি 10 লেভেলের বিশেষ লেভেল জিতলে একটা থিম বিনামূল্যে পাবে।": "Win a special level (every 10 levels) to get a theme for free.", "প্রতিদিনের উপহার": "Daily Gift", "প্রথম জয়": "First Win", "ফল ভাঙো": "Break fruits", "ফল-ঝড়": "Fruit Storm", "ফল-ঝড় মিটার": "Fruit Storm meter", "ফল-ঝড়!": "Fruit Storm!", "ফল-সংগ্রাহক": "Fruit Collector", "ফলগুলো নতুন করে সাজায়": "Rearranges all the fruits", "ফলের গাছ": "Fruit Tree", "ফলের বাগান": "Fruit Garden", "ফসল তোলো": "Harvest", "ফসল তোলো +": "Harvest +", "ফসল নেই": "Nothing to harvest", "ফিরে এসেছে! আবার খুলছি": "Restored! Reopening", "ফুল": "Flower", "ফুলের উপত্যকা": "Flower Valley", "ফুলের বাগান": "Flower Garden", "ফোন বদলালে বা মুছে গেলে এই কোড দিয়ে সব ফিরিয়ে আনতে পারবে। কোডটা কোথাও লিখে বা মেসেজে রেখে দাও।": "If you change phones or your data is lost, you can restore everything with this code. Write it down or save it in a message.", "ফোয়ারা": "Fountain", "বড় গাছ": "Big Tree", "বন্ধ": "Off", "বন্ধ করো": "Close", "বন্ধুকে জানাও": "Tell a friend", "বরফ ভাঙো": "Break ice", "বরফ-ঢাকা ঘরে ফল ভাঙলে বরফ ভাঙে।": "Break fruit on an icy cell to crack the ice.", "বাগান থেকে +": "From the garden +", "বাগানে 5টা জিনিস বসাও": "Place 5 items in your garden", "বাগানের মান:": "Garden value:", "বাগানের রাজা": "Garden King", "বাগানের সম্রাট": "Garden Emperor", "বাগানের সোনা": "Garden Gold", "বাতি": "Lamp", "বিশেষ": "Special", "বিশেষ জয়ী": "Special Winner", "বিশেষ ফল বানাও": "Make special fruits", "বিশেষ লেভেল": "Special Level", "বিশেষ লেভেল জয়!": "Special level won!", "বুস্টার": "Boosters", "বেগুনি গুহার আলো": "Purple cave light", "বেঞ্চ": "Bench", "বেলুন": "Balloon", "বোনাস কয়েন)": "bonus coins)", "বোমা": "Bomb", "ব্যবহার করো": "Use", "ব্যবহার হচ্ছে": "In use", "ভাইব্রেশন:": "Vibration:", "ভাগ্যচক্র": "Lucky Wheel", "ভাগ্যচক্র ঘোরাও": "Spin the Lucky Wheel", "ভাগ্যবান": "Lucky One", "ভাঙনের প্যাক": "Breaker Pack", "ভোরের গুনগুন": "Morning Hum", "মজার মিশন": "Fun Missions", "মজার মোড": "Fun Modes", "মধু-সংগ্রাহক": "Honey Collector", "মধুর কলস ভাঙা যায় না, নিচে নামাও": "Honey jars can't be broken, bring them down", "মধুর কলস মেলানো যায় না। মাটির দিকে ফল ভাঙো, কলস নিচের সারিতে নেমে এলেই পাওয়া হয়ে যাবে।": "Honey jars can't be matched. Break fruit below them; once a jar reaches the bottom row, it is collected.", "মরুর বালি": "Desert Sand", "মাঠের হাওয়া": "Meadow Breeze", "মাত্র": "only", "মানচিত্র": "Map", "মালি": "Gardener", "মাশরুম": "Mushroom", "মিশন শেষ:": "Mission done:", "মিশন, চ্যালেঞ্জ আর মজার মোড": "Missions, challenges and fun modes", "মিশন-বীর": "Mission Hero", "মিশিয়ে দাও": "Shuffle", "মিশিয়ে দিচ্ছি": "Shuffling", "মিষ্টি!": "Sweet!", "মেঘলা আকাশ": "Cloudy Sky", "মেঘের রাজ্য": "Cloud Kingdom", "মেনু": "Menu", "মেনুতে যাও": "Go to menu", "মেশাও": "Shuffle", "যত পারো পয়েন্ট": "Score as much as you can", "যে ফলটা ভাঙবে সেটায় ট্যাপ করো": "Tap the fruit you want to break", "যেখানে বোমা ফাটাবে সেখানে ট্যাপ করো": "Tap where you want the bomb to go off", "রসালো বাগিচা": "Juicy Orchard", "রাজকীয় প্যাক": "Royal Pack", "রাতের আকাশ": "Night Sky", "লেভেল": "Level", "লেভেল জেতো": "Win levels", "লেভেল মানচিত্র": "Level Map", "শব্দ চালু বা বন্ধ": "Sound on or off", "শান্ত রাত": "Calm Night", "শুরু করতে ট্যাপ করো": "Tap to start", "শুরু করো": "Start", "শুরুর প্যাক": "Starter Pack", "শুরুর সবুজ রাত": "Green Night", "শেষ বিকেলের লাল-সোনা": "Red-gold of late afternoon", "শেষ 10 সেকেন্ড!": "Last 10 seconds!", "শোনো": "Listen", "সঙ্গী": "Companion", "সবচেয়ে বড়": "Biggest", "সবার জন্য একই বোর্ড": "Same board for everyone", "সবুজ বন": "Green Forest", "সবুজ বন · শুরু": "Green Forest · Start", "সময়": "Time", "সময় ফুরিয়ে গেল। আরেকবার চেষ্টা করো, এবার পারবে।": "Time ran out. Try once more, you can do it this time.", "সময় শেষ!": "Time's up!", "সময়ের সঙ্গে দৌড়": "Race against the clock", "সময়ের সীমা বন্ধ": "Time limit off", "সময়ের সীমা:": "Time limit:", "সমুদ্র নীল": "Ocean Blue", "সরিয়ে দাও": "Remove", "সাগরের ঢেউ": "Ocean Waves", "সুর": "Tunes", "সুর বেছে নাও": "Choose a tune", "সূর্যমুখী": "Sunflower", "সেটিংস": "Settings", "সেভ কোড": "Save Code", "সেরা": "Best", "সেরা দাম": "Best value", "সেরা স্কোর:": "Best score:", "সোনালি পাখি · প্রতি লেভেলে +2 চাল উপহার": "Golden bird · +2 moves gift every level", "সোনালি পাখি তোমাকে নিয়ে গর্বিত!": "Your golden bird is proud of you!", "সোনালি মরুভূমি": "Golden Desert", "সোনালি সন্ধ্যা": "Golden Evening", "স্কোর": "Score", "স্পেশাল-স্রষ্টা": "Special Maker", "স্ফটিক": "Crystal", "স্বাগতম,": "Welcome,", "হাতুড়ি": "Hammer", "1টা লেভেল জেতো": "Win 1 level", "10টা কাদা সাফ করো": "Clear 10 mud tiles", "100 নম্বর লেভেল জেতো": "Win level 100", "15টা মধুর কলস নামাও": "Bring down 15 honey jars", "25টা স্পেশাল ফল বানাও": "Make 25 special fruits", "3 দিনের চ্যালেঞ্জ জেতো": "Win 3 daily challenges", "3 বা তার বেশি কম্বো করো": "Make combos of 3 or more", "3টা দিনের সব মিশন শেষ করো": "Finish all missions on 3 days", "4টি বা তার বেশি মিলিয়ে স্পেশাল ফল বানাও।": "Match 4 or more to make a special fruit.", "5 কম্বো করো": "Make a 5 combo", "5টা বাড়তি চাল দেয়": "Gives 5 extra moves", "5বার চক্র ঘোরাও": "Spin the wheel 5 times", "50 নম্বর লেভেল জেতো": "Win level 50", "500টা ফল ভাঙো": "Break 500 fruits", "60 সেকেন্ড": "60 Seconds", "60 সেকেন্ড!": "60 seconds!", "60টা তারা জমাও": "Collect 60 stars", "আমি আজ ফলের বাগানের দৈনিক চ্যালেঞ্জ জিতেছি! তুমি পারবে?": "I won today's Fruit Garden daily challenge! Can you?", "আজকেরটা নেওয়া হয়ে গেছে": "Already taken today", "দিনে একবার": "Once a day", "টা পেয়েছো": "earned", "টা মিশন বাকি": "missions left", "দিন!": "days in a row!", "7 দিন টানা খেললে বড় উপহার পাবে।": "Play 7 days in a row for a big gift."};
+var EN_RULES=[[new RegExp("স্বাগতম, (.+?)!",'g'),"Welcome, $1!"],[new RegExp("(\\d+)/3 শেষ · প্রতিটায় \\+(\\d+) কয়েন, সব শেষ হলে আরও \\+(\\d+)",'g'),"$1/3 done · +$2 coins each, +$3 more when all are done"],[new RegExp("দিন (\\d+)/7!",'g'),"Day $1/7!"],[new RegExp("টানা (\\d+) দিন!",'g'),"$1 days in a row!"],[new RegExp("আজ (\\d+)টা মিশন বাকি",'g'),"$1 mission(s) left today"],[new RegExp("(\\d+)/(\\d+) টা পেয়েছো",'g'),"$1/$2 earned"],[new RegExp("আরও (\\d+)টা",'g'),"and $1 more"],[new RegExp("(\\d+)টা ফল ভাঙো",'g'),"Break $1 fruits"],[new RegExp("(\\d+)টা লেভেল জেতো",'g'),"Win $1 levels"],[new RegExp("(\\d+)টা বিশেষ ফল বানাও",'g'),"Make $1 special fruits"],[new RegExp("(\\d+)টা 3 বা তার বেশি কম্বো করো",'g'),"Make $1 combos of 3 or more"],[new RegExp("(\\d+)টা বরফ ভাঙো",'g'),"Break $1 ice tiles"],[new RegExp("(\\d+)টা চাল দাও",'g'),"Make $1 moves"],[new RegExp("আমি ফলের বাগানের (.+?)-এ (\\d+) পয়েন্ট পেয়েছি! তুমি কত পারো\\?",'g'),"I scored $2 points in Fruit Garden's $1! How much can you get?"],[new RegExp("আমি ফলের বাগানে লেভেল (\\d+) জিতেছি! (.*?) স্কোর (\\d+)। তুমি কত দূর যেতে পারো\\?",'g'),"I beat level $1 in Fruit Garden! $2 Score $3. How far can you go?"],[new RegExp("জোন (\\d+) · ★ (\\d+)/(\\d+)",'g'),"Zone $1 · ★ $2/$3"]];
+
+var EN_PH=Object.keys(EN_DICT).filter(function(k){return k.length>=2;}).sort(function(a,b){return b.length-a.length;});
+var BNRE=/[ঀ-৿]/;
+function normDigits(s){return s.replace(/[০-৯]/g,function(d){return d.charCodeAt(0)-0x09E6;});}
+function trText(s){
+  if(save.lang!=='en'||typeof s!=='string'||!BNRE.test(s))return s;
+  var n=normDigits(s),m=n.match(/^(\s*)([\s\S]*?)(\s*)$/),core=m[2];
+  if(EN_DICT.hasOwnProperty(core))return m[1]+EN_DICT[core]+m[3];
+  var r=n,i;
+  for(i=0;i<EN_RULES.length;i++)r=r.replace(EN_RULES[i][0],EN_RULES[i][1]);
+  if(BNRE.test(r))for(i=0;i<EN_PH.length;i++){var p=EN_PH[i];if(r.indexOf(p)>=0)r=r.split(p).join(EN_DICT[p]);}
+  r=r.replace(/(^|[^\d.])1 (fruit|level|ice tile|move|special fruit|combo|mission|day)s\b/g,'$11 $2');
+  return r;
+}
+function noI18n(el){return !!(el&&el.closest&&el.closest('[data-noi18n]'));}
+function trTextNode(nd){
+  var v=nd.nodeValue;if(!v||!BNRE.test(v))return;
+  if(noI18n(nd.parentElement))return;
+  var t=trText(v);if(t!==v)nd.nodeValue=t;
+}
+var TR_ATTR=['aria-label','placeholder','title'];
+function trAttrs(el){
+  if(noI18n(el))return;
+  for(var i=0;i<TR_ATTR.length;i++){var a=TR_ATTR[i],v=el.getAttribute&&el.getAttribute(a);if(v&&BNRE.test(v)){var t=trText(v);if(t!==v)el.setAttribute(a,t);}}
+}
+function trTree(root){
+  if(!root)return;
+  if(root.nodeType===3){trTextNode(root);return;}
+  if(root.nodeType!==1)return;
+  trAttrs(root);
+  var w=document.createTreeWalker(root,4,null),n;
+  while((n=w.nextNode()))trTextNode(n);
+  var q=root.querySelectorAll('[aria-label],[placeholder],[title]');
+  for(var i=0;i<q.length;i++)trAttrs(q[i]);
+}
+var i18nOn=false;
+function activateEn(){
+  if(i18nOn)return;i18nOn=true;
+  document.documentElement.lang='en';document.title='Fruit Garden';
+  trTree(document.body);
+  new MutationObserver(function(ms){
+    for(var i=0;i<ms.length;i++){
+      var m=ms[i];
+      if(m.type==='characterData')trTextNode(m.target);
+      else if(m.type==='attributes')trAttrs(m.target);
+      else for(var j=0;j<m.addedNodes.length;j++)trTree(m.addedNodes[j]);
+    }
+  }).observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:TR_ATTR});
+}
+function syncLangBtn(){
+  var b=$('#langBtn');if(b)b.textContent=save.lang==='en'?'Language: English (tap for বাংলা)':'ভাষা: বাংলা (English-এ বদলাও)';
+}
+$('#langBtn').addEventListener('click',function(){
+  save.lang=save.lang==='en'?'bn':'en';persist();
+  try{location.reload();}catch(e){}
+});
+function chooseLang(l){
+  save.lang=l;persist();A.unlock();
+  $('#langsel').hidden=true;
+  if(l==='en')activateEn();
+  syncLangBtn();
+  showSplash();
+}
+$('#langEn').addEventListener('click',function(){chooseLang('en');});
+$('#langBn').addEventListener('click',function(){chooseLang('bn');});
+function startFlow(){
+  if(save.lang!=='en'&&save.lang!=='bn'){$('#langsel').hidden=false;return;}
+  if(save.lang==='en')activateEn();
+  showSplash();
+}
+if(save.lang==='en')activateEn();
+syncLangBtn();
+if(!TEST)startFlow();
+
+})();
 </script>
