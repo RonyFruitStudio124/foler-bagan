@@ -2977,4 +2977,9 @@ ACH.push(ach('a15','মিশন-বীর','৩টা দিনের সব �
 syncMissDot();
 
 })();
+  document.addEventListener('touchmove', function (e) {
+    if (window.pageYOffset <= 0) {
+      e.preventDefault();
+    }
+  }, { passive: false });
 </script>
