@@ -1,18 +1,10 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>ফলের বাগান</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@600;800&family=Hind+Siliguri:wght@500;700&display=swap">
 <style>
-    html, body {
-    touch-action: manipulation;
-    -ms-touch-action: manipulation;
-    user-select: none;
-    -webkit-user-select: none;
-    -webkit-touch-callout: none;
-  }
-
 /* Layout: one portrait column. Top bar (level, score, controls) > goals + moves > board on a wooden frame > booster tray.
    One committed look: night forest, warm wood panels, cream parchment, juicy fruit colours. */
 :root{
@@ -551,6 +543,172 @@ html,body{overscroll-behavior:none!important;overscroll-behavior-y:none!importan
 .deal{height:auto;min-height:68px;align-items:center}.deal b{font-size:15.5px}.deal small{font-size:12px;line-height:1.2}
 .shopbody>*{flex:none}
 
+.langrow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:2px 0 6px;font:800 14px var(--font-d);color:#6b4a22}
+.langsw{display:flex;border:2px solid #b97a00;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.6);flex:none}
+.langsw button{padding:8px 16px;font:800 15px/1 var(--font-d);color:#5a3410;min-width:84px}
+.langsw button.on{background:linear-gradient(180deg,#ffe98a,#ffbf2b);color:#2b1608;box-shadow:inset 0 -3px 0 rgba(143,92,0,.35)}
+
+/* ---------- bonus: fruit slice (twilight garden) ---------- */
+#slice{position:fixed;top:0;bottom:0;left:0;right:0;max-width:560px;margin:0 auto;z-index:12;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;
+  background:linear-gradient(180deg,#16275a 0%,#3b3f86 30%,#8a5a9a 52%,#e08a8c 70%,#ffc58f 86%,#ffe0a6 100%);color:#fff;overscroll-behavior:none}
+#slice[hidden]{display:none}
+.sl-sky,.sl-fire,.sl-bfly{position:absolute;inset:0;pointer-events:none}
+.sl-stars i{position:absolute;border-radius:50%;background:#fff;box-shadow:0 0 6px 1px rgba(255,255,255,.8);animation:blink 3.4s ease-in-out infinite}
+.sl-stars i{height:2px}
+.sl-stars i:nth-child(3n){height:3px}
+.sl-moon{position:absolute;right:11%;top:15%;width:58px;height:58px;border-radius:50%;
+  background:radial-gradient(circle at 36% 34%,#fffdf0 0,#fff4c4 55%,#f4dc92 100%);box-shadow:0 0 28px 8px rgba(255,238,170,.45),0 0 80px 26px rgba(255,220,150,.22)}
+.sl-glow{position:absolute;left:50%;bottom:20%;width:150%;height:52%;transform:translateX(-50%);background:radial-gradient(ellipse at 50% 100%,rgba(255,206,130,.7),rgba(255,150,120,.22) 45%,transparent 72%)}
+.sl-hills{position:absolute;left:0;bottom:0;width:100%;height:44%}
+.sl-fire i{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff6b0;box-shadow:0 0 8px 3px rgba(255,236,120,.85);opacity:.0;animation:slfire 9s ease-in-out infinite}
+.sl-fire i:nth-child(1){left:12%;top:58%;animation-delay:-1s}.sl-fire i:nth-child(2){left:30%;top:66%;animation-delay:-3.5s}
+.sl-fire i:nth-child(3){left:46%;top:52%;animation-delay:-6s}.sl-fire i:nth-child(4){left:62%;top:70%;animation-delay:-2s}
+.sl-fire i:nth-child(5){left:78%;top:60%;animation-delay:-7.5s}.sl-fire i:nth-child(6){left:90%;top:68%;animation-delay:-4.5s}
+.sl-fire i:nth-child(7){left:22%;top:44%;animation-delay:-5s}.sl-fire i:nth-child(8){left:70%;top:42%;animation-delay:-8s}
+.sl-fire i:nth-child(9){left:54%;top:74%;animation-delay:-.5s}.sl-fire i:nth-child(10){left:6%;top:76%;animation-delay:-6.5s}
+@keyframes slfire{0%,100%{opacity:0;transform:translate(0,0)}20%{opacity:.95}50%{opacity:.5;transform:translate(22px,-30px)}80%{opacity:.9;transform:translate(-14px,-52px)}}
+.sl-bfly svg{position:absolute;width:24px;height:24px;left:0;top:0;opacity:.9}
+.sl-bfly .b1{animation:fly1 13s linear infinite;top:22%}.sl-bfly .b2{animation:fly2 17s linear infinite;animation-delay:-6s;top:34%;width:20px;height:20px}
+.sl-bfly .wing{animation:flap .28s ease-in-out infinite alternate;transform-origin:50% 50%}
+#slField{position:absolute;inset:0;z-index:2;touch-action:none}
+#slFx{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.sl-grass{position:absolute;left:0;right:0;bottom:0;height:calc(74px + env(safe-area-inset-bottom,0px));z-index:3;pointer-events:none}
+.sl-grass svg{position:absolute;left:0;bottom:0;width:100%;height:100%;overflow:visible}
+.sl-grass .gl{transform-origin:50% 100%;will-change:transform;animation:slsway 4.2s ease-in-out infinite alternate}
+.sl-grass .g1{animation-duration:5.3s;animation-delay:-1.7s}.sl-grass .g2{animation-duration:3.7s;animation-delay:-2.4s}
+@keyframes slsway{from{transform:skewX(-2.4deg)}to{transform:skewX(2.6deg)}}
+.sl-vig{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:0;transition:opacity .5s;box-shadow:inset 0 0 110px 22px rgba(255,205,80,.55)}
+#slice.gold .sl-vig{opacity:1}
+.sl-top{position:absolute;left:0;right:0;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 0;pointer-events:none}
+.sl-top .ib{pointer-events:auto;width:32px;height:32px}
+.sl-chip{display:flex;align-items:baseline;gap:5px;padding:3px 10px 2px;border-radius:12px;font:800 14px/1.2 var(--font-d);color:#fff4d4;white-space:nowrap}
+.sl-chip b{font-size:17px;color:#fff}
+.sl-time{flex:1;display:flex;align-items:center;gap:8px;min-width:0}
+.sl-track{position:relative;flex:1;height:14px;border-radius:999px;background:rgba(10,15,45,.55);border:2px solid rgba(255,236,170,.65);box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.sl-tfill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:999px;background:linear-gradient(90deg,#ffe27a,#ffb347 60%,#ff7a59)}
+.sl-sunm{position:absolute;top:50%;left:0;width:28px;height:28px;margin:-14px 0 0 -14px;filter:drop-shadow(0 0 6px rgba(255,220,100,.9))}
+.sl-time b{font:800 20px/1 var(--font-d);min-width:1.4em;text-align:right;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.4)}
+.sl-jar{position:absolute;left:14px;top:calc(56px + env(safe-area-inset-top,0px));width:58px;z-index:4;pointer-events:none}
+.sl-jar.slosh{animation:jslosh .5s ease}
+@keyframes jslosh{0%,100%{transform:rotate(0)}25%{transform:rotate(-5deg)}60%{transform:rotate(4deg)}}
+.jlid{display:block;width:44px;height:14px;margin:0 auto -3px;position:relative;z-index:2}
+.jb{position:relative;width:58px;height:84px;border-radius:12px 12px 20px 20px;border:3px solid rgba(255,255,255,.92);background:rgba(255,255,255,.16);box-shadow:0 4px 10px rgba(0,0,0,.3),inset 0 0 14px rgba(255,255,255,.18);overflow:hidden}
+.jliq{position:absolute;inset:0;overflow:hidden}
+.jfill{position:absolute;left:0;right:0;bottom:0;height:0;background:var(--jg,#ff4f8b);transition:height .45s cubic-bezier(.3,1.4,.5,1)}
+.jfill::before{content:"";position:absolute;left:-12%;right:-12%;top:-4px;height:9px;border-radius:50%;background:var(--jt,#ff4f8b);filter:brightness(1.18);animation:jwave 2.4s ease-in-out infinite alternate}
+@keyframes jwave{from{transform:translateX(-5%)}to{transform:translateX(5%)}}
+.jgl{position:absolute;inset:0;width:100%;height:100%}
+.jst{position:absolute;left:100%;top:12px;height:84px;width:22px;margin-left:6px}
+.js{position:absolute;left:0;width:20px;height:20px;margin-bottom:-10px;fill:#d9cfb6;stroke:#8d7c52;stroke-width:5;stroke-linejoin:round;opacity:.7;transition:opacity .3s}
+.js.on{fill:#ffd23f;stroke:#c98a00;filter:drop-shadow(0 0 7px rgba(255,220,90,.95));opacity:1;animation:starpop .5s cubic-bezier(.3,1.8,.5,1)}
+@keyframes starpop{0%{transform:scale(.3)}60%{transform:scale(1.5)}100%{transform:scale(1)}}
+.jn{display:block;margin-top:5px;text-align:center;font:800 17px/1 var(--font-d);color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.45);white-space:nowrap}
+.jn small{font:700 12px var(--font-b);opacity:.9}
+#slSay,#ctSay,#prSay{position:absolute;left:50%;top:30%;z-index:6;transform:translate(-50%,-50%);font:800 clamp(30px,9.5vw,48px)/1.1 var(--font-d);color:#fff;white-space:nowrap;pointer-events:none;opacity:0;
+  text-shadow:0 3px 0 rgba(110,50,10,.9),0 0 20px rgba(255,200,90,.95)}
+#slSay.show,#ctSay.show,#prSay.show{animation:slsay 1.15s ease-out}
+#slSay.gl,#ctSay.gl,#prSay.gl{color:#ffe36e}
+@keyframes slsay{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}18%{opacity:1;transform:translate(-50%,-50%) scale(1.12)}70%{opacity:1;transform:translate(-50%,-52%) scale(1)}100%{opacity:0;transform:translate(-50%,-95%) scale(1)}}
+.sl-tip{position:absolute;left:50%;bottom:30%;z-index:5;transform:translateX(-50%);text-align:center;pointer-events:none;font:800 18px/1.2 var(--font-d);text-shadow:0 2px 0 rgba(0,0,0,.5);width:80%}
+.sl-tip[hidden]{display:none}
+.sl-tip .orb{display:block;width:24px;height:24px;margin:0 auto 8px;border-radius:50%;background:radial-gradient(#fff 20%,#ffe27a 55%,rgba(255,226,122,0) 72%);box-shadow:0 0 16px 6px rgba(255,226,120,.6);animation:slorb 1.7s ease-in-out infinite}
+@keyframes slorb{0%{transform:translate(-80px,16px);opacity:0}15%{opacity:1}50%{transform:translate(0,-18px)}85%{opacity:1}100%{transform:translate(80px,16px);opacity:0}}
+.sf,.sh{position:absolute;left:0;top:0;width:var(--fs,64px);height:var(--fs,64px);will-change:transform;pointer-events:none}
+.sf svg{display:block;width:100%;height:100%;filter:drop-shadow(0 4px 4px rgba(0,0,0,.35))}
+.sf.gold::before{content:"";position:absolute;inset:-34%;border-radius:50%;background:radial-gradient(rgba(255,228,120,.9),rgba(255,200,60,0) 66%);animation:slglow 1s ease-in-out infinite alternate}
+@keyframes slglow{from{transform:scale(.85);opacity:.7}to{transform:scale(1.1);opacity:1}}
+.shc,.shf{position:absolute;inset:0}
+.shc svg,.shf svg{display:block;width:100%;height:100%}
+.lowfx .sl-grass .gl,.lowfx .sl-fire i,.lowfx .sl-bfly *,.lowfx .sl-stars i,.slow .sl-grass .gl,.slow .sl-fire i,.slow .sl-bfly *,.slow .sl-stars i,.slow .sf.gold::before{animation:none!important}
+.slow .sf svg{filter:none}
+@media (prefers-reduced-motion:reduce){.sl-grass .gl,.sl-fire i,.sl-bfly *{animation:none!important}}
+.funmodal .modegrid{grid-template-columns:repeat(2,1fr)}
+
+/* stage 2: dawn garden */
+#slice.dawn{background:linear-gradient(180deg,#4f9fd4 0%,#8ccbe8 26%,#cfe9ee 48%,#ffe3b0 68%,#ffc98c 86%,#ffd9a0 100%)}
+#slice.dawn .sl-stars{opacity:0}
+#slice.dawn .sl-moon{top:21%;right:14%;width:66px;height:66px;background:radial-gradient(circle at 40% 38%,#fffbe0 0,#ffe88a 50%,#ffc24d 100%);box-shadow:0 0 34px 12px rgba(255,214,110,.6),0 0 90px 30px rgba(255,190,100,.32)}
+#slice.dawn .sl-glow{background:radial-gradient(ellipse at 50% 100%,rgba(255,236,170,.75),rgba(255,190,130,.25) 45%,transparent 72%)}
+#slice.dawn .sl-hills{filter:brightness(1.35) saturate(.95) hue-rotate(-14deg)}
+#slice.dawn .sl-fire i{opacity:0;animation:none}
+.sl-jar.full .jb{animation:jfull 1s ease-in-out infinite alternate}
+.sl-jar.full .jn{color:#ffe36e}
+@keyframes jfull{from{box-shadow:0 4px 10px rgba(0,0,0,.3),0 0 10px 2px rgba(255,226,120,.5)}to{box-shadow:0 4px 10px rgba(0,0,0,.3),0 0 26px 10px rgba(255,226,120,.95)}}
+
+/* ---------- bonus: fruit catch (sunny orchard, breezy morning) ---------- */
+#catchg{position:fixed;top:0;bottom:0;left:0;right:0;max-width:560px;margin:0 auto;z-index:12;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;
+  background:linear-gradient(180deg,#ffd49a 0%,#ffe8b4 22%,#e4f3c4 50%,#a6dba0 72%,#62b86c 100%);color:#fff;overscroll-behavior:none}
+#catchg[hidden]{display:none}
+#catchg .sl-moon{top:13%;right:12%;width:64px;height:64px;background:radial-gradient(circle at 40% 38%,#fffbe0 0,#ffe88a 50%,#ffc24d 100%);box-shadow:0 0 34px 12px rgba(255,214,110,.6),0 0 90px 30px rgba(255,190,100,.32)}
+#catchg .sl-glow{background:radial-gradient(ellipse at 50% 100%,rgba(255,236,170,.7),rgba(255,200,130,.2) 45%,transparent 72%)}
+#catchg .sl-hills{filter:brightness(1.45) saturate(1.05) hue-rotate(-18deg)}
+#catchg.breeze{background:linear-gradient(180deg,#6cc4d8 0%,#a6e0e6 24%,#e2f6e6 50%,#b9e6b0 72%,#6cc27c 100%)}
+#catchg.breeze .sl-moon{top:18%;right:70%;width:54px;height:54px;background:radial-gradient(circle at 40% 38%,#ffffff 0,#fff8d8 55%,#ffe7a0 100%);box-shadow:0 0 30px 10px rgba(255,255,255,.55)}
+#catchg.breeze .sl-hills{filter:brightness(1.35) saturate(.9) hue-rotate(10deg)}
+#ctField{position:absolute;inset:0;z-index:2;touch-action:none}
+#ctFx{position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none}
+.cf{position:absolute;left:0;top:0;width:var(--cfs,56px);height:var(--cfs,56px);will-change:transform;pointer-events:none}
+.cf svg{display:block;width:100%;height:100%;filter:drop-shadow(0 4px 4px rgba(0,0,0,.28))}
+.cf.gold::before{content:"";position:absolute;inset:-34%;border-radius:50%;background:radial-gradient(rgba(255,228,120,.9),rgba(255,200,60,0) 66%);animation:slglow 1s ease-in-out infinite alternate}
+#ctBasket{position:absolute;left:0;top:0;width:var(--bw,104px);height:calc(var(--bw,104px)*.78);z-index:3;will-change:transform;pointer-events:none}
+#ctBasket svg{display:block;width:100%;height:100%;transform-origin:50% 100%;filter:drop-shadow(0 5px 5px rgba(60,30,0,.35))}
+#catchg.full #ctBasket svg{filter:drop-shadow(0 0 14px rgba(255,226,120,.95)) drop-shadow(0 5px 5px rgba(60,30,0,.35))}
+.slow .cf.gold::before,.lowfx .cf.gold::before{animation:none}
+.funmodal .modegrid .mode:last-child:nth-child(odd){grid-column:1/-1}
+/* v29 fixes: fun-missions overlap on short screens; light name screen while typing */
+.funmodal>*{flex:none}
+.funmodal .achlist{flex:none;min-height:auto}
+.splash{overflow-y:auto;-webkit-overflow-scrolling:touch;contain:layout paint}
+.splash.typing .spfruits svg,.splash.typing .spcard small,.splash.typing .spcard h1{animation:none;filter:none}
+.splash.typing .spcard h1{text-shadow:none}
+.splash.typing{transition:none}
+@media (max-height:560px){.splash .spfruits{display:none}.splash{padding:10px}.spcard{gap:8px}.spcard h1{font-size:clamp(34px,11vw,52px)}}
+/* ---------- v29 bonus: fruit pairs ---------- */
+#pairsg{position:fixed;top:0;bottom:0;left:0;right:0;max-width:560px;margin:0 auto;z-index:12;overflow:hidden;touch-action:manipulation;-webkit-user-select:none;user-select:none;
+  background-color:#fff7e6;
+  background-image:linear-gradient(90deg,rgba(226,70,78,.5) 50%,transparent 50%),linear-gradient(rgba(226,70,78,.5) 50%,transparent 50%);
+  background-size:48px 48px}
+#pairsg::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(75% 55% at 50% 48%,rgba(255,250,235,.0),rgba(90,30,20,.34) 100%),linear-gradient(180deg,rgba(40,15,5,.45),transparent 22%)}
+#pairsg[hidden]{display:none}
+#pairsg.night{background-color:#1a2550;background-image:linear-gradient(90deg,rgba(120,160,255,.32) 50%,transparent 50%),linear-gradient(rgba(120,160,255,.32) 50%,transparent 50%)}
+#pairsg.night::before{background:radial-gradient(60% 45% at 50% 50%,rgba(255,210,120,.42),rgba(8,12,40,.72) 100%),linear-gradient(180deg,rgba(0,0,20,.5),transparent 22%)}
+#pairsg .pr-ff,#pairsg .pr-bf{display:none}
+#pairsg.night .pr-ff{display:block;position:absolute;inset:0;pointer-events:none}
+#pairsg:not(.night) .pr-bf{display:block}
+.pr-ff i{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff8b0;box-shadow:0 0 10px 4px rgba(255,240,140,.8);opacity:0;animation:prff 5s ease-in-out infinite}
+.pr-ff i:nth-child(1){left:12%;top:70%}.pr-ff i:nth-child(2){left:80%;top:62%;animation-delay:-1.2s}.pr-ff i:nth-child(3){left:30%;top:86%;animation-delay:-2.4s}
+.pr-ff i:nth-child(4){left:66%;top:90%;animation-delay:-3.1s}.pr-ff i:nth-child(5){left:90%;top:80%;animation-delay:-.6s}.pr-ff i:nth-child(6){left:8%;top:44%;animation-delay:-3.8s}.pr-ff i:nth-child(7){left:52%;top:76%;animation-delay:-1.9s}
+@keyframes prff{0%,100%{opacity:0;transform:translate(0,0)}30%{opacity:1}60%{opacity:.9;transform:translate(26px,-34px)}85%{opacity:0;transform:translate(8px,-56px)}}
+#prBoard{position:absolute;left:50%;transform:translateX(-50%);display:grid;gap:var(--gap,10px);padding:13px;border-radius:22px;z-index:3;
+  background:rgba(255,248,226,.78);border:3px solid #d9a45a;box-shadow:0 10px 0 rgba(120,70,20,.5),0 18px 28px rgba(0,0,0,.35)}
+#pairsg.night #prBoard{background:rgba(40,52,110,.72);border-color:#8aa0ff;box-shadow:0 10px 0 rgba(10,14,50,.7),0 18px 28px rgba(0,0,0,.5)}
+.pc{width:var(--cw);height:var(--ch);perspective:700px;-webkit-tap-highlight-color:transparent;cursor:pointer}
+.pci{position:relative;width:100%;height:100%;transform-style:preserve-3d;-webkit-transform-style:preserve-3d;transition:transform .36s cubic-bezier(.3,1.25,.5,1);will-change:transform}
+.pc.up .pci{transform:rotateY(180deg)}
+.pcb,.pcf{position:absolute;inset:0;border-radius:calc(var(--cw)*.14);-webkit-backface-visibility:hidden;backface-visibility:hidden;box-shadow:0 4px 0 rgba(70,40,10,.45)}
+.pcb svg{display:block;width:100%;height:100%}
+.pcf{transform:rotateY(180deg);display:grid;place-items:center;background:linear-gradient(180deg,#fffdf4,#ffeec6);border:3px solid #d9a45a}
+.pcf svg{width:74%;height:74%;display:block}
+.pc.ok .pcf{border-color:#f2b705;background:linear-gradient(180deg,#fffbe0,#ffe58a);box-shadow:0 0 0 3px rgba(255,214,80,.7),0 4px 0 rgba(70,40,10,.4)}
+.pc.ok{animation:prpop .5s ease-out}
+.pc.no .pcf{border-color:#e07a5f}
+.pc.no{animation:prshake .4s ease-in-out}
+.pc.hint .pcb{animation:prhint 1s ease-in-out infinite alternate}
+@keyframes prpop{0%{transform:scale(1)}40%{transform:scale(1.12)}100%{transform:scale(1)}}
+@keyframes prshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@keyframes prhint{from{box-shadow:0 4px 0 rgba(70,40,10,.45),0 0 0 0 rgba(255,236,120,0)}to{box-shadow:0 4px 0 rgba(70,40,10,.45),0 0 0 5px rgba(255,236,120,.95)}}
+#pairsg.won .pc.ok{animation:prwave .7s ease-in-out both;animation-delay:calc(var(--i)*40ms)}
+@keyframes prwave{0%,100%{transform:translateY(0)}45%{transform:translateY(-12px) scale(1.06)}}
+#prPetals{position:absolute;inset:0;pointer-events:none;z-index:6;overflow:hidden}
+.pp{position:absolute;display:block;pointer-events:none}
+.pp.s{width:7px;height:7px;border-radius:50%;margin:-3px 0 0 -3px;animation:prsp .75s ease-out forwards}
+@keyframes prsp{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+.pp.f{top:-14px;width:11px;height:14px;border-radius:70% 0 70% 0;animation:prfall 2s ease-in forwards}
+@keyframes prfall{to{transform:translate(var(--dx),110vh) rotate(420deg);opacity:.85}}
+#prSay{position:absolute;left:50%;top:13%;z-index:7}
+.lowfx .pr-ff i,.slow .pr-ff i,.lowfx #pairsg .sl-bfly *{animation:none!important}
+@media (prefers-reduced-motion:reduce){.pr-ff i{animation:none!important}.pci{transition:none}}
+
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -761,6 +919,52 @@ html,body{overscroll-behavior:none!important;overscroll-behavior-y:none!importan
   <symbol id="d-bfly" viewBox="0 0 100 100"><g class="wing"><ellipse cx="32" cy="38" rx="24" ry="18" fill="#ff8ab0" stroke="#b02a58" stroke-width="3"/><ellipse cx="68" cy="38" rx="24" ry="18" fill="#ff8ab0" stroke="#b02a58" stroke-width="3"/><ellipse cx="34" cy="64" rx="16" ry="13" fill="#ffd23f" stroke="#b07a00" stroke-width="3"/><ellipse cx="66" cy="64" rx="16" ry="13" fill="#ffd23f" stroke="#b07a00" stroke-width="3"/></g><rect x="46" y="28" width="8" height="46" rx="4" fill="#4a2a0c"/></symbol>
   <symbol id="d-bfly2" viewBox="0 0 100 100"><g class="wing"><ellipse cx="32" cy="38" rx="24" ry="18" fill="#7cc4ff" stroke="#1f5fa0" stroke-width="3"/><ellipse cx="68" cy="38" rx="24" ry="18" fill="#7cc4ff" stroke="#1f5fa0" stroke-width="3"/><ellipse cx="34" cy="64" rx="16" ry="13" fill="#c8e6ff" stroke="#1f5fa0" stroke-width="3"/><ellipse cx="66" cy="64" rx="16" ry="13" fill="#c8e6ff" stroke="#1f5fa0" stroke-width="3"/></g><rect x="46" y="28" width="8" height="46" rx="4" fill="#27384a"/></symbol>
   <symbol id="d-bird" viewBox="0 0 100 100"><ellipse cx="46" cy="56" rx="28" ry="20" fill="#ffd23f" stroke="#b07a00" stroke-width="3"/><circle cx="74" cy="42" r="14" fill="#ffd23f" stroke="#b07a00" stroke-width="3"/><path d="M86 42 L98 46 L86 49Z" fill="#ff8a2b"/><circle cx="77" cy="39" r="3" fill="#222"/><path d="M30 52 Q40 22 58 50 Q44 58 30 52Z" fill="#f0a21f" stroke="#b07a00" stroke-width="3"/><path d="M20 58 L4 50 L8 66Z" fill="#f0a21f"/></symbol>
+
+  <!-- slice bonus: flesh gradients, flesh silhouettes, golden fruit -->
+  <radialGradient id="gFl0" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#ffe6ef"/><stop offset="1" stop-color="#ff8fb4"/></radialGradient>
+  <radialGradient id="gFl1" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#fff3ee"/><stop offset="1" stop-color="#ff8b96"/></radialGradient>
+  <radialGradient id="gFl2" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#efeaff"/><stop offset="1" stop-color="#9a86f0"/></radialGradient>
+  <radialGradient id="gFl3" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#ffffee"/><stop offset="1" stop-color="#eeeaa6"/></radialGradient>
+  <radialGradient id="gFl4" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#fffde6"/><stop offset="1" stop-color="#ffe14f"/></radialGradient>
+  <radialGradient id="gFl5" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#fffff4"/><stop offset="1" stop-color="#e4efa0"/></radialGradient>
+  <radialGradient id="gFlg" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#fffbe0"/><stop offset="1" stop-color="#ffd24d"/></radialGradient>
+  <radialGradient id="gGld" cx="35%" cy="28%" r="80%"><stop offset="0" stop-color="#fff7b8"/><stop offset=".5" stop-color="#ffc933"/><stop offset="1" stop-color="#d97f00"/></radialGradient>
+  <symbol id="fs0" viewBox="0 0 100 100"><g stroke="#c9437a" stroke-width="1.5" fill="url(#gFl0)">
+    <circle cx="50" cy="38" r="14"/><circle cx="34" cy="42" r="14"/><circle cx="66" cy="42" r="14"/><circle cx="26" cy="58" r="14"/><circle cx="50" cy="55" r="14"/><circle cx="74" cy="58" r="14"/><circle cx="36" cy="72" r="14"/><circle cx="64" cy="72" r="14"/><circle cx="50" cy="85" r="12"/></g></symbol>
+  <symbol id="fs1" viewBox="0 0 100 100"><path d="M50 94 C22 80 10 54 18 38 C25 26 40 28 50 33 C60 28 75 26 82 38 C90 54 78 80 50 94Z" fill="url(#gFl1)" stroke="#d6334a" stroke-width="2"/></symbol>
+  <symbol id="fs2" viewBox="0 0 100 100"><circle cx="50" cy="56" r="37" fill="url(#gFl2)" stroke="#3d3aa8" stroke-width="2"/></symbol>
+  <symbol id="fs3" viewBox="0 0 100 100"><path d="M50 32 C38 22 14 28 14 56 C14 80 32 94 50 88 C68 94 86 80 86 56 C86 28 62 22 50 32Z" fill="url(#gFl3)" stroke="#b9c97a" stroke-width="2"/></symbol>
+  <symbol id="fs4" viewBox="0 0 100 100"><g transform="rotate(-24 50 56)"><path d="M7 56 C15 29 34 23 50 23 C66 23 85 29 93 56 C85 83 66 89 50 89 C34 89 15 83 7 56Z" fill="url(#gFl4)" stroke="#d9b300" stroke-width="2"/></g></symbol>
+  <symbol id="fs5" viewBox="0 0 100 100"><path d="M50 16 C58 16 60 25 58 34 C57 42 76 50 78 68 C80 86 64 95 50 95 C36 95 20 86 22 68 C24 50 43 42 42 34 C40 25 42 16 50 16Z" fill="url(#gFl5)" stroke="#a8c85a" stroke-width="2"/></symbol>
+  <symbol id="fsg" viewBox="0 0 100 100"><path d="M50 32 C38 22 14 28 14 56 C14 80 32 94 50 88 C68 94 86 80 86 56 C86 28 62 22 50 32Z" fill="url(#gFlg)" stroke="#d99a00" stroke-width="2"/></symbol>
+  <symbol id="fg" viewBox="0 0 100 100">
+    <path d="M50 32 C38 22 14 28 14 56 C14 80 32 94 50 88 C68 94 86 80 86 56 C86 28 62 22 50 32Z" fill="url(#gGld)" stroke="#a86a00" stroke-width="2"/>
+    <path d="M50 32 C50 24 52 18 56 12" stroke="#6b3d12" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+    <path d="M56 24 C62 10 80 10 84 17 C78 28 62 31 56 24Z" fill="url(#gLeaf)" stroke="#1f7a22" stroke-width="1.5"/>
+    <path d="M32 44 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z" fill="#fff" opacity=".92"/>
+    <use href="#hl"/>
+  </symbol>
+
+  <linearGradient id="gBkt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2b06a"/><stop offset=".55" stop-color="#c58a45"/><stop offset="1" stop-color="#94602a"/></linearGradient>
+  <linearGradient id="gBktRim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1c98a"/><stop offset="1" stop-color="#bd7f3b"/></linearGradient>
+  <symbol id="d-basket" viewBox="0 0 120 94">
+    <path d="M20 40 C20 4 100 4 100 40" fill="none" stroke="#7a4a1c" stroke-width="8" stroke-linecap="round"/>
+    <path d="M20 40 C20 8 100 8 100 40" fill="none" stroke="#c98a45" stroke-width="4" stroke-linecap="round"/>
+    <path d="M9 38 L111 38 L99 83 Q97 91 88 91 L32 91 Q23 91 21 83 Z" fill="url(#gBkt)" stroke="#7a4a1c" stroke-width="3" stroke-linejoin="round"/>
+    <g stroke="#7a4a1c" stroke-width="2.4" opacity=".55" stroke-linecap="round"><path d="M13 52 H107"/><path d="M16 66 H104"/><path d="M20 80 H100"/>
+      <path d="M30 40 L26 88"/><path d="M45 40 L43 90"/><path d="M60 40 V90"/><path d="M75 40 L77 90"/><path d="M90 40 L94 88"/></g>
+    <rect x="5" y="30" width="110" height="15" rx="7.5" fill="url(#gBktRim)" stroke="#7a4a1c" stroke-width="3"/>
+    <path d="M14 35.5 H70" stroke="#fff3d0" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+  </symbol>
+  <linearGradient id="gPb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fd66a"/><stop offset="1" stop-color="#2f9a52"/></linearGradient>
+  <symbol id="d-pback" viewBox="0 0 80 98">
+    <rect x="1.5" y="1.5" width="77" height="95" rx="12" fill="url(#gPb)" stroke="#1d6a3a" stroke-width="3"/>
+    <rect x="8" y="8" width="64" height="82" rx="8" fill="none" stroke="#e9ffd0" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round"/>
+    <g transform="translate(40 49)"><path d="M0 22 V-2" stroke="#e9ffd0" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M0 6 C-18 8 -24 -8 -22 -16 C-8 -16 0 -6 0 6Z" fill="#c9f59a" stroke="#1d6a3a" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M0 0 C16 2 22 -14 20 -22 C6 -22 0 -12 0 0Z" fill="#e9ffd0" stroke="#1d6a3a" stroke-width="2.2" stroke-linejoin="round"/>
+      <circle cx="0" cy="-26" r="4" fill="#ffd23f" stroke="#b07a00" stroke-width="1.8"/></g>
+  </symbol>
 </defs>
 </svg>
 
@@ -831,6 +1035,78 @@ html,body{overscroll-behavior:none!important;overscroll-behavior-y:none!importan
   </section>
 </div>
 
+<div id="slice" hidden>
+  <div class="sl-sky" aria-hidden="true">
+    <div class="sl-stars"><i style="left:82%;top:18%;animation-delay:-3.0s;width:3px;"></i><i style="left:86%;top:3%;animation-delay:-3.4s;width:2px;"></i><i style="left:86%;top:5%;animation-delay:-3.6s;width:2px;"></i><i style="left:50%;top:32%;animation-delay:-3.5s;width:2px;"></i><i style="left:72%;top:8%;animation-delay:-2.3s;width:2px;"></i><i style="left:96%;top:15%;animation-delay:-1.6s;width:2px;"></i><i style="left:52%;top:12%;animation-delay:-3.0s;width:2px;"></i><i style="left:20%;top:30%;animation-delay:-0.5s;width:2px;"></i><i style="left:3%;top:15%;animation-delay:-3.1s;width:2px;"></i><i style="left:24%;top:20%;animation-delay:-1.3s;width:2px;"></i><i style="left:72%;top:15%;animation-delay:-0.7s;width:3px;"></i><i style="left:28%;top:26%;animation-delay:-1.2s;width:2px;"></i><i style="left:56%;top:12%;animation-delay:-3.7s;width:2px;"></i><i style="left:11%;top:23%;animation-delay:-1.2s;width:3px;"></i><i style="left:78%;top:2%;animation-delay:-2.4s;width:3px;"></i><i style="left:46%;top:6%;animation-delay:-1.2s;width:2px;"></i></div>
+    <i class="sl-moon"></i>
+    <i class="sl-glow"></i>
+    <svg class="sl-hills" viewBox="0 0 400 220" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 108 C60 74 120 84 180 102 C240 120 300 66 400 92 L400 220 L0 220Z" fill="#35645f"/>
+      <g transform="translate(120 96)"><rect x="-2" y="0" width="4" height="14" fill="#1f3b30"/><circle cx="0" cy="-4" r="13" fill="#2d6b4a"/><circle cx="-5" cy="-6" r="2" fill="#ff8a6a"/><circle cx="6" cy="0" r="2" fill="#ffd45a"/></g>
+      <g transform="translate(290 95) scale(.9)"><rect x="-2" y="0" width="4" height="14" fill="#1f3b30"/><circle cx="0" cy="-4" r="13" fill="#2d6b4a"/><circle cx="4" cy="-7" r="2" fill="#ff8a6a"/><circle cx="-6" cy="1" r="2" fill="#ffd45a"/></g>
+      <path d="M0 150 C70 122 140 142 210 136 C280 130 340 112 400 142 L400 220 L0 220Z" fill="#245a40"/>
+      <g transform="translate(150 134) scale(1.15)"><rect x="-2" y="0" width="4" height="14" fill="#16332a"/><circle cx="0" cy="-4" r="13" fill="#1f5a3c"/><circle cx="-6" cy="-3" r="2" fill="#ff7b6e"/><circle cx="5" cy="-8" r="2" fill="#ffd45a"/></g>
+      <path d="M0 186 C90 166 170 182 260 173 C320 167 370 176 400 171 L400 220 L0 220Z" fill="#194a33"/>
+    </svg>
+  </div>
+  <div class="sl-fire" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="sl-bfly" aria-hidden="true"><svg class="b1" viewBox="0 0 100 100"><use href="#d-bfly"/></svg><svg class="b2" viewBox="0 0 100 100"><use href="#d-bfly2"/></svg></div>
+  <div id="slField"></div>
+  <canvas id="slFx"></canvas>
+  <div class="sl-grass" id="slGrass" aria-hidden="true"></div>
+  <div class="sl-vig"></div>
+  <header class="sl-top">
+    <button class="ib" id="slExit" aria-label="মেনুতে যাও"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/></svg></button>
+    <div class="sl-chip wood"><span>বোনাস</span><b id="slStage">১/২</b></div>
+    <div class="sl-time"><div class="sl-track"><i class="sl-tfill" id="slTfill"></i><svg class="sl-sunm" id="slSunM" viewBox="0 0 100 100"><circle cx="50" cy="50" r="22" fill="#ffe27a" stroke="#c98a00" stroke-width="5"/><g stroke="#ffd23f" stroke-width="7" stroke-linecap="round"><path d="M50 8v12M50 80v12M8 50h12M80 50h12M20 20l8 8M72 72l8 8M80 20l-8 8M28 72l-8 8"/></g></svg></div><b id="slSec">৩০</b></div>
+  </header>
+  <div class="sl-jar" id="slJar" aria-hidden="true">
+    <svg class="jlid" viewBox="0 0 44 14"><rect x="2" y="3" width="40" height="10" rx="4" fill="#c98a4a" stroke="#6b3d12" stroke-width="2"/><path d="M6 6h32" stroke="#e8b47a" stroke-width="2" stroke-linecap="round"/></svg>
+    <div class="jb"><div class="jliq"><i class="jfill" id="slFill"></i></div><svg class="jgl" viewBox="0 0 58 84"><path d="M10 8 C7 28 7 52 10 72" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none" opacity=".55"/><path d="M48 14 C50 24 50 34 48 42" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none" opacity=".35"/></svg></div>
+    <div class="jst" id="slStars"><svg class="js" viewBox="0 0 100 100"><use href="#star"/></svg><svg class="js" viewBox="0 0 100 100"><use href="#star"/></svg><svg class="js" viewBox="0 0 100 100"><use href="#star"/></svg></div>
+    <span class="jn"><small>রস</small> <b id="slJuice">0</b></span>
+  </div>
+  <div id="slSay"></div>
+  <div class="sl-tip" id="slTip" hidden><i class="orb"></i><span>আঙুল টেনে ফল কাটো</span></div>
+</div>
+<div id="catchg" hidden>
+  <div class="sl-sky" aria-hidden="true">
+    <i class="sl-moon"></i>
+    <i class="sl-glow"></i>
+    <svg class="sl-hills" viewBox="0 0 400 220" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 108 C60 74 120 84 180 102 C240 120 300 66 400 92 L400 220 L0 220Z" fill="#35645f"/>
+      <g transform="translate(120 96)"><rect x="-2" y="0" width="4" height="14" fill="#1f3b30"/><circle cx="0" cy="-4" r="13" fill="#2d6b4a"/><circle cx="-5" cy="-6" r="2" fill="#ff8a6a"/><circle cx="6" cy="0" r="2" fill="#ffd45a"/></g>
+      <g transform="translate(290 95) scale(.9)"><rect x="-2" y="0" width="4" height="14" fill="#1f3b30"/><circle cx="0" cy="-4" r="13" fill="#2d6b4a"/><circle cx="4" cy="-7" r="2" fill="#ff8a6a"/><circle cx="-6" cy="1" r="2" fill="#ffd45a"/></g>
+      <path d="M0 150 C70 122 140 142 210 136 C280 130 340 112 400 142 L400 220 L0 220Z" fill="#245a40"/>
+      <g transform="translate(150 134) scale(1.15)"><rect x="-2" y="0" width="4" height="14" fill="#16332a"/><circle cx="0" cy="-4" r="13" fill="#1f5a3c"/><circle cx="-6" cy="-3" r="2" fill="#ff7b6e"/><circle cx="5" cy="-8" r="2" fill="#ffd45a"/></g>
+      <path d="M0 186 C90 166 170 182 260 173 C320 167 370 176 400 171 L400 220 L0 220Z" fill="#194a33"/>
+    </svg>
+  </div>
+  <div class="sl-bfly" aria-hidden="true"><svg class="b1" viewBox="0 0 100 100"><use href="#d-bfly"/></svg><svg class="b2" viewBox="0 0 100 100"><use href="#d-bfly2"/></svg></div>
+  <div id="ctField"></div>
+  <div id="ctBasket"><svg viewBox="0 0 120 94"><use href="#d-basket"/></svg></div>
+  <canvas id="ctFx"></canvas>
+  <div class="sl-grass" id="ctGrass" aria-hidden="true"></div>
+  <header class="sl-top">
+    <button class="ib" id="ctExit" aria-label="মেনুতে যাও"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/></svg></button>
+    <div class="sl-chip wood"><span>বোনাস</span><b id="ctStage">১/২</b></div>
+    <div class="sl-time"><div class="sl-track"><i class="sl-tfill" id="ctTfill"></i><svg class="sl-sunm" id="ctSunM" viewBox="0 0 100 100"><circle cx="50" cy="50" r="22" fill="#ffe27a" stroke="#c98a00" stroke-width="5"/><g stroke="#ffd23f" stroke-width="7" stroke-linecap="round"><path d="M50 8v12M50 80v12M8 50h12M80 50h12M20 20l8 8M72 72l8 8M80 20l-8 8M28 72l-8 8"/></g></svg></div><b id="ctSec">২৫</b></div>
+  </header>
+  <div id="ctSay"></div>
+  <div class="sl-tip" id="ctTip" hidden><i class="orb"></i><span>আঙুল টেনে ঝুড়ি সরাও</span></div>
+</div>
+<div id="pairsg" hidden>
+  <div class="pr-ff" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="sl-bfly pr-bf" aria-hidden="true"><svg class="b1" viewBox="0 0 100 100"><use href="#d-bfly"/></svg><svg class="b2" viewBox="0 0 100 100"><use href="#d-bfly2"/></svg></div>
+  <header class="sl-top">
+    <button class="ib" id="prExit" aria-label="মেনুতে যাও"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/></svg></button>
+    <div class="sl-chip wood"><span>বোনাস</span><b id="prStage">১/২</b></div>
+    <div class="sl-time"><div class="sl-track"><i class="sl-tfill" id="prTfill"></i><svg class="sl-sunm" id="prSunM" viewBox="0 0 100 100"><use href="#star"/></svg></div><b id="prSec">৬</b></div>
+  </header>
+  <div id="prBoard"></div>
+  <div id="prPetals" aria-hidden="true"></div>
+  <div id="prSay"></div>
+</div>
 <div id="modal" class="modal" hidden><div class="card parch"><h2 id="mTitle"></h2><div class="stars" id="mStars"></div><p id="mSub"></p><div class="btns" id="mBtns"></div></div></div>
 <div id="lvPick" class="modal" hidden><div class="mapcard parch">
   <div class="maphead"><h2>লেভেল মানচিত্র</h2><div class="mstars"><svg viewBox="0 0 100 100"><use href="#star"/></svg><b id="mapStars">0</b><span>/<span id="mapMax">300</span></span></div><button class="ib" id="lvClose" aria-label="বন্ধ করো"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
@@ -845,6 +1121,7 @@ html,body{overscroll-behavior:none!important;overscroll-behavior-y:none!importan
 </div></div>
 <div id="settings" class="modal" hidden><div class="card parch setcard">
   <h2>সেটিংস</h2>
+  <div class="langrow" data-noi18n><span>Language · ভাষা</span><div class="langsw" id="langSw" role="group" aria-label="Language"><button data-l="en">English</button><button data-l="bn">বাংলা</button></div></div>
   <div class="tunebox">
     <span>সুর বেছে নাও</span>
     <div class="tunes">
@@ -859,7 +1136,6 @@ html,body{overscroll-behavior:none!important;overscroll-behavior-y:none!importan
   <button class="alt sw" id="vibBtn">ভাইব্রেশন: চালু</button>
   <button class="alt sw" id="timBtn">সময়ের সীমা: চালু</button>
   <button class="alt sw" id="fxBtn">কম অ্যানিমেশন: বন্ধ</button>
-  <button class="alt sw" id="langBtn" data-noi18n></button>
   <button class="alt sw" id="tutBtn">টিপস আবার দেখো</button>
   <div class="sv"><b>সেভ কোড</b><small>ফোন বদলালে বা মুছে গেলে এই কোড দিয়ে সব ফিরিয়ে আনতে পারবে। কোডটা কোথাও লিখে বা মেসেজে রেখে দাও।</small>
     <textarea id="saveCode" rows="3" placeholder="কোড এখানে আসবে বা বসাও" spellcheck="false"></textarea>
@@ -874,6 +1150,9 @@ html,body{overscroll-behavior:none!important;overscroll-behavior-y:none!importan
     <button class="mode" id="btnDaily"><b>আজকের চ্যালেঞ্জ</b><small id="dailyState">সবার জন্য একই বোর্ড</small></button>
     <button class="mode" id="btnEndless"><b>অসীম মোড</b><small id="endState">যত পারো পয়েন্ট</small></button>
     <button class="mode" id="btnTimed"><b>৬০ সেকেন্ড</b><small id="timedState">সময়ের সঙ্গে দৌড়</small></button>
+    <button class="mode" id="btnSlice"><b>ফল কাটো</b><small id="sliceState">বোনাস · লেভেল ২০ জিতলে খুলবে</small></button>
+    <button class="mode" id="btnCatch"><b>ঝুড়ি ধরো</b><small id="catchState">বোনাস · লেভেল ৪০ জিতলে খুলবে</small></button>
+    <button class="mode" id="btnPairs"><b>ফল জোড়া</b><small id="pairsState">বোনাস · লেভেল ৬০ জিতলে খুলবে</small></button>
   </div>
   <div class="btns"><button id="missClose">বন্ধ করো</button></div></div></div>
 <div id="garden" class="modal" hidden><div class="gcard parch">
@@ -1489,10 +1768,13 @@ var A=(function(){
     pop:function(){var t=ctx.currentTime;pop(t,PENT[Math.floor(Math.random()*6)],.28);},
     star:function(i){var t=ctx.currentTime;pop(t,PENT[Math.min(2+(i|0)*2,8)],.42);},
     pop:function(){var t=ctx.currentTime;pop(t,PENT[5],.34);},
+    slice:function(lv){var t=ctx.currentTime,f=PENT[Math.min(lv|0,6)]*.6;nz(t,.15,.34,1700,'bandpass',sfxG,420,.9);sw(f*1.6,f,t,.13,'sine',.32,sfxG);nz(t+.03,.09,.16,2600,'highpass',sfxG);},
+    gold:function(){var t=ctx.currentTime;[0,2,4,6,8].forEach(function(k,i){sw(PENT[k],PENT[k]*1.004,t+i*.09,.5,'sine',.2,sfxG);});},
+    ting:function(){var t=ctx.currentTime;sw(1760,1760,t,.17,'sine',.13,sfxG);sw(2637,2637,t,.1,'sine',.06,sfxG);},
     lose:function(){var t=ctx.currentTime;sw(260,90,t,.6,'sine',.3,sfxG);nz(t,.5,.18,500,'lowpass',sfxG,150);}
   };
   /* every effect is baked once into a small buffer, so playing one is a single cheap node */
-  var sfxBuf={},SFD={swap:.16,bad:.26,match:.4,special:.75,beam:.55,boom:.65,ice:.22,crate:.32,cage:.3,collect:.45,power:.6,coin:.3,tick:.08,prize:1.1,win:1.5,star:.3,pop:.25,lose:.8};
+  var sfxBuf={},SFD={swap:.16,bad:.26,match:.4,special:.75,beam:.55,boom:.65,ice:.22,crate:.32,cage:.3,collect:.45,power:.6,coin:.3,tick:.08,prize:1.1,win:1.5,star:.3,pop:.25,lose:.8,slice:.3,gold:1,ting:.25};
   function bakeSfx(name,arg,key){
     var OC=window.OfflineAudioContext||window.webkitOfflineAudioContext;if(!OC||!ctx||!SF[name])return;
     var rate=ctx.sampleRate,oc,g,sc=ctx,sg=sfxG;
@@ -1506,16 +1788,17 @@ var A=(function(){
     for(k in SFD){
       if(k==='match'){for(var i=0;i<=8;i++)jobs.push([k,i,'match'+i]);}
       else if(k==='star'){for(var j=0;j<3;j++)jobs.push([k,j,'star'+j]);}
+      else if(k==='slice'){for(var q=0;q<=6;q++)jobs.push([k,q,'slice'+q]);}
       else jobs.push([k,0,k]);
     }
     (function next(){var j=jobs.shift();if(!j||!ctx)return;bakeSfx(j[0],j[1],j[2]);setTimeout(next,30);})();
   }
   function sfx(name,a){
     if(!ctx||!sfxOn||ctx.state!=='running')return;
-    var now=Date.now(),gap=(name==='match'||name==='swap')?70:0;
+    var now=Date.now(),gap=(name==='match'||name==='swap')?70:(name==='slice'?30:(name==='ting'?240:0));
     if(gap&&lastSfx[name]&&now-lastSfx[name]<gap)return;
     lastSfx[name]=now;
-    var key=name==='match'?'match'+Math.min(a|0,8):name==='star'?'star'+Math.min(a|0,2):name,b=sfxBuf[key];
+    var key=name==='match'?'match'+Math.min(a|0,8):name==='star'?'star'+Math.min(a|0,2):name==='slice'?'slice'+Math.min(a|0,6):name,b=sfxBuf[key];
     if(b){try{var s=ctx.createBufferSource();s.buffer=b;s.connect(sfxG);s.start();return;}catch(e){}}
     try{if(SF[name])SF[name](a);}catch(e){}
   }
@@ -1705,6 +1988,7 @@ function fillBoard(){
   }
 }
 function startLevel(n){
+  slStop();ctStop();prStop();
   A.unlock();
   clearHint();
   lvl=makeLevel(n);
@@ -2256,8 +2540,11 @@ async function win(){
   persist();updBoosters();syncCoins();buzz(120);checkAch();
   S.busy=false;
   var nl=Math.min(lvl.n+1,MAXLV),last=lvl.n>=MAXLV;
-  openModal({title:hi(lvl.boss?'বিশেষ লেভেল জয়!':'অসাধারণ!'),stars:stars,sub:lines.join('\n'),
-    btns:[last?{t:'মানচিত্র',fn:function(){closeModal();openLevels();}}:{t:'পরের লেভেল',fn:function(){startLevel(nl);}},{t:'আবার খেলো',cls:'alt',fn:function(){startLevel(lvl.n);}},{t:'বন্ধুকে জানাও',cls:'alt',fn:function(){shareText('আমি ফলের বাগানে লেভেল '+lvl.n+' জিতেছি! '+'★'.repeat(stars)+' স্কোর '+S.score+'। তুমি কত দূর যেতে পারো?');}},{t:'মেনু',cls:'alt',fn:goHome}]});
+  var offer=bonusKind(lvl.n),wn=lvl.n;
+  if(offer){if(offer==='slice')save.sl.open=1;else if(offer==='pairs')save.pr.open=1;else save.ct.open=1;persist();lines.push(offer==='slice'?'বোনাস লেভেল খুলে গেছে! ফল কাটার মজা':offer==='pairs'?'বোনাস লেভেল খুলে গেছে! ফল জোড়া মেলানোর মজা':'বোনাস লেভেল খুলে গেছে! ঝুড়িতে ফল ধরার মজা');}
+  var wbtns=[last?{t:'মানচিত্র',fn:function(){closeModal();openLevels();}}:{t:'পরের লেভেল',fn:function(){startLevel(nl);}},{t:'আবার খেলো',cls:'alt',fn:function(){startLevel(lvl.n);}},{t:'বন্ধুকে জানাও',cls:'alt',fn:function(){shareText('আমি ফলের বাগানে লেভেল '+lvl.n+' জিতেছি! '+'★'.repeat(stars)+' স্কোর '+S.score+'। তুমি কত দূর যেতে পারো?');}},{t:'মেনু',cls:'alt',fn:goHome}];
+  if(offer)wbtns.unshift({t:'বোনাস লেভেল খেলো',cls:'gold',fn:function(){if(offer==='slice')slIntro(wn);else if(offer==='pairs')prIntro(wn);else ctIntro(wn);}});
+  openModal({title:hi(lvl.boss?'বিশেষ লেভেল জয়!':'অসাধারণ!'),stars:stars,sub:lines.join('\n'),btns:wbtns});
 }
 function lose(){
   S.busy=true;S.over=true;A.sfx('lose');
@@ -2395,7 +2682,7 @@ function syncCoins(){
   var hs=$('#homeStars');if(hs)hs.textContent=totalStars();
 }
 function goHome(){
-  closeModal();clearHint();S.over=true;S.busy=true;
+  slStop();ctStop();prStop();closeModal();clearHint();S.over=true;S.busy=true;
   game.hidden=true;home.hidden=false;$('#homeLvl').textContent=save.unlocked;syncCoins();syncTunes();syncPet();syncModes();
 }
 function hex2rgb(h){h=h.replace('#','');return [parseInt(h.substr(0,2),16),parseInt(h.substr(2,2),16),parseInt(h.substr(4,2),16)];}
@@ -2701,17 +2988,19 @@ function syncName(){
 var splashDone=false;
 function hideSplash(){
   var sp=$('#splash');if(sp.hidden)return;
+  try{document.activeElement&&document.activeElement.blur();}catch(e){}
   sp.classList.add('out');
-  setTimeout(function(){sp.hidden=true;sp.classList.remove('out');},350);
+  setTimeout(function(){sp.hidden=true;sp.classList.remove('out','typing');},350);
   if(!splashDone){splashDone=true;daily();}
 }
 function showSplash(edit){
   var sp=$('#splash'),f=$('#spName'),tap=$('#spTap'),hiEl=$('#spHi'),inp=$('#nameIn');
-  sp.hidden=false;sp.classList.remove('out');
+  sp.hidden=false;sp.classList.remove('out','typing');
   if(!save.name||edit){
     f.hidden=false;tap.hidden=true;hiEl.textContent=edit?'নতুন নাম লেখো':'';
     inp.value=edit?save.name:'';
-    setTimeout(function(){try{inp.focus();}catch(e){}},350);
+    sp.classList.add('typing');
+    setTimeout(function(){try{inp.focus({preventScroll:true});}catch(e){try{inp.focus();}catch(e2){}}},650);
   }else{
     f.hidden=true;tap.hidden=false;hiEl.textContent='স্বাগতম, '+save.name+'!';
     setTimeout(function(){var pr=A.probe();if(pr.state==='running'&&!sp.hidden&&$('#spName').hidden)setTimeout(hideSplash,1800);},500);
@@ -3024,9 +3313,1042 @@ syncMissDot();
   document.addEventListener('touchend',function(){ty=null;},{passive:true});
 })();
 
+/* ---------- bonus level: fruit slice (twilight garden, dew-light trail, juice jar) ---------- */
+save.sl=Object.assign({open:0,done:{},best:{},st:{}},save.sl||{});
+save.sl.done=save.sl.done||{};save.sl.best=save.sl.best||{};save.sl.st=save.sl.st||{};
+var BONUS_AT={20:'slice',40:'catch',60:'pairs'};   /* milestone level -> bonus kind; other kinds can be added here later */
+/* a stage is won when the juice jar is full (target ≈ 60-65 fruits); no countdown, no losing */
+var SL_ST=[null,
+  {target:60,gap:[.9,1.25],cnt:[.3,.72],golds:[16,40],star:[20,40,60]},
+  {target:65,gap:[.8,1.15],cnt:[.25,.6,.9],golds:[12,30,50],star:[22,44,65]}];
+var slEl=$('#slice'),slField=$('#slField'),slFx=$('#slFx'),slSayEl=$('#slSay');
+var SL={on:false,run:false,stage:1,from:0,fs:64,w:360,h:640,fr:[],hv:[],pt:[],q:[],trail:[],t:0,T:30,juice:0,vis:0,chain:0,lastCut:0,down:false,
+  ts:1,tsT:1,slowEnd:0,next:0,golds:[],raf:0,last:0,layers:[],cuts:0,combos:0,starsOn:0,idle:0,ctx:null,dpr:1,jx:40,jy:120,bw:0,fin:false,lastSay:0,buzzT:0,rx:0,ry:0,jd:0,jT:0,cd:false,grassW:0,lastPt:null,tipOn:false,uiT:0,slosh:0,slow:false,gW:0,gN:0,gBad:0};
+
+function slOffer(n){return BONUS_AT[n]==='slice'&&(save.sl.done[n]|0)<2;}
+/* which bonus (if any) is offered after winning level n */
+function bonusKind(n){var k=BONUS_AT[n];if(k==='slice')return slOffer(n)?'slice':'';if(k==='catch')return (save.ct.done[n]|0)<2?'catch':'';if(k==='pairs')return (save.pr.done[n]|0)<2?'pairs':'';return '';}
+function slClamp(v,a,b){return v<a?a:v>b?b:v;}
+var SL_TESTOPEN=false;   /* set true to open the bonus for testing; false = unlocks after level 20 */
+function slUnlocked(){return !!(SL_TESTOPEN||save.sl.open||(save.stars[20]|0)>0);}
+function slRnd(a,b){return a+Math.random()*(b-a);}
+
+/* grass strip: soft blades with a few flowers, built once per width */
+function slGrass(){
+  var w=Math.round(SL.w);if(SL.grassW===w)return;SL.grassW=w;
+  var h=74,n=Math.ceil(w/8),L=['','',''],i,x,hh,dx,col;
+  for(i=0;i<n;i++){
+    x=i*8+slRnd(-2,2);hh=slRnd(22,46);dx=slRnd(-7,7);
+    col=i%3===0?'#4fb85a':i%3===1?'#2f8f4a':'#6fd06a';
+    L[i%3]+='<path d="M'+x.toFixed(1)+' '+h+' Q'+(x+3).toFixed(1)+' '+(h-hh*.55).toFixed(1)+' '+(x+dx+4).toFixed(1)+' '+(h-hh).toFixed(1)+' Q'+(x+5).toFixed(1)+' '+(h-hh*.5).toFixed(1)+' '+(x+9).toFixed(1)+' '+h+'Z" fill="'+col+'"/>';
+  }
+  var fl=['#ff8ab0','#fff3a0','#ffffff','#ffb36b'];
+  for(i=0;i<Math.floor(w/70);i++){
+    x=20+i*70+slRnd(-14,14);hh=slRnd(26,40);
+    L[1]+='<g><path d="M'+x+' '+h+' L'+x+' '+(h-hh)+'" stroke="#2f8f4a" stroke-width="2"/><circle cx="'+x+'" cy="'+(h-hh)+'" r="5" fill="'+fl[i%4]+'"/><circle cx="'+x+'" cy="'+(h-hh)+'" r="2" fill="#f2a900"/></g>';
+  }
+  /* three separately-swaying layers (one compositor transform each) instead of one animation per blade */
+  var vb='viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none"';
+  $('#slGrass').innerHTML='<svg class="gl g0" '+vb+'>'+L[0]+'</svg><svg class="gl g1" '+vb+'>'+L[1]+'</svg><svg class="gl g2" '+vb+'>'+L[2]+'</svg><svg '+vb+'><rect x="0" y="'+(h-10)+'" width="'+w+'" height="12" fill="#1d5a36"/></svg>';
+}
+function slMeasure(){
+  var r=slEl.getBoundingClientRect();
+  SL.w=Math.max(240,r.width);SL.h=Math.max(360,r.height);
+  SL.fs=Math.round(slClamp(SL.w*.17,58,88));
+  slEl.style.setProperty('--fs',SL.fs+'px');
+  SL.rx=r.left;SL.ry=r.top;
+  SL.dpr=Math.min(window.devicePixelRatio||1,1.25);
+  slFx.width=Math.round(SL.w*SL.dpr);slFx.height=Math.round(SL.h*SL.dpr);
+  SL.ctx=null;
+  var j=$('#slJar').getBoundingClientRect();
+  SL.jx=j.left-r.left+j.width/2;SL.jy=j.top-r.top+j.height*.62;
+  slGrass();
+}
+function slCtx(){if(SL.ctx)return SL.ctx;try{SL.ctx=slFx.getContext('2d');SL.ctx.setTransform(SL.dpr,0,0,SL.dpr,0,0);}catch(e){SL.ctx=null;}return SL.ctx;}
+function slSay(txt,big){
+  slSayEl.textContent=txt;slSayEl.className=big?'gl':'';
+  void slSayEl.offsetWidth;slSayEl.classList.add('show');
+}
+
+/* ----- intro, start, stop ----- */
+function slIntro(from){
+  A.unlock();
+  var skip=function(){if(from>0&&from<MAXLV)startLevel(from+1);else goHome();};
+  openModal({title:'বোনাস লেভেল!',sub:'ফল কাটার ২টা মজার স্টেজ।\nআঙুল টেনে ফল কেটে রসের জার ভরো।\nজার ভরলেই জিত! এখানে হার নেই।',
+    btns:[{t:'শুরু করো',cls:'gold',fn:function(){slStart(from,1);}},{t:'পরে খেলব',cls:'alt',fn:skip}]});
+}
+function slReset(){
+  var i;
+  for(i=0;i<SL.fr.length;i++)if(SL.fr[i].el.parentNode)SL.fr[i].el.parentNode.removeChild(SL.fr[i].el);
+  for(i=0;i<SL.hv.length;i++)if(SL.hv[i].el.parentNode)SL.hv[i].el.parentNode.removeChild(SL.hv[i].el);
+  SL.fr=[];SL.hv=[];SL.pt=[];SL.q=[];SL.trail=[];SL.layers=[];
+  var c=slCtx();if(c){c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,slFx.width,slFx.height);c.setTransform(SL.dpr,0,0,SL.dpr,0,0);}
+}
+function slStart(from,stage){
+  A.unlock();clearHint();
+  S.over=true;S.busy=true;
+  SL.stage=stage||1;SL.from=from||0;
+  var C=SL_ST[SL.stage];
+  home.hidden=true;game.hidden=true;
+  ['#modal','#miss','#lvPick','#intro','#shop','#settings','#ach','#garden'].forEach(function(q){var e=$(q);if(e)e.hidden=true;});
+  slEl.hidden=false;slEl.classList.remove('gold');
+  slMeasure();slReset();
+  SL.on=true;SL.run=true;SL.fin=false;SL.T=C.target;SL.t=0;SL.juice=0;SL.vis=0;SL.chain=0;SL.lastCut=0;SL.down=false;
+  SL.ts=1;SL.tsT=1;SL.slowEnd=0;SL.cuts=0;SL.miss=0;SL.combos=0;SL.starsOn=0;SL.idle=0;SL.last=0;SL.slosh=0;SL.jd=0;
+  SL.next=.7;SL.golds=C.golds.slice();
+  slEl.classList.toggle('dawn',SL.stage===2);$('#slJar').classList.remove('full');
+  $('#slStage').textContent=toBn(SL.stage)+'/'+toBn(2);
+  slJarReset();slTimeUi(true);
+  slSay(SL.stage===1?'ফল কাটো!':'ফলের বৃষ্টি!',true);
+  var tip=$('#slTip');
+  SL.tipOn=!save.seen.slh;tip.hidden=!SL.tipOn;
+  if(SL.tipOn)setTimeout(function(){if(SL.tipOn)slTipOff();},5200);
+  if(!SL.raf)SL.raf=requestAnimationFrame(slTick);
+}
+function slTipOff(){
+  if(!SL.tipOn)return;SL.tipOn=false;$('#slTip').hidden=true;
+  if(!save.seen.slh){save.seen.slh=1;persist();}
+}
+function slStop(){
+  if(!SL.on&&slEl.hidden)return;
+  SL.on=false;SL.run=false;
+  if(SL.raf){cancelAnimationFrame(SL.raf);SL.raf=0;}
+  slReset();slEl.hidden=true;slEl.classList.remove('gold');
+}
+
+/* ----- jar ----- */
+function slJarReset(){
+  var C=SL_ST[SL.stage],t3=C.star[2];
+  $('#slFill').style.height='0%';
+  $('#slFill').style.setProperty('--jg','#ff4f8b');$('#slFill').style.setProperty('--jt','#ff4f8b');
+  $('#slJuice').textContent=toBn(0);
+  var st=$('#slStars').children;
+  for(var i=0;i<3;i++){st[i].classList.remove('on');st[i].style.bottom=(C.star[i]/t3*100).toFixed(1)+'%';}
+}
+function slJarAdd(col,amt){
+  var L=SL.layers,C=SL_ST[SL.stage],t3=C.star[2];
+  if(L.length&&L[L.length-1].c===col)L[L.length-1].v+=amt;else L.push({c:col,v:amt});
+  if(L.length>40){var a=L.shift(),b=L[0];b.v+=a.v;}
+  SL.vis+=amt;SL.jd=1;
+}
+/* the jar's DOM is written at most ~10 times a second, not once per droplet */
+function slJarFlush(){
+  if(!SL.jd)return;SL.jd=0;
+  var L=SL.layers,C=SL_ST[SL.stage],t3=C.star[2];
+  if(!L.length)return;
+  var tot=0,i;for(i=0;i<L.length;i++)tot+=L[i].v;
+  var stops=[],acc=0;
+  for(i=0;i<L.length;i++){var a0=acc/tot*100;acc+=L[i].v;var a1=acc/tot*100;stops.push(L[i].c+' '+a0.toFixed(1)+'%',L[i].c+' '+a1.toFixed(1)+'%');}
+  var f=$('#slFill');
+  f.style.setProperty('--jg','linear-gradient(to top,'+(stops.length?stops.join(','):'#ff4f8b,#ff4f8b')+')');
+  f.style.setProperty('--jt',L[L.length-1].c);
+  f.style.height=Math.min(100,SL.vis/t3*100).toFixed(1)+'%';
+  $('#slJuice').textContent=toBn(Math.round(SL.vis));
+  var st=$('#slStars').children;
+  for(i=0;i<3;i++)if(SL.vis>=C.star[i]&&!st[i].classList.contains('on')){st[i].classList.add('on');SL.starsOn=i+1;A.sfx('star',i);}
+}
+function slJarHit(tg){
+  var j=$('#slJar'),now=Date.now();
+  if(now-SL.slosh>520){SL.slosh=now;j.classList.remove('slosh');void j.offsetWidth;j.classList.add('slosh');}
+  if(tg)A.sfx('ting');
+}
+/* the top bar shows how close the jar is to full; the sun climbs along it */
+function slTimeUi(force){
+  var el=Math.min(SL.juice,SL.T)/SL.T;
+  $('#slTfill').style.width=(el*100).toFixed(1)+'%';
+  $('#slSunM').style.left=(el*100).toFixed(1)+'%';
+  $('#slSec').textContent=toBn(Math.max(0,Math.ceil(SL.T-SL.juice)));
+}
+
+/* ----- fruits ----- */
+function slFruitHTML(t,gold){
+  return '<svg viewBox="0 0 100 100"><use href="#'+(gold?'fg':'f'+t)+'"/></svg>';
+}
+function slLaunch(x,type,gold){
+  var F=SL.fs,H=SL.h,W=SL.w;
+  /* fruits rise from the middle-bottom, fan out, and peak around the middle of the screen (easy to reach with a thumb) */
+  var apexY=H*(.38+Math.random()*.2),y0=H+F*.55,A_=y0-apexY,ta=1.3+Math.random()*.26;
+  var ax=slClamp(x,F*.75,W-F*.75),x0=slClamp(W*(.5+slRnd(-.1,.1)),F*.6,W-F*.6);
+  var el=document.createElement('div');el.className='sf'+(gold?' gold':'');el.innerHTML=slFruitHTML(type,gold);
+  slField.appendChild(el);
+  SL.fr.push({el:el,x:x0,y:y0,vx:(ax-x0)/ta,vy:-2*A_/ta,g:2*A_/(ta*ta),rot:slRnd(-.4,.4),vr:slRnd(-1.1,1.1),type:type,gold:gold,cut:false});
+}
+function slMake(type,gold,x,y,vx,vy,g,rot,vr){
+  var el=document.createElement('div');el.className='sf'+(gold?' gold':'');el.innerHTML=slFruitHTML(type,gold);
+  slField.appendChild(el);
+  SL.fr.push({el:el,x:x,y:y,vx:vx,vy:vy,g:g,rot:rot,vr:vr,type:type,gold:gold,cut:false});
+}
+/* stage 2 pattern A: two fruits fly in from the sides and cross in the middle */
+function slSides(){
+  var F=SL.fs,H=SL.h,W=SL.w,n=2+(Math.random()<.4?1:0),i;
+  for(i=0;i<n;i++)(function(i){
+    var dir=i%2?1:-1,ty=Math.floor(Math.random()*6);
+    SL.q.push({at:SL.t+i*slRnd(.18,.32),fn:function(){
+      var x0=dir<0?-F*.5:W+F*.5,y0=H*slRnd(.62,.85),ax=W*slRnd(.34,.66),apexY=H*slRnd(.32,.5),ta=slRnd(1.35,1.65),A_=y0-apexY;
+      slMake(ty,false,x0,y0,(ax-x0)/ta,-2*A_/ta,2*A_/(ta*ta),slRnd(-.4,.4),slRnd(-1.1,1.1));
+    }});
+  })(i);
+}
+/* stage 2 pattern B: a gentle fruit shower from the top; one sideways swipe can catch several */
+function slRain(){
+  var F=SL.fs,W=SL.w,n=3+(Math.random()<.5?1:0),i,seg=(W-F*1.4)/n,base=slRnd(0,1)<.5?0:F*.3;
+  for(i=0;i<n;i++)(function(i){
+    var x=F*.7+seg*i+seg*slRnd(.15,.85),ty=Math.floor(Math.random()*6);
+    SL.q.push({at:SL.t+i*slRnd(.12,.26),fn:function(){slMake(ty,false,x,-F*.6,slRnd(-14,14),slRnd(70,115),slRnd(120,170),slRnd(-.3,.3),slRnd(-.7,.7));}});
+  })(i);
+}
+function slWave(){
+  var C=SL_ST[SL.stage],r=Math.random(),k=C.cnt.length+1,i;
+  if(SL.stage===2){var m=Math.random();if(m<.32){slRain();return;}if(m<.64){slSides();return;}}
+  for(i=0;i<C.cnt.length;i++)if(r<C.cnt[i]){k=i+1;break;}
+  var seg=SL.w/k,types=[];
+  for(i=0;i<k;i++){
+    (function(i){
+      var x=seg*i+seg*slRnd(.2,.8),ty=Math.floor(Math.random()*6);
+      SL.q.push({at:SL.t+i*slRnd(.05,.2),fn:function(){slLaunch(x,ty,false);}});
+    })(i);
+  }
+}
+function slColor(f){return f.gold?'#ffc42d':COLORS[f.type];}
+
+/* ----- cutting ----- */
+function slPoly(th,F,side,wid){
+  /* half-plane (side=+1/-1) in the fruit's own frame, optionally limited to a thin strip next to the cut line */
+  var c=F/2,L=F*1.6,u=[Math.cos(th),Math.sin(th)],v=[-Math.sin(th),Math.cos(th)],b1=wid?wid:L,pts=[[-L,0],[L,0],[L,b1],[-L,b1]],s=[];
+  for(var i=0;i<4;i++){var a=pts[i][0],b=pts[i][1]*side;s.push((c+a*u[0]+b*v[0]).toFixed(1)+'px '+(c+a*u[1]+b*v[1]).toFixed(1)+'px');}
+  return 'polygon('+s.join(',')+')';
+}
+function slHalf(f,th,side,ang){
+  var F=SL.fs,el=document.createElement('div');el.className='sh';
+  var main=f.gold?'fg':'f'+f.type,fl=f.gold?'fsg':'fs'+f.type;
+  el.innerHTML='<div class="shc" style="clip-path:'+slPoly(th,F,side,0)+'"><svg viewBox="0 0 100 100"><use href="#'+main+'"/></svg><div class="shf" style="clip-path:'+slPoly(th,F,side,F*.1)+'"><svg viewBox="0 0 100 100"><use href="#'+fl+'"/></svg></div></div>';
+  slField.appendChild(el);
+  var nx=-Math.sin(ang)*side,ny=Math.cos(ang)*side,sp=slRnd(55,95);
+  SL.hv.push({el:el,x:f.x,y:f.y,vx:f.vx*.55+nx*sp,vy:f.vy*.35+ny*sp-20,g:Math.max(900,f.g*1.05),rot:f.rot,vr:f.vr*1.4+side*slRnd(.9,1.8),life:0});
+}
+function slAdd(p){if(p.k==='h'||SL.pt.length<(save.lowfx||SL.slow?40:90))SL.pt.push(p);}   /* juice drops always go through: they fill the jar */
+function slBurst(f,ang,col){
+  var n=(save.lowfx||SL.slow)?6:11,nx=-Math.sin(ang),ny=Math.cos(ang),i;
+  for(i=0;i<n;i++){
+    var s=(i%2?1:-1),sp=slRnd(70,230),sp2=slRnd(-60,60);
+    slAdd({k:'d',x:f.x,y:f.y,vx:nx*s*sp+Math.cos(ang)*sp2,vy:ny*s*sp+Math.sin(ang)*sp2-70,g:760,life:0,max:slRnd(.45,.8),r:slRnd(2.2,4.6),c:col});
+  }
+  for(i=0;i<(f.gold?6:3);i++)slAdd({k:'l',x:f.x,y:f.y,vx:slRnd(-130,130),vy:slRnd(-190,-30),g:420,life:0,max:slRnd(.7,1.1),r:slRnd(3,5),c:i%2?'#7be85a':'#3fb04a',rot:Math.random()*6,vr:slRnd(-6,6)});
+  slAdd({k:'g',x:f.x,y:f.y,life:0,max:.22,r:SL.fs*.9,c:col,a:ang});
+  slAdd({k:'r',x:f.x,y:f.y,life:0,max:.42,r:SL.fs*.9,c:col});
+  var dn=f.gold?7:3;
+  for(i=0;i<dn;i++){
+    var amt=(f.gold?2:1)/dn;
+    slAdd({k:'h',x:f.x,y:f.y,sx:f.x,sy:f.y,cx:f.x+slRnd(-60,60),cy:f.y-slRnd(60,130),life:-i*.05,max:slRnd(.62,.85),r:slRnd(3.6,5.2),c:col,amt:amt,ting:i===0});
+  }
+}
+function slCut(f,ang){
+  f.cut=true;
+  if(f.el.parentNode)f.el.parentNode.removeChild(f.el);
+  var th=ang-f.rot,col=slColor(f),now=Date.now();
+  slHalf(f,th,1,ang);slHalf(f,th,-1,ang);
+  SL.chain=(now-SL.lastCut<430)?SL.chain+1:1;SL.lastCut=now;
+  var v=f.gold?2:1,bonus=0,msg='';
+  if(SL.chain===3){bonus=1;msg='দারুণ!';}else if(SL.chain===4){bonus=1;msg='পাকা কম্বো!';}else if(SL.chain===5){bonus=2;msg='রসের বন্যা!';}else if(SL.chain>5&&SL.chain%2===0){bonus=1;msg='রসের বন্যা!';}
+  if(bonus){SL.combos++;slSay(msg,SL.chain>=4);
+    for(var j=0;j<bonus;j++)slAdd({k:'h',x:f.x,y:f.y,sx:f.x,sy:f.y,cx:f.x+slRnd(-80,80),cy:f.y-slRnd(80,150),life:-j*.06,max:.8,r:4.4,c:'#ffe27a',amt:0});}
+  SL.juice+=v;SL.cuts++;
+  A.sfx('slice',Math.min(SL.chain-1,6));
+  if(now-SL.buzzT>140){SL.buzzT=now;buzz(8);}
+  slBurst(f,ang,col);
+  if(f.gold){A.sfx('gold');SL.tsT=.42;SL.slowEnd=SL.t+2.4;slEl.classList.add('gold');slSay('সোনালি ফল!',true);}
+  slTipOff();
+}
+function slSeg(x0,y0,x1,y1){
+  var dx=x1-x0,dy=y1-y0,l2=dx*dx+dy*dy,R=SL.fs*.62,i,hit=[];
+  for(i=0;i<SL.fr.length;i++){
+    var f=SL.fr[i];if(f.cut)continue;
+    var t=l2?slClamp(((f.x-x0)*dx+(f.y-y0)*dy)/l2,0,1):0,cx=x0+t*dx-f.x,cy=y0+t*dy-f.y;
+    if(cx*cx+cy*cy<=R*R)hit.push([t,f]);
+  }
+  if(!hit.length)return;
+  hit.sort(function(a,b){return a[0]-b[0];});
+  var ang=l2>4?Math.atan2(dy,dx):-.6;
+  for(i=0;i<hit.length;i++)slCut(hit[i][1],ang+slRnd(-.05,.05));
+  SL.fr=SL.fr.filter(function(f){return !f.cut;});
+}
+
+/* ----- pointer ----- */
+function slPos(e){return {x:e.clientX-SL.rx,y:e.clientY-SL.ry};}
+slField.addEventListener('pointerdown',function(e){
+  if(!SL.run)return;
+  e.preventDefault();try{slField.setPointerCapture(e.pointerId);}catch(x){}
+  A.unlock();
+  var p=slPos(e);SL.down=true;SL.lastPt=p;SL.chain=0;SL.lastCut=0;
+  SL.trail=[{x:p.x,y:p.y,t:performance.now()}];
+  slSeg(p.x,p.y,p.x,p.y);
+});
+function slMove(e){
+  if(!SL.down||!SL.run)return;
+  var evs=(e.getCoalescedEvents&&e.getCoalescedEvents())||[];
+  if(!evs.length)evs=[e];
+  var now=performance.now();
+  for(var i=0;i<evs.length;i++){
+    var p=slPos(evs[i]),lp=SL.lastPt;
+    if(!lp){SL.lastPt=p;continue;}
+    var dx=p.x-lp.x,dy=p.y-lp.y;
+    if(dx*dx+dy*dy<2.5)continue;
+    SL.trail.push({x:p.x,y:p.y,t:now});
+    if(SL.trail.length>16)SL.trail.shift();
+    slSeg(lp.x,lp.y,p.x,p.y);
+    if(!save.lowfx&&!SL.slow&&Math.random()<.5)slAdd({k:'s',x:p.x+slRnd(-5,5),y:p.y+slRnd(-5,5),vx:slRnd(-20,20),vy:slRnd(-30,10),g:30,life:0,max:slRnd(.3,.55),r:slRnd(1.6,3)});
+    SL.lastPt=p;
+  }
+}
+slField.addEventListener('pointermove',function(e){if(SL.down)e.preventDefault();slMove(e);});
+function slUp(){SL.down=false;SL.lastPt=null;SL.lastCut=0;SL.chain=0;}
+slField.addEventListener('pointerup',slUp);slField.addEventListener('pointercancel',slUp);
+slField.addEventListener('contextmenu',function(e){e.preventDefault();});
+$('#slExit').addEventListener('click',function(){A.unlock();goHome();});
+window.addEventListener('resize',function(){if(SL.on){slMeasure();}});
+
+/* ----- frame loop ----- */
+function slTick(ms){
+  SL.raf=0;
+  if(!SL.on)return;
+  var now=ms/1000,raw=SL.last?Math.max(0,now-SL.last):.016,dt=Math.min(.05,raw);SL.last=now;
+  if(!SL.slow&&raw<.5){SL.gW+=raw;SL.gN++;if(SL.gW>=1.2){if(SL.gW/SL.gN>.026){if(++SL.gBad>=2){SL.slow=true;slEl.classList.add('slow');}}else SL.gBad=0;SL.gW=0;SL.gN=0;}}
+  var i;
+  if(SL.run){
+    SL.t+=dt;
+    if(SL.t>=SL.next&&SL.fr.length<9&&SL.q.length<6){slWave();var C=SL_ST[SL.stage];SL.next=SL.t+slRnd(C.gap[0],C.gap[1]);}
+    for(i=0;i<SL.golds.length;i++)if(SL.cuts>=SL.golds[i]){SL.golds.splice(i,1);i--;
+      (function(){var x=slRnd(SL.w*.25,SL.w*.75);SL.q.push({at:SL.t,fn:function(){slLaunch(x,0,true);}});})();}
+    if(SL.t>=SL.slowEnd&&SL.tsT<1){SL.tsT=1;slEl.classList.remove('gold');}
+    SL.uiT+=dt;if(SL.uiT>.1){SL.uiT=0;slTimeUi();slJarFlush();}
+    if(SL.juice>=SL.T){SL.run=false;slFinish();}
+  }else{SL.idle+=dt;if(SL.jd){SL.uiT+=dt;if(SL.uiT>.1){SL.uiT=0;slJarFlush();}}}
+  SL.ts+=(SL.tsT-SL.ts)*Math.min(1,dt*5);
+  var dp=dt*SL.ts;
+  for(i=0;i<SL.q.length;i++)if(SL.t>=SL.q[i].at){var job=SL.q.splice(i,1)[0];i--;if(SL.run)job.fn();}
+  var H=SL.h,F=SL.fs;
+  for(i=SL.fr.length-1;i>=0;i--){
+    var f=SL.fr[i];
+    f.vy+=f.g*dp;f.x+=f.vx*dp;f.y+=f.vy*dp;f.rot+=f.vr*dp;
+    if(f.vy>0&&f.y>H+F*.7){if(f.el.parentNode)f.el.parentNode.removeChild(f.el);SL.fr.splice(i,1);if(SL.run)SL.miss++;continue;}
+    f.el.style.transform='translate3d('+(f.x-F/2).toFixed(1)+'px,'+(f.y-F/2).toFixed(1)+'px,0) rotate('+f.rot.toFixed(3)+'rad)';
+  }
+  for(i=SL.hv.length-1;i>=0;i--){
+    var h=SL.hv[i];
+    h.life+=dp;h.vy+=h.g*dp;h.x+=h.vx*dp;h.y+=h.vy*dp;h.rot+=h.vr*dp;
+    if(h.y>H+F){if(h.el.parentNode)h.el.parentNode.removeChild(h.el);SL.hv.splice(i,1);continue;}
+    h.el.style.transform='translate3d('+(h.x-F/2).toFixed(1)+'px,'+(h.y-F/2).toFixed(1)+'px,0) rotate('+h.rot.toFixed(3)+'rad)';
+  }
+  slDraw(dt,dp);
+  if(SL.run||SL.fr.length||SL.hv.length||SL.pt.length||SL.idle<1.8)SL.raf=requestAnimationFrame(slTick);
+}
+function slDraw(dt,dp){
+  var c=slCtx();if(!c)return;
+  var i,p,now=performance.now(),T=SL.trail;
+  while(T.length&&now-T[0].t>260)T.shift();
+  /* nothing to paint: clear once, then leave the canvas alone */
+  if(T.length<2&&!SL.pt.length&&!(SL.tsT<1)){if(SL.cd){c.clearRect(0,0,SL.w,SL.h);SL.cd=false;}return;}
+  SL.cd=true;
+  c.clearRect(0,0,SL.w,SL.h);
+  /* dew-light ribbon */
+  if(T.length>1){
+    c.globalCompositeOperation='lighter';c.lineCap='round';c.lineJoin='round';
+    var ps=[[18,.2,'#ffd98a'],[3.6,.95,'#ffffff']],k,n=T.length;
+    for(k=0;k<ps.length;k++){
+      c.strokeStyle=ps[k][2];
+      for(i=1;i<n;i++){
+        var age=(now-T[i].t)/260;c.globalAlpha=Math.max(0,ps[k][1]*(1-age));
+        c.lineWidth=ps[k][0]*(.25+.75*i/(n-1));
+        c.beginPath();c.moveTo(T[i-1].x,T[i-1].y);c.lineTo(T[i].x,T[i].y);c.stroke();
+      }
+    }
+    c.globalAlpha=1;
+  }
+  /* petals while the golden slow moment lasts */
+  if(SL.tsT<1&&!save.lowfx&&!SL.slow&&Math.random()<.1&&SL.pt.length<120)slAdd({k:'p',x:slRnd(0,SL.w),y:-10,vx:slRnd(-12,12),vy:slRnd(40,70),g:0,life:0,max:4,r:slRnd(4,7),rot:Math.random()*6,vr:slRnd(-1.5,1.5),c:Math.random()<.5?'#ffd1e0':'#fff3b8'});
+  for(i=SL.pt.length-1;i>=0;i--){
+    p=SL.pt[i];p.life+=dp;
+    if(p.life<0)continue;
+    if(p.life>=p.max){
+      if(p.k==='h'){slJarAdd(p.c,p.amt);slJarHit(p.ting);}
+      SL.pt.splice(i,1);continue;
+    }
+    var u=p.life/p.max;
+    if(p.k==='h'){
+      var e=u*u*(3-2*u),a1=1-e,xx=a1*a1*p.sx+2*a1*e*p.cx+e*e*SL.jx,yy=a1*a1*p.sy+2*a1*e*p.cy+e*e*SL.jy;
+      c.globalCompositeOperation='source-over';c.globalAlpha=1;c.fillStyle=p.c;c.shadowColor=p.c;c.shadowBlur=0;
+      c.beginPath();c.arc(xx,yy,p.r*(1-.35*u),0,6.283);c.fill();
+      c.globalCompositeOperation='lighter';c.globalAlpha=.5*(1-u);c.beginPath();c.arc(xx,yy,p.r*2,0,6.283);c.fill();
+      continue;
+    }
+    p.x+=(p.vx||0)*dp;p.y+=(p.vy||0)*dp;if(p.g)p.vy+=p.g*dp;
+    if(p.k==='d'){
+      c.globalCompositeOperation='source-over';c.globalAlpha=1-u*u;c.fillStyle=p.c;
+      c.beginPath();c.ellipse(p.x,p.y,p.r,p.r*(1+Math.min(1.1,Math.abs(p.vy)/500)),Math.atan2(p.vy,p.vx)+1.57,0,6.283);c.fill();
+    }else if(p.k==='l'){
+      p.rot+=p.vr*dp;c.globalCompositeOperation='source-over';c.globalAlpha=1-u;c.fillStyle=p.c;
+      c.save();c.translate(p.x,p.y);c.rotate(p.rot);c.beginPath();c.ellipse(0,0,p.r*1.6,p.r*.8,0,0,6.283);c.fill();c.restore();
+    }else if(p.k==='p'){
+      p.rot+=p.vr*dp;p.x+=Math.sin(p.life*2+p.rot)*14*dp;c.globalCompositeOperation='source-over';c.globalAlpha=.9*(1-u*u);c.fillStyle=p.c;
+      c.save();c.translate(p.x,p.y);c.rotate(p.rot);c.beginPath();c.ellipse(0,0,p.r,p.r*.55,0,0,6.283);c.fill();c.restore();
+    }else if(p.k==='s'){
+      c.globalCompositeOperation='lighter';c.globalAlpha=.85*(1-u);c.fillStyle='#fff6c0';
+      c.beginPath();c.arc(p.x,p.y,p.r*(1-u*.5),0,6.283);c.fill();
+    }else if(p.k==='r'){
+      c.globalCompositeOperation='lighter';c.globalAlpha=.55*(1-u);c.strokeStyle=p.c;c.lineWidth=3*(1-u)+1;
+      c.beginPath();c.arc(p.x,p.y,p.r*(.25+.85*u),0,6.283);c.stroke();
+    }else if(p.k==='g'){
+      c.globalCompositeOperation='lighter';c.globalAlpha=.9*(1-u);c.strokeStyle='#fff';c.lineWidth=3;c.lineCap='round';
+      var L=p.r*(.5+.7*u),cx=Math.cos(p.a),cy=Math.sin(p.a);
+      c.beginPath();c.moveTo(p.x-cx*L,p.y-cy*L);c.lineTo(p.x+cx*L,p.y+cy*L);c.stroke();
+    }
+  }
+  c.globalAlpha=1;c.globalCompositeOperation='source-over';
+}
+
+/* ----- finish and results ----- */
+function slFinish(){
+  /* the jar is full: celebrate with a petal shower, a glowing jar and a fanfare, then show the result */
+  slUp();SL.tsT=1;slEl.classList.remove('gold');
+  slSay('জার ভরে গেছে!',true);A.sfx('win');
+  slTimeUi();
+  var j=$('#slJar');j.classList.add('full');
+  var n=(save.lowfx||SL.slow)?14:30,i,cols=['#ffd1e0','#fff3b8','#ffb36b','#ff8ab0','#ffe27a'];
+  for(i=0;i<n;i++)slAdd({k:'p',x:SL.jx+slRnd(-20,20),y:SL.jy+slRnd(-10,10),vx:slRnd(-60,260),vy:slRnd(-240,-40),g:260,life:0,max:slRnd(1.6,2.6),r:slRnd(4,7),rot:Math.random()*6,vr:slRnd(-3,3),c:cols[i%5]});
+  buzz(30);
+  setTimeout(function(){if(SL.on&&!SL.run)slResults();},1900);
+}
+function slResults(){
+  if(SL.fin)return;SL.fin=true;
+  /* a full jar is always a win; stars show how few fruits slipped away */
+  var C=SL_ST[SL.stage],j=Math.round(SL.juice),sg=SL.stage,ratio=SL.cuts/Math.max(1,SL.cuts+SL.miss),st=ratio>=.72?3:ratio>=.5?2:1;
+  /* make the jar show the final amount even if a drop was still on its way */
+  var rest=SL.juice-SL.vis;if(rest>.01)slJarAdd('#ffe27a',rest);
+  slJarFlush();
+  var prevSt=save.sl.st[sg]|0,newSt=Math.max(0,st-prevSt),gain=15+st*8+newSt*12;
+  if(st>prevSt)save.sl.st[sg]=st;
+  if(Math.round(ratio*100)>(save.sl.best[sg]|0))save.sl.best[sg]=Math.round(ratio*100);
+  save.coins=(save.coins||0)+gain;
+  var gift='';
+  if(sg===2&&st===3){var g=giftRandom(1);gift=BNAME[g[0]]+' +1';}
+  if(SL.from>0&&sg>(save.sl.done[SL.from]|0)&&st>=0)save.sl.done[SL.from]=sg;
+  save.stats.sliced=(save.stats.sliced|0)+SL.cuts;
+  trackM('fruit',SL.cuts);
+  persist();syncCoins();updBoosters();checkAch();
+  var from=SL.from,btns=[];
+  var nextLv=function(){if(from>0&&from<MAXLV)startLevel(from+1);else goHome();};
+  if(sg===1){
+    btns.push({t:'পরের স্টেজ',cls:'gold',fn:function(){slStart(from,2);}});
+    btns.push({t:'আবার খেলো',cls:'alt',fn:function(){slStart(from,1);}});
+    btns.push({t:from>0?'বোনাস ছেড়ে পরের লেভেল':'মেনু',cls:'alt',fn:nextLv});
+  }else{
+    if(from>0&&from<MAXLV)btns.push({t:'পরের লেভেল',cls:'gold',fn:nextLv});
+    btns.push({t:'আবার খেলো',cls:from>0&&from<MAXLV?'alt':'gold',fn:function(){slStart(from,2);}});
+    btns.push({t:'মেনু',cls:'alt',fn:goHome});
+  }
+  var ttl=st===3?'দারুণ জিত!':'জিতেছ!';
+  var sub='জার ভরে গেছে!\nকাটা ফল: '+toBn(SL.cuts)+'\nকয়েন +'+toBn(gain)+(gift?'\nউপহার: '+gift:'');
+  if(st<3)sub+='\nআরও কম ফল ফসকালে ৩ তারা পাবে';
+  openModal({title:hi(ttl),stars:st,sub:sub,btns:btns});
+}
+
+/* ----- entry from the fun-missions card ----- */
+function syncSlice(){
+  var s=$('#sliceState');if(!s)return;
+  s.textContent=slUnlocked()?(save.sl.st[2]?'দুই স্টেজই জেতা':'জার ভরো, তারা পাও'):'বোনাস · লেভেল ২০ জিতলে খুলবে';
+}
+$('#btnSlice').addEventListener('click',function(){
+  if(!slUnlocked()){toast('লেভেল ২০ জিতলে এই বোনাস খুলবে',2600);return;}
+  $('#miss').hidden=true;A.unlock();slStart(0,1);
+});
+$('#btnFun').addEventListener('click',syncSlice);
+syncSlice();
+ACH.push(ach('a16','ফল-কাটিয়ে','১০০টা ফল কেটে ফেলো',60,function(){return save.stats.sliced|0;},100));
+document.addEventListener('visibilitychange',function(){if(document.hidden)slUp();});
+if(window.__SPEED!==undefined||window.__TEST)window.__sl={launch:slLaunch,SL:SL,start:slStart,fr:function(){return SL.fr;},seg:slSeg,res:slResults,fin:slFinish,rain:function(){slRain();slSides();}};
+if(window.__dbg)window.__dbg.win=win;
+
+/* ---------- bonus level: fruit catch (sunny orchard, breezy morning) ---------- */
+save.ct=Object.assign({open:0,done:{},st:{}},save.ct||{});
+save.ct.done=save.ct.done||{};save.ct.st=save.ct.st||{};
+var CT_TESTOPEN=false;   /* TEMP: open for testing; set to false to unlock only after level 40 */
+/* a stage is won when the basket has caught `target` fruits; fruits that fall are simply missed (no losing) */
+var CT_ST=[null,
+  {target:25,gap:[1.0,1.4],v0:105,a:42,sway:[8,16],golds:[8,17],two:0},
+  {target:30,gap:[.8,1.2],v0:135,a:68,sway:[14,28],golds:[7,15,24],two:.3}];
+var ctEl=$('#catchg'),ctField=$('#ctField'),ctFx=$('#ctFx'),ctSayEl=$('#ctSay'),ctBk=$('#ctBasket'),
+    ctTf=$('#ctTfill'),ctSun=$('#ctSunM'),ctSec=$('#ctSec');
+var CT={on:false,run:false,stage:1,from:0,w:360,h:640,fs:56,bw:104,bh:81,bx:180,tx:180,top:0,by:0,fr:[],pt:[],q:[],pool:{},t:0,next:0,
+  caught:0,cnt:0,miss:0,target:25,golds:[],raf:0,last:0,ctx:null,dpr:1,rx:0,ry:0,down:false,fin:false,tipOn:false,uiT:0,
+  slow:false,gW:0,gN:0,gBad:0,leftShown:-1,bounceT:0,goldNow:0,grassW:0,cd:false,sayA:null,idle:0};
+
+function ctUnlocked(){return !!(CT_TESTOPEN||save.ct.open||(save.stars[40]|0)>0);}
+
+/* ----- layout ----- */
+function ctGrass(){
+  var w=Math.round(CT.w);if(CT.grassW===w)return;CT.grassW=w;
+  var h=74,n=Math.ceil(w/8),L=['','',''],i,x,hh,dx,col;
+  for(i=0;i<n;i++){
+    x=i*8+slRnd(-2,2);hh=slRnd(22,46);dx=slRnd(-7,7);
+    col=i%3===0?'#4fb85a':i%3===1?'#2f8f4a':'#6fd06a';
+    L[i%3]+='<path d="M'+x.toFixed(1)+' '+h+' Q'+(x+3).toFixed(1)+' '+(h-hh*.55).toFixed(1)+' '+(x+dx+4).toFixed(1)+' '+(h-hh).toFixed(1)+' Q'+(x+5).toFixed(1)+' '+(h-hh*.5).toFixed(1)+' '+(x+9).toFixed(1)+' '+h+'Z" fill="'+col+'"/>';
+  }
+  var fl=['#ff8ab0','#fff3a0','#ffffff','#ffb36b'];
+  for(i=0;i<Math.floor(w/70);i++){
+    x=20+i*70+slRnd(-14,14);hh=slRnd(26,40);
+    L[1]+='<g><path d="M'+x+' '+h+' L'+x+' '+(h-hh)+'" stroke="#2f8f4a" stroke-width="2"/><circle cx="'+x+'" cy="'+(h-hh)+'" r="5" fill="'+fl[i%4]+'"/><circle cx="'+x+'" cy="'+(h-hh)+'" r="2" fill="#f2a900"/></g>';
+  }
+  var vb='viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none"';
+  $('#ctGrass').innerHTML='<svg class="gl g0" '+vb+'>'+L[0]+'</svg><svg class="gl g1" '+vb+'>'+L[1]+'</svg><svg class="gl g2" '+vb+'>'+L[2]+'</svg><svg '+vb+'><rect x="0" y="'+(h-10)+'" width="'+w+'" height="12" fill="#1d5a36"/></svg>';
+}
+function ctMeasure(){
+  var r=ctEl.getBoundingClientRect();
+  CT.w=Math.max(240,r.width);CT.h=Math.max(360,r.height);CT.rx=r.left;CT.ry=r.top;
+  CT.fs=Math.round(slClamp(CT.w*.15,50,72));
+  CT.bw=Math.round(slClamp(CT.w*.3,94,130));CT.bh=Math.round(CT.bw*.78);
+  ctEl.style.setProperty('--cfs',CT.fs+'px');ctEl.style.setProperty('--bw',CT.bw+'px');
+  CT.top=CT.h-74-CT.bh+14;CT.by=CT.top+CT.bh*.2;
+  CT.dpr=Math.min(window.devicePixelRatio||1,1.25);
+  ctFx.width=Math.round(CT.w*CT.dpr);ctFx.height=Math.round(CT.h*CT.dpr);CT.ctx=null;
+  ctGrass();
+}
+function ctCtx(){if(CT.ctx)return CT.ctx;try{CT.ctx=ctFx.getContext('2d');CT.ctx.setTransform(CT.dpr,0,0,CT.dpr,0,0);}catch(e){CT.ctx=null;}return CT.ctx;}
+/* the big words use the Web Animations API: restarting a CSS animation by reading offsetWidth forces a layout mid-play */
+var CTSAYKF=[{opacity:0,transform:'translate(-50%,-30%) scale(.6)',offset:0},{opacity:1,transform:'translate(-50%,-50%) scale(1.12)',offset:.18},{opacity:1,transform:'translate(-50%,-52%) scale(1)',offset:.7},{opacity:0,transform:'translate(-50%,-95%) scale(1)',offset:1}];
+function ctSay(txt,big){
+  ctSayEl.textContent=txt;ctSayEl.className=big?'gl':'';
+  try{if(CT.sayA)CT.sayA.cancel();CT.sayA=ctSayEl.animate(CTSAYKF,{duration:1150,easing:'ease-out'});}
+  catch(e){void ctSayEl.offsetWidth;ctSayEl.classList.add('show');}
+}
+
+/* ----- intro, start, stop ----- */
+function ctIntro(from){
+  A.unlock();
+  var skip=function(){if(from>0&&from<MAXLV)startLevel(from+1);else goHome();};
+  openModal({title:'বোনাস লেভেল!',sub:'ঝুড়িতে ফল ধরার ২টা মজার স্টেজ।\nআঙুল টেনে ঝুড়ি সরিয়ে পড়ন্ত ফল ধরো।\nঝুড়ি ভরলেই জিত! এখানে হার নেই।',
+    btns:[{t:'শুরু করো',cls:'gold',fn:function(){ctStart(from,1);}},{t:'পরে খেলব',cls:'alt',fn:skip}]});
+}
+function ctReset(){
+  var i;
+  for(i=0;i<CT.fr.length;i++)if(CT.fr[i].el)ctRel(CT.fr[i]);
+  CT.fr=[];CT.pt=[];CT.q=[];
+  var c=ctCtx();if(c){c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,ctFx.width,ctFx.height);c.setTransform(CT.dpr,0,0,CT.dpr,0,0);}
+}
+function ctStart(from,stage){
+  A.unlock();clearHint();
+  S.over=true;S.busy=true;
+  CT.stage=stage||1;CT.from=from||0;
+  var C=CT_ST[CT.stage];
+  home.hidden=true;game.hidden=true;
+  ['#modal','#miss','#lvPick','#intro','#shop','#settings','#ach','#garden'].forEach(function(q){var e=$(q);if(e)e.hidden=true;});
+  var sl=$('#slice');if(sl)sl.hidden=true;
+  ctEl.hidden=false;ctEl.classList.remove('full');ctEl.classList.toggle('breeze',CT.stage===2);
+  ctMeasure();ctReset();
+  CT.on=true;CT.run=true;CT.fin=false;CT.t=0;CT.caught=0;CT.cnt=0;CT.miss=0;CT.target=C.target;CT.down=false;CT.idle=0;CT.last=0;
+  CT.bx=CT.tx=CT.w/2;CT.golds=C.golds.slice();CT.goldNow=0;CT.leftShown=-1;CT.next=.8;
+  $('#ctStage').textContent=toBn(CT.stage)+'/'+toBn(2);
+  ctUi();ctPlace();
+  ctSay(CT.stage===1?'ফল ধরো!':'হাওয়ার সকাল!',true);
+  var tip=$('#ctTip');CT.tipOn=!save.seen.cth;tip.hidden=!CT.tipOn;
+  if(CT.tipOn)setTimeout(function(){if(CT.tipOn)ctTipOff();},5200);
+  if(!CT.raf)CT.raf=requestAnimationFrame(ctTick);
+}
+function ctTipOff(){
+  if(!CT.tipOn)return;CT.tipOn=false;$('#ctTip').hidden=true;
+  if(!save.seen.cth){save.seen.cth=1;persist();}
+}
+function ctStop(){
+  if(!CT.on&&ctEl.hidden)return;
+  CT.on=false;CT.run=false;
+  if(CT.raf){cancelAnimationFrame(CT.raf);CT.raf=0;}
+  ctReset();ctEl.hidden=true;ctEl.classList.remove('full');
+}
+function ctUi(){
+  var el=Math.min(CT.caught,CT.target)/CT.target;
+  ctTf.style.width=(el*100).toFixed(1)+'%';
+  ctSun.style.left=(el*100).toFixed(1)+'%';
+  var left=Math.max(0,CT.target-CT.caught);
+  if(left!==CT.leftShown){CT.leftShown=left;ctSec.textContent=toBn(left);}
+}
+function ctPlace(){
+  var tilt=slClamp((CT.tx-CT.bx)*.0009,-.12,.12);
+  ctBk.style.transform='translate3d('+(CT.bx-CT.bw/2).toFixed(1)+'px,'+CT.top.toFixed(1)+'px,0) rotate('+tilt.toFixed(3)+'rad)';
+}
+
+/* ----- fruits ----- */
+function ctNewEl(type,gold){
+  var el=document.createElement('div');el.className='cf'+(gold?' gold':'');
+  el.innerHTML='<svg viewBox="0 0 100 100"><use href="#'+(gold?'fg':'f'+type)+'"/></svg>';
+  ctField.appendChild(el);return el;
+}
+function ctRel(f){
+  var k=f.gold?'g':f.type,el=f.el;f.el=null;
+  el.style.transform='translate3d(-300px,-300px,0)';el.style.opacity='';
+  (CT.pool[k]=CT.pool[k]||[]).push(el);
+}
+function ctSpawn(gold){
+  if(CT.fr.length>=7)return;
+  var C=CT_ST[CT.stage],F=CT.fs,type=gold?0:Math.floor(Math.random()*6),k=gold?'g':type,l=CT.pool[k],el=l&&l.pop();
+  if(!el)el=ctNewEl(type,gold);
+  var x=slRnd(F*.8,CT.w-F*.8);
+  CT.fr.push({el:el,x:x,x0:x,y:-F,py:-F,vy:C.v0*slRnd(.9,1.1),a:C.a,age:0,ph:slRnd(0,6.28),amp:slRnd(C.sway[0],C.sway[1]),sw:slRnd(1.4,2.3),rot:0,vr:slRnd(-.8,.8),type:type,gold:gold,st:0,t:0,sx:0,sy:0});
+}
+function ctWave(){
+  var C=CT_ST[CT.stage],gold=false,i;
+  for(i=0;i<CT.golds.length;i++)if(CT.cnt>=CT.golds[i]){CT.golds.splice(i,1);gold=true;break;}
+  if(gold){ctSpawn(true);return;}
+  ctSpawn(false);
+  if(C.two&&Math.random()<C.two)CT.q.push({at:CT.t+slRnd(.3,.5),fn:function(){ctSpawn(false);}});
+}
+
+/* ----- particles ----- */
+function ctAdd(p){if(CT.pt.length<(save.lowfx||CT.slow?30:60))CT.pt.push(p);}
+function ctBurst(x,y,col,gold){
+  var n=(save.lowfx||CT.slow)?4:(gold?10:6),i;
+  for(i=0;i<n;i++)ctAdd({k:'d',x:x,y:y,vx:slRnd(-110,110),vy:slRnd(-190,-60),g:620,life:0,max:slRnd(.4,.7),r:slRnd(2,3.8),c:col});
+  ctAdd({k:'r',x:x,y:y,life:0,max:.4,r:CT.fs*.8,c:gold?'#ffd54a':col});
+  if(gold)for(i=0;i<6;i++)ctAdd({k:'s',x:x+slRnd(-20,20),y:y+slRnd(-20,20),vx:slRnd(-30,30),vy:slRnd(-60,-10),g:0,life:0,max:slRnd(.5,.9),r:slRnd(2,3.4)});
+}
+function ctSplash(x,y,col){
+  var n=(save.lowfx||CT.slow)?3:5,i;
+  for(i=0;i<n;i++)ctAdd({k:'d',x:x,y:y,vx:slRnd(-90,90),vy:slRnd(-120,-40),g:520,life:0,max:slRnd(.3,.5),r:slRnd(1.8,3),c:col});
+}
+function ctDraw(dp){
+  var c=ctCtx();if(!c)return;
+  if(!CT.pt.length){if(CT.cd){c.clearRect(0,0,CT.w,CT.h);CT.cd=false;}return;}
+  CT.cd=true;c.clearRect(0,0,CT.w,CT.h);
+  var i,p,u;
+  for(i=CT.pt.length-1;i>=0;i--){
+    p=CT.pt[i];p.life+=dp;
+    if(p.life>=p.max){CT.pt.splice(i,1);continue;}
+    u=p.life/p.max;
+    p.x+=(p.vx||0)*dp;p.y+=(p.vy||0)*dp;if(p.g)p.vy+=p.g*dp;
+    if(p.k==='d'){
+      c.globalCompositeOperation='source-over';c.globalAlpha=1-u*u;c.fillStyle=p.c;
+      c.beginPath();c.arc(p.x,p.y,p.r,0,6.283);c.fill();
+    }else if(p.k==='s'){
+      c.globalCompositeOperation='lighter';c.globalAlpha=.85*(1-u);c.fillStyle='#fff6c0';
+      c.beginPath();c.arc(p.x,p.y,p.r*(1-u*.5),0,6.283);c.fill();
+    }else if(p.k==='r'){
+      c.globalCompositeOperation='lighter';c.globalAlpha=.55*(1-u);c.strokeStyle=p.c;c.lineWidth=3*(1-u)+1;
+      c.beginPath();c.arc(p.x,p.y,p.r*(.25+.85*u),0,6.283);c.stroke();
+    }else if(p.k==='p'){
+      p.rot+=p.vr*dp;p.x+=Math.sin(p.life*2+p.rot)*14*dp;c.globalCompositeOperation='source-over';c.globalAlpha=.9*(1-u*u);c.fillStyle=p.c;
+      c.save();c.translate(p.x,p.y);c.rotate(p.rot);c.beginPath();c.ellipse(0,0,p.r,p.r*.55,0,0,6.283);c.fill();c.restore();
+    }
+  }
+  c.globalAlpha=1;c.globalCompositeOperation='source-over';
+}
+
+/* ----- pointer: the basket follows the finger ----- */
+function ctPos(e){return e.clientX-CT.rx;}
+ctField.addEventListener('pointerdown',function(e){
+  if(!CT.run)return;
+  e.preventDefault();try{ctField.setPointerCapture(e.pointerId);}catch(x){}
+  A.unlock();CT.down=true;CT.tx=slClamp(ctPos(e),CT.bw*.5,CT.w-CT.bw*.5);ctTipOff();
+});
+ctField.addEventListener('pointermove',function(e){
+  if(!CT.down)return;e.preventDefault();
+  var ev=(e.getCoalescedEvents&&e.getCoalescedEvents());
+  var last=ev&&ev.length?ev[ev.length-1]:e;
+  CT.tx=slClamp(ctPos(last),CT.bw*.5,CT.w-CT.bw*.5);
+});
+function ctUp(){CT.down=false;}
+ctField.addEventListener('pointerup',ctUp);ctField.addEventListener('pointercancel',ctUp);
+ctField.addEventListener('contextmenu',function(e){e.preventDefault();});
+$('#ctExit').addEventListener('click',function(){A.unlock();goHome();});
+window.addEventListener('resize',function(){if(CT.on){ctMeasure();}});
+
+/* ----- frame loop ----- */
+function ctCatch(f){
+  f.st=1;f.t=0;f.sx=f.x;f.sy=f.y;
+  CT.cnt++;CT.caught+=f.gold?3:1;
+  var col=f.gold?'#ffc42d':COLORS[f.type];
+  ctBurst(f.x,CT.by,col,f.gold);
+  A.sfx(f.gold?'gold':'pop');
+  var now=Date.now();
+  if(now-CT.bounceT>110){CT.bounceT=now;try{ctBk.firstElementChild.animate([{transform:'scale(1,1)'},{transform:'scale(1.08,.9)',offset:.35},{transform:'scale(1,1)'}],{duration:260,easing:'ease-out'});}catch(e){}}
+  if(f.gold)ctSay('সোনালি ফল!',true);
+}
+function ctTick(ms){
+  CT.raf=0;
+  if(!CT.on)return;
+  var now=ms/1000,raw=CT.last?Math.max(0,now-CT.last):.016,dt=Math.min(.05,raw);CT.last=now;
+  if(!CT.slow&&raw<.5){CT.gW+=raw;CT.gN++;if(CT.gW>=1.2){if(CT.gW/CT.gN>.026){if(++CT.gBad>=2){CT.slow=true;ctEl.classList.add('slow');}}else CT.gBad=0;CT.gW=0;CT.gN=0;}}
+  var i,F=CT.fs,H=CT.h;
+  if(CT.run){
+    CT.t+=dt;
+    if(CT.t>=CT.next){ctWave();var C=CT_ST[CT.stage];CT.next=CT.t+slRnd(C.gap[0],C.gap[1]);}
+    for(i=0;i<CT.q.length;i++)if(CT.t>=CT.q[i].at){var job=CT.q.splice(i,1)[0];i--;job.fn();}
+    CT.uiT+=dt;if(CT.uiT>.1){CT.uiT=0;ctUi();}
+    if(CT.caught>=CT.target){CT.run=false;ctFinish();}
+  }else CT.idle+=dt;
+  /* basket glides toward the finger */
+  CT.bx+=(CT.tx-CT.bx)*Math.min(1,dt*14);
+  ctPlace();
+  var gust=CT.stage===2?Math.sin(CT.t*.7)*34:0;
+  for(i=CT.fr.length-1;i>=0;i--){
+    var f=CT.fr[i];
+    if(f.st===0){
+      f.age+=dt;f.py=f.y;f.vy+=f.a*dt;f.y+=f.vy*dt;
+      f.x=f.x0+Math.sin(f.age*f.sw+f.ph)*f.amp+gust*Math.min(1,f.age/1.2);
+      f.rot+=f.vr*dt;
+      if(CT.run&&f.py<CT.by&&f.y>=CT.by&&Math.abs(f.x-CT.bx)<=CT.bw*.46+F*.12)ctCatch(f);
+      else if(f.y>H-66){
+        f.st=2;f.t=0;if(CT.run)CT.miss++;
+        ctSplash(f.x,H-66,f.gold?'#ffc42d':COLORS[f.type]);
+      }
+    }else if(f.st===1){
+      f.t+=dt;var u=Math.min(1,f.t/.16);
+      f.x=f.sx+(CT.bx-f.sx)*u;f.y=f.sy+(CT.by+CT.bh*.3-f.sy)*u;
+      if(u>=1){ctRel(f);CT.fr.splice(i,1);continue;}
+    }else{
+      f.t+=dt;f.y+=f.vy*dt*.3;
+      if(f.t>=.28){ctRel(f);CT.fr.splice(i,1);continue;}
+    }
+    var sc=f.st===1?1-.45*Math.min(1,f.t/.16):1;
+    f.el.style.transform='translate3d('+(f.x-F/2).toFixed(1)+'px,'+(f.y-F/2).toFixed(1)+'px,0) rotate('+f.rot.toFixed(3)+'rad) scale('+sc.toFixed(3)+')';
+    if(f.st===2)f.el.style.opacity=(1-f.t/.28).toFixed(2);
+  }
+  /* drifting leaves on the breezy morning */
+  if(CT.stage===2&&CT.run&&!save.lowfx&&!CT.slow&&Math.random()<.05&&CT.pt.length<24)
+    ctAdd({k:'p',x:-10,y:slRnd(CT.h*.1,CT.h*.6),vx:slRnd(70,120),vy:slRnd(10,40),g:0,life:0,max:slRnd(3,5),r:slRnd(4,6),rot:Math.random()*6,vr:slRnd(-2,2),c:Math.random()<.5?'#8fd36a':'#c7e88a'});
+  ctDraw(dt);
+  if(CT.run||CT.fr.length||CT.pt.length||CT.idle<1.8||Math.abs(CT.tx-CT.bx)>.3)CT.raf=requestAnimationFrame(ctTick);
+}
+
+/* ----- finish and results ----- */
+function ctFinish(){
+  CT.down=false;ctUi();
+  ctSay('ঝুড়ি ভরে গেছে!',true);A.sfx('win');
+  ctEl.classList.add('full');
+  var n=(save.lowfx||CT.slow)?12:26,i,cols=['#ffd1e0','#fff3b8','#ffb36b','#ff8ab0','#ffe27a'];
+  for(i=0;i<n;i++)ctAdd({k:'p',x:CT.bx+slRnd(-30,30),y:CT.top+slRnd(0,14),vx:slRnd(-170,170),vy:slRnd(-330,-90),g:300,life:0,max:slRnd(1.5,2.4),r:slRnd(4,7),rot:Math.random()*6,vr:slRnd(-3,3),c:cols[i%5]});
+  buzz(30);
+  setTimeout(function(){if(CT.on&&!CT.run)ctResults();},1900);
+}
+function ctResults(){
+  if(CT.fin)return;CT.fin=true;
+  var sg=CT.stage,ratio=CT.cnt/Math.max(1,CT.cnt+CT.miss),st=ratio>=.72?3:ratio>=.5?2:1;
+  var prevSt=save.ct.st[sg]|0,newSt=Math.max(0,st-prevSt),gain=15+st*8+newSt*12;
+  if(st>prevSt)save.ct.st[sg]=st;
+  save.coins=(save.coins||0)+gain;
+  var gift='';
+  if(sg===2&&st===3){var g=giftRandom(1);gift=BNAME[g[0]]+' +1';}
+  if(CT.from>0&&sg>(save.ct.done[CT.from]|0))save.ct.done[CT.from]=sg;
+  save.stats.caught=(save.stats.caught|0)+CT.cnt;
+  trackM('fruit',CT.cnt);
+  persist();syncCoins();updBoosters();checkAch();
+  var from=CT.from,btns=[];
+  var nextLv=function(){if(from>0&&from<MAXLV)startLevel(from+1);else goHome();};
+  if(sg===1){
+    btns.push({t:'পরের স্টেজ',cls:'gold',fn:function(){ctStart(from,2);}});
+    btns.push({t:'আবার খেলো',cls:'alt',fn:function(){ctStart(from,1);}});
+    btns.push({t:from>0?'বোনাস ছেড়ে পরের লেভেল':'মেনু',cls:'alt',fn:nextLv});
+  }else{
+    if(from>0&&from<MAXLV)btns.push({t:'পরের লেভেল',cls:'gold',fn:nextLv});
+    btns.push({t:'আবার খেলো',cls:from>0&&from<MAXLV?'alt':'gold',fn:function(){ctStart(from,2);}});
+    btns.push({t:'মেনু',cls:'alt',fn:goHome});
+  }
+  var ttl=st===3?'দারুণ জিত!':'জিতেছ!';
+  var sub='ঝুড়ি ভরে গেছে!\nধরা ফল: '+toBn(CT.cnt)+'\nকয়েন +'+toBn(gain)+(gift?'\nউপহার: '+gift:'');
+  if(st<3)sub+='\nআরও কম ফল ফসকালে ৩ তারা পাবে';
+  openModal({title:hi(ttl),stars:st,sub:sub,btns:btns});
+}
+
+/* ----- entry from the fun-missions card ----- */
+function syncCatch(){
+  var s=$('#catchState');if(!s)return;
+  s.textContent=ctUnlocked()?(save.ct.st[2]?'দুই স্টেজই জেতা':'ঝুড়ি ভরো, তারা পাও'):'বোনাস · লেভেল ৪০ জিতলে খুলবে';
+}
+$('#btnCatch').addEventListener('click',function(){
+  if(!ctUnlocked()){toast('লেভেল ৪০ জিতলে এই বোনাস খুলবে',2600);return;}
+  $('#miss').hidden=true;A.unlock();ctStart(0,1);
+});
+$('#btnFun').addEventListener('click',syncCatch);
+syncCatch();
+ACH.push(ach('a17','ঝুড়ি-ওস্তাদ','১০০টা ফল ঝুড়িতে ধরো',60,function(){return save.stats.caught|0;},100));
+document.addEventListener('visibilitychange',function(){if(document.hidden)ctUp();});
+if(window.__SPEED!==undefined||window.__TEST)window.__ct={CT:CT,start:ctStart,spawn:ctSpawn,fr:function(){return CT.fr;},fin:ctFinish,res:ctResults};
+
+/* ---------- bonus level: fruit pairs (picnic cloth by day, lantern picnic by night) ---------- */
+save.pr=Object.assign({open:0,done:{},st:{}},save.pr||{});
+save.pr.done=save.pr.done||{};save.pr.st=save.pr.st||{};
+var PR_TESTOPEN=false;   /* TEMP: open for testing; set to false to unlock only after level 60 */
+/* a stage is won when every pair is found; wrong guesses only cost stars, never the game */
+var PR_ST=[null,
+  {cols:3,rows:4,n:6,peek:2.0,star3:10,star2:16,syms:['f0','f1','f2','f3','f4','f5']},
+  {cols:4,rows:4,n:8,peek:2.4,star3:14,star2:22,syms:['f0','f1','f2','f3','f4','f5','fg','d-bfly']}];
+var prEl=$('#pairsg'),prBoard=$('#prBoard'),prSayEl=$('#prSay'),prPet=$('#prPetals'),
+    prTf=$('#prTfill'),prSun=$('#prSunM'),prSec=$('#prSec');
+var PR={on:false,stage:1,from:0,cards:[],open:[],lock:true,found:0,n:6,moves:0,streak:0,fin:false,sayA:null,tm:[],cw:80,ch:98};
+
+function prUnlocked(){return !!(PR_TESTOPEN||save.pr.open||(save.stars[60]|0)>0);}
+function prLater(fn,ms){var t=setTimeout(function(){var i=PR.tm.indexOf(t);if(i>=0)PR.tm.splice(i,1);if(PR.on)fn();},ms);PR.tm.push(t);return t;}
+function prClearTm(){PR.tm.forEach(clearTimeout);PR.tm=[];}
+
+var PRSAYKF=[{opacity:0,transform:'translate(-50%,-30%) scale(.6)',offset:0},{opacity:1,transform:'translate(-50%,-50%) scale(1.12)',offset:.18},{opacity:1,transform:'translate(-50%,-52%) scale(1)',offset:.7},{opacity:0,transform:'translate(-50%,-95%) scale(1)',offset:1}];
+function prSay(txt,big){
+  prSayEl.textContent=txt;prSayEl.className=big?'gl':'';
+  try{if(PR.sayA)PR.sayA.cancel();PR.sayA=prSayEl.animate(PRSAYKF,{duration:1250,easing:'ease-out'});}catch(e){prSayEl.classList.add('show');}
+}
+
+/* ----- layout: sizes the cards so the whole board always fits above the thumb ----- */
+function prLayout(){
+  var C=PR_ST[PR.stage],r=prEl.getBoundingClientRect(),W=r.width||360,H=r.height||640;
+  var gap=Math.round(slClamp(W*.028,8,12)),padX=18,top=70,bot=26;
+  var aw=W-padX*2-26,ah=H-top-bot-26;
+  var cw=Math.min((aw-gap*(C.cols-1))/C.cols,(ah-gap*(C.rows-1))/C.rows/1.22,112);
+  cw=Math.max(40,Math.floor(cw));PR.cw=cw;PR.ch=Math.round(cw*1.22);
+  prBoard.style.setProperty('--cw',cw+'px');prBoard.style.setProperty('--ch',PR.ch+'px');prBoard.style.setProperty('--gap',gap+'px');
+  prBoard.style.gridTemplateColumns='repeat('+C.cols+',var(--cw))';
+  prBoard.style.top=(top+Math.max(0,(ah-(C.rows*PR.ch+gap*(C.rows-1)))/2))+'px';
+}
+
+/* ----- intro, start, stop ----- */
+function prIntro(from){
+  A.unlock();
+  var skip=function(){if(from>0&&from<MAXLV)startLevel(from+1);else goHome();};
+  openModal({title:'বোনাস লেভেল!',sub:'পিকনিক কাপড়ের ওপর ফল মেলানোর ২টা মজার স্টেজ।\nকার্ড উল্টে একই ফলের জোড়া খোঁজো।\nসব জোড়া মিললেই জিত! এখানে হার নেই।',
+    btns:[{t:'শুরু করো',cls:'gold',fn:function(){prStart(from,1);}},{t:'পরে খেলব',cls:'alt',fn:skip}]});
+}
+function prShuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function prStart(from,stage){
+  A.unlock();clearHint();
+  S.over=true;S.busy=true;
+  PR.stage=stage||1;PR.from=from||0;
+  var C=PR_ST[PR.stage];
+  home.hidden=true;game.hidden=true;
+  ['#modal','#miss','#lvPick','#intro','#shop','#settings','#ach','#garden'].forEach(function(q){var e=$(q);if(e)e.hidden=true;});
+  var sl=$('#slice');if(sl)sl.hidden=true;var ct=$('#catchg');if(ct)ct.hidden=true;
+  prClearTm();
+  prEl.hidden=false;prEl.classList.toggle('night',PR.stage===2);prEl.classList.remove('won');
+  PR.on=true;PR.fin=false;PR.found=0;PR.moves=0;PR.streak=0;PR.open=[];PR.lock=true;PR.n=C.n;
+  prPet.innerHTML='';
+  /* deal */
+  var syms=prShuffle(C.syms.slice(0,C.n).concat(C.syms.slice(0,C.n))),h='',i;
+  for(i=0;i<syms.length;i++)
+    h+='<div class="pc up" data-i="'+i+'" data-k="'+syms[i]+'" style="--i:'+i+'"><div class="pci"><div class="pcb"><svg viewBox="0 0 80 98"><use href="#d-pback"/></svg></div><div class="pcf"><svg viewBox="0 0 100 100"><use href="#'+syms[i]+'"/></svg></div></div></div>';
+  prBoard.innerHTML=h;prLayout();
+  PR.cards=[].slice.call(prBoard.children);
+  $('#prStage').textContent=toBn(PR.stage)+'/'+toBn(2);
+  prUi();
+  prSay(PR.stage===1?'কোথায় কী, দেখে নাও!':'রাতের পিকনিক!',true);
+  /* everything is shown for a moment, then turns face down */
+  prLater(function(){
+    PR.cards.forEach(function(c,k){c.style.transitionDelay='';});
+    PR.cards.forEach(function(c){c.classList.remove('up');});
+    A.sfx('tick');
+    prLater(function(){PR.lock=false;},520);
+  },C.peek*1000);
+}
+function prStop(){
+  if(!PR.on&&prEl.hidden)return;
+  PR.on=false;prClearTm();
+  prEl.hidden=true;prEl.classList.remove('won');prBoard.innerHTML='';prPet.innerHTML='';
+}
+function prUi(){
+  var el=PR.found/PR.n;
+  prTf.style.width=(el*100).toFixed(1)+'%';
+  prSun.style.left=(el*100).toFixed(1)+'%';
+  prSec.textContent=toBn(PR.n-PR.found);
+}
+
+/* ----- play ----- */
+function prTap(e){
+  if(!PR.on||PR.lock||PR.fin)return;
+  var c=e.target.closest&&e.target.closest('.pc');
+  if(!c||c.classList.contains('up')||c.classList.contains('ok'))return;
+  A.unlock();
+  c.classList.add('up');c.classList.remove('hint');A.sfx('tick');
+  PR.open.push(c);
+  if(PR.open.length<2)return;
+  PR.lock=true;PR.moves++;
+  var a=PR.open[0],b=PR.open[1];PR.open=[];
+  if(a.dataset.k===b.dataset.k){
+    PR.streak=0;
+    prLater(function(){prMatch(a,b);},380);
+  }else{
+    PR.streak++;
+    prLater(function(){
+      a.classList.add('no');b.classList.add('no');
+    },420);
+    prLater(function(){
+      a.classList.remove('up','no');b.classList.remove('up','no');
+      PR.lock=false;
+      if(PR.streak>=4){PR.streak=0;prHint();}
+    },980);
+  }
+}
+prBoard.addEventListener('click',prTap);
+prBoard.addEventListener('contextmenu',function(e){e.preventDefault();});
+/* after a few misses in a row, one hidden pair glows softly: a kind nudge, not a penalty */
+function prHint(){
+  var rest=PR.cards.filter(function(c){return !c.classList.contains('ok');});
+  if(rest.length<2)return;
+  var k=rest[Math.floor(Math.random()*rest.length)].dataset.k;
+  rest.filter(function(c){return c.dataset.k===k;}).forEach(function(c){c.classList.add('hint');});
+  prLater(function(){PR.cards.forEach(function(c){c.classList.remove('hint');});},2600);
+}
+function prMatch(a,b){
+  a.classList.add('ok');b.classList.add('ok');
+  PR.found++;PR.lock=false;
+  A.sfx('ting');buzz(14);
+  prUi();
+  prSparkle(a);prSparkle(b);
+  if(PR.found>=PR.n){PR.lock=true;prFinish();return;}
+  if(PR.found===Math.ceil(PR.n/2))prSay('অর্ধেক হয়ে গেছে!',false);
+}
+function prSparkle(c){
+  if(save.lowfx)return;
+  var r=c.getBoundingClientRect(),pr=prEl.getBoundingClientRect(),i,cols=['#ffe27a','#fff3b8','#ffb36b','#ffd1e0'];
+  for(i=0;i<5;i++){
+    var d=document.createElement('i');d.className='pp s';
+    d.style.left=(r.left-pr.left+r.width/2)+'px';d.style.top=(r.top-pr.top+r.height/2)+'px';
+    d.style.background=cols[i%4];
+    d.style.setProperty('--dx',Math.round(slRnd(-46,46))+'px');d.style.setProperty('--dy',Math.round(slRnd(-52,-8))+'px');
+    prPet.appendChild(d);
+    (function(d){setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d);},800);})(d);
+  }
+}
+
+/* ----- finish and results ----- */
+function prFinish(){
+  prSay('সব জোড়া মিলেছে!',true);A.sfx('win');
+  prEl.classList.add('won');
+  var n=save.lowfx?10:22,i,cols=['#ffd1e0','#fff3b8','#ffb36b','#ff8ab0','#ffe27a'],W=prEl.getBoundingClientRect().width;
+  for(i=0;i<n;i++){
+    var d=document.createElement('i');d.className='pp f';
+    d.style.left=Math.round(slRnd(10,W-10))+'px';d.style.background=cols[i%5];
+    d.style.animationDelay=(slRnd(0,.9)).toFixed(2)+'s';d.style.animationDuration=(slRnd(1.6,2.4)).toFixed(2)+'s';
+    d.style.setProperty('--dx',Math.round(slRnd(-60,60))+'px');
+    prPet.appendChild(d);
+  }
+  buzz(30);
+  prLater(function(){prResults();},2100);
+}
+function prResults(){
+  if(PR.fin)return;PR.fin=true;
+  var C=PR_ST[PR.stage],sg=PR.stage,st=PR.moves<=C.star3?3:PR.moves<=C.star2?2:1;
+  var prevSt=save.pr.st[sg]|0,newSt=Math.max(0,st-prevSt),gain=15+st*8+newSt*12;
+  if(st>prevSt)save.pr.st[sg]=st;
+  save.coins=(save.coins||0)+gain;
+  var gift='';
+  if(sg===2&&st===3){var g=giftRandom(1);gift=BNAME[g[0]]+' +1';}
+  if(PR.from>0&&sg>(save.pr.done[PR.from]|0))save.pr.done[PR.from]=sg;
+  save.stats.pairs=(save.stats.pairs|0)+C.n;
+  persist();syncCoins();updBoosters();checkAch();
+  var from=PR.from,btns=[];
+  var nextLv=function(){if(from>0&&from<MAXLV)startLevel(from+1);else goHome();};
+  if(sg===1){
+    btns.push({t:'পরের স্টেজ',cls:'gold',fn:function(){prStart(from,2);}});
+    btns.push({t:'আবার খেলো',cls:'alt',fn:function(){prStart(from,1);}});
+    btns.push({t:from>0?'বোনাস ছেড়ে পরের লেভেল':'মেনু',cls:'alt',fn:nextLv});
+  }else{
+    if(from>0&&from<MAXLV)btns.push({t:'পরের লেভেল',cls:'gold',fn:nextLv});
+    btns.push({t:'আবার খেলো',cls:from>0&&from<MAXLV?'alt':'gold',fn:function(){prStart(from,2);}});
+    btns.push({t:'মেনু',cls:'alt',fn:goHome});
+  }
+  var ttl=st===3?'দারুণ জিত!':'জিতেছ!';
+  var sub='সব জোড়া মিলেছে!\nচাল: '+toBn(PR.moves)+'\nকয়েন +'+toBn(gain)+(gift?'\nউপহার: '+gift:'');
+  if(st<3)sub+='\nআরও কম চালে ৩ তারা পাবে';
+  openModal({title:hi(ttl),stars:st,sub:sub,btns:btns});
+}
+
+/* ----- entry from the fun-missions card ----- */
+function syncPairs(){
+  var s=$('#pairsState');if(!s)return;
+  s.textContent=prUnlocked()?(save.pr.st[2]?'দুই স্টেজই জেতা':'জোড়া মেলাও, তারা পাও'):'বোনাস · লেভেল ৬০ জিতলে খুলবে';
+}
+$('#btnPairs').addEventListener('click',function(){
+  if(!prUnlocked()){toast('লেভেল ৬০ জিতলে এই বোনাস খুলবে',2600);return;}
+  $('#miss').hidden=true;A.unlock();prStart(0,1);
+});
+$('#btnFun').addEventListener('click',syncPairs);
+syncPairs();
+$('#prExit').addEventListener('click',function(){A.unlock();goHome();});
+window.addEventListener('resize',function(){if(PR.on)prLayout();});
+ACH.push(ach('a18','জোড়া-ওস্তাদ','৪০টা ফলের জোড়া মেলাও',60,function(){return save.stats.pairs|0;},40));
+if(window.__SPEED!==undefined||window.__TEST)window.__pr={PR:PR,start:prStart,fin:prFinish,res:prResults,tap:prTap};
+
 /* ---------- English / Bengali ---------- */
 var EN_DICT={"(দোকানে পাবে)": "(find it in the shop)", "(নতুন রেকর্ড!)": "(new record!)", "(বাকি চালের বোনাস": "(leftover-moves bonus", "(সঙ্গীর উপহার +": "(companion gift +", "+ সপ্তম দিনের বড় উপহার: কয়েন +150,": "+ Day-7 big gift: coins +150,", "+1 চাল": "+1 move", "+30 সেকেন্ড (50 কয়েন)": "+30 seconds (50 coins)", "+5 চাল": "+5 moves", "+5 চাল নিয়ে চালিয়ে যাও (": "Continue with +5 moves (", "· আজকেরটা নেওয়া হয়ে গেছে": "· Already taken today", "· আটকানো আছে": "· Locked", "· দিনে একবার": "· Once a day", "· সময়:": "· Time:", "· সেরা স্কোর:": "· Best score:", "। তুমি কত দূর যেতে পারো?": ". How far can you go?", "অবিশ্বাস্য!": "Unbelievable!", "অর্জন": "Achievements", "অর্জন:": "Achievement:", "অসাধারণ!": "Amazing!", "অসীম মোড": "Endless Mode", "অসীম মোডে 5000 পয়েন্ট": "Score 5000 points in Endless Mode", "অসীম সাধক": "Endless Master", "আগে কোড বসাও": "Paste a code first", "আগে তোমার নাম লেখো": "Type your name first", "আগের লেভেল জিতলে এটা খুলবে": "Win the previous level to unlock this", "আছে": "Owned", "আজ": "Today", "আজকের অর্ধেক দাম": "Today's half price", "আজকের উপহার আগেই নেওয়া হয়েছে, কয়েন +": "Today's gift was already taken, coins +", "আজকের চ্যালেঞ্জ": "Daily Challenge", "আজকের চ্যালেঞ্জ জিতেছো!": "You won today's challenge!", "আজকের ফসল তোলা হয়েছে": "Today's harvest is collected", "আজকের ফ্রি ঘোরানো": "Today's free spin", "আজকের মিশন": "Today's Missions", "আজকের সব মিশন শেষ ✓": "All of today's missions are done ✓", "আজকের সব মিশন শেষ! (+": "All of today's missions are done! (+", "আজকেরটা জেতা হয়েছে ✓": "Today's is won ✓", "আটকানো": "Locked", "আধা দাম ফেরত পেলে": "You got half the price back", "আবার খেলো": "Play again", "আবার শুরু করো": "Restart", "আমার বাগান": "My Garden", "আর": "and", "আর একটুর জন্য হলো না। আবার চেষ্টা করো।": "So close! Try again.", "আরও": "and", "আলাদা কিনলে": "Bought separately", "আশপাশের 9টা ঘর ভাঙে": "Breaks the 9 cells around it", "উপহার: কয়েন +": "Gift: coins +", "উষ্ণ সোনালি বালির রং": "Warm golden sand", "এই বুস্টার শেষ, দোকান থেকে কিনে নাও": "Out of this booster, buy more in the shop", "এই লক্ষ্যগুলো পূরণ করো": "Complete these goals", "একই রকম তিনটি বা তার বেশি ফল মিলিয়ে ফেলো": "Match three or more of the same fruit", "একটা ফল বা বাক্স ভাঙে": "Breaks one fruit or crate", "একটা বিশেষ লেভেল জেতো": "Win a special level", "একটু অপেক্ষা করো": "Wait a moment", "একসাথে 4টা মেলালে লাইন-ফল পাবে": "Match 4 at once to get a line fruit", "এখানে কিছু নেই": "Nothing here", "এখানে কী বসাবে?": "What will you place here?", "এখানে বদলাবে কী?": "What will you change it to?", "এটা বিশেষ লেভেল! জিতলে বড় উপহার পাবে।": "A special level! Win it for a big gift.", "কপি": "Copy", "কপি হয়েছে": "Copied", "কম অ্যানিমেশন:": "Low animation:", "কম্বো-বীর": "Combo Hero", "কয়েন": "coins", "কয়েন +": "Coins +", "কয়েন · সাশ্রয়": "coins · save", "কয়েন কম আছে। লেভেল জিতে কয়েন জমাও": "Not enough coins. Win levels to earn more", "কয়েন কম পড়ছে। লেভেল জিতলে কয়েন পাবে": "Not enough coins. Win levels to earn more", "কয়েন পেলে": "coins", "কয়েন লাগবে": "coins", "কয়েন)": "coins)", "কয়েন, সব শেষ হলে আরও +": "coins, plus", "কয়েনে": "coins", "কয়েনে ঘোরাও": "coins to spin", "কয়েনে যতবার খুশি।": "coins per spin, as many times as you like.", "কাঠের বাক্সের পাশে ফল ভাঙলে বাক্স ভাঙে।": "Break fruit next to a wooden crate to smash it.", "কাদা ছড়িয়েছে! কাদার পাশে ফল ভাঙো": "The mud spread! Break fruit next to the mud", "কাদা প্রতি চালে পাশের ফলে ছড়ায়! কাদার পাশে ফল ভাঙলে কাদা সাফ হয়। না ভাঙলে ছড়াতে থাকবে।": "Mud spreads to nearby fruit every move! Break fruit next to it to clean it. If you don't, it keeps spreading.", "কাদা-সাফাইকারী": "Mud Cleaner", "কী কাণ্ড!": "Wow!", "কোড এখানে আসবে বা বসাও": "The code appears here, or paste one", "কোড তৈরি। কপি করে রেখে দাও": "Code ready. Copy it and keep it safe", "কোড থেকে ফেরাও": "Restore from code", "কোড বানাও": "Make code", "কোডটা চেপে ধরে কপি করো": "Press and hold the code to copy it", "কোডটা ঠিক নেই": "That code is not valid", "কোনো বাদ্যযন্ত্র নেই। গুনগুন সুরটা কম্পিউটারে বানানো কণ্ঠের মতো আওয়াজ। একবার তৈরি হলে একটানা চলে, মাঝে আটকায় না।": "No instruments. The hum is a voice-like sound made by the computer. Once made, it plays continuously without stopping.", "খড়ের গাদা": "Haystack", "খাঁচায় আটকা ফল সরানো যায় না। পাশে মিলিয়ে সেটাকে ভাঙো।": "A caged fruit cannot be moved. Match next to it to break the cage.", "খাঁচার ফল সরানো যায় না, পাশে মিলিয়ে খাঁচা ভাঙো": "Caged fruit can't move. Match next to it to break the cage", "খালি জায়গায় ট্যাপ করে কিছু কেনো আর সাজাও": "Tap an empty spot to buy and decorate", "খেলা শুরু করো": "Play Now", "খেলার শব্দ": "Game sounds", "গভীর রাতের তারা": "Stars of the deep night", "গভীর সাগরের নীল": "Deep sea blue", "গান চালু করতে স্ক্রিনে একবার ট্যাপ করো": "Tap the screen once to start the music", "গান চালু বা বন্ধ": "Music on or off", "গানের শব্দ": "Music volume", "গোলাপি ফুলের আভা": "Pink flower glow", "ঘাসের ওপর দিয়ে বয়ে যাওয়া বাতাস, দূরের পাখি আর নরম গুনগুন": "Wind over the grass, distant birds and a soft hum", "ঘোরাতে": "Spinning costs", "চমৎকার!": "Excellent!", "চলছে": "In use", "চাঁদ": "Moon", "চাল": "Moves", "চাল দাও": "Make moves", "চাল শেষ!": "Out of moves!", "চাল:": "Moves:", "চালু": "On", "চালের ভাণ্ডার": "Moves Store", "চালের মধ্যে লক্ষ্য-পয়েন্ট ছুঁতে হবে। কম্বো করলে পয়েন্ট বেশি।": "Reach the target score within your moves. Combos give more points.", "ছানা · 20টা তারায় বড় হবে": "Chick · grows up at 20 stars", "ছানা কিচিরমিচির করছে!": "The chick is chirping!", "জায়গা": "Spot", "জিতে গেছো!": "You won!", "জিতেছো:": "You won:", "জোন": "Zone", "জোনাকির গুহা": "Firefly Cave", "জোনাকির রাত": "Firefly Night", "ঝকঝকে বরফের নীল": "Sparkling ice blue", "ঝরনার উপত্যকা": "Waterfall Valley", "ঝরনার ভোর": "Waterfall Dawn", "ঝলমলে ফল দুটো সোয়াইপ করে জায়গা বদলাও": "Swipe the two glowing fruits to swap them", "ঝিঁঝিঁ পোকা, মৃদু বাতাস আর ধীর গুনগুন সুর": "Crickets, a gentle breeze and a slow hum", "ঝোপ": "Bush", "টানা": "in a row", "টিউলিপ": "Tulip", "টিপস আবার দেখো": "Show tips again", "টিপসগুলো আবার দেখাবে": "The tips will show again", "ঠান্ডা নীল-সবুজ আলো": "Cool blue-green light", "ঠিক আছে": "OK", "ডিম · 6টা তারা পেলে ছানা বের হবে": "Egg · hatches at 6 stars", "ডিমটা গরম রাখতে তারা জমাও!": "Collect stars to keep the egg warm!", "তারার রাজা": "Star King", "তারার রাত": "Starry Night", "তুষার পাহাড়": "Snow Mountain", "তুষার সকাল": "Snowy Morning", "তোমার নাম কী?": "What's your name?", "থাক": "Cancel", "থিম": "Themes", "দারুণ!": "Great!", "দিন": "day", "দিনে একবার ফ্রি। এরপর": "One free spin a day. After that", "দৈনিক যোদ্ধা": "Daily Warrior", "দোকান": "Shop", "ধীরে আসা-যাওয়া ঢেউ আর খুব হালকা গুনগুন": "Slow rolling waves and a very light hum", "নতুন থিম খুলে গেছে:": "New theme unlocked:", "নতুন নাম লেখো": "Type a new name", "নতুন রেকর্ড!": "New record!", "নরম গুনগুন কণ্ঠ, দূরে ঝরনা আর পাখির ডাক": "A soft humming voice, a distant stream and birdsong", "নরম নীল আকাশ আর সাদা মেঘ": "Soft blue sky and white clouds", "নাম বদলাও": "Change Name", "নাম লেখো": "Type your name", "নিলাম": "Claim", "নীল সাগর": "Blue Sea", "পয়েন্ট": "Points", "পরের লেভেল": "Next Level", "পরের লেভেল থেকে সময় থাকবে": "A time limit starts from the next level", "পাঁচ চাল বাড়াও": "Add five moves", "পাইন গাছ": "Pine Tree", "পাকা ফলের সোনালি রং": "Golden ripe-fruit color", "পাখি · প্রতি লেভেলে +1 চাল উপহার": "Bird · +1 move gift every level", "পাখি তোমার সঙ্গে আছে!": "Your bird is with you!", "পাখির ঘর": "Bird House", "প্যাক": "Packs", "প্রতি 10 লেভেলের বিশেষ লেভেল জিতলে একটা থিম বিনামূল্যে পাবে।": "Win a special level (every 10 levels) to get a theme for free.", "প্রতিদিনের উপহার": "Daily Gift", "প্রথম জয়": "First Win", "ফল ভাঙো": "Break fruits", "ফল-ঝড়": "Fruit Storm", "ফল-ঝড় মিটার": "Fruit Storm meter", "ফল-ঝড়!": "Fruit Storm!", "ফল-সংগ্রাহক": "Fruit Collector", "ফলগুলো নতুন করে সাজায়": "Rearranges all the fruits", "ফলের গাছ": "Fruit Tree", "ফলের বাগান": "Fruit Garden", "ফসল তোলো": "Harvest", "ফসল তোলো +": "Harvest +", "ফসল নেই": "Nothing to harvest", "ফিরে এসেছে! আবার খুলছি": "Restored! Reopening", "ফুল": "Flower", "ফুলের উপত্যকা": "Flower Valley", "ফুলের বাগান": "Flower Garden", "ফোন বদলালে বা মুছে গেলে এই কোড দিয়ে সব ফিরিয়ে আনতে পারবে। কোডটা কোথাও লিখে বা মেসেজে রেখে দাও।": "If you change phones or your data is lost, you can restore everything with this code. Write it down or save it in a message.", "ফোয়ারা": "Fountain", "বড় গাছ": "Big Tree", "বন্ধ": "Off", "বন্ধ করো": "Close", "বন্ধুকে জানাও": "Tell a friend", "বরফ ভাঙো": "Break ice", "বরফ-ঢাকা ঘরে ফল ভাঙলে বরফ ভাঙে।": "Break fruit on an icy cell to crack the ice.", "বাগান থেকে +": "From the garden +", "বাগানে 5টা জিনিস বসাও": "Place 5 items in your garden", "বাগানের মান:": "Garden value:", "বাগানের রাজা": "Garden King", "বাগানের সম্রাট": "Garden Emperor", "বাগানের সোনা": "Garden Gold", "বাতি": "Lamp", "বিশেষ": "Special", "বিশেষ জয়ী": "Special Winner", "বিশেষ ফল বানাও": "Make special fruits", "বিশেষ লেভেল": "Special Level", "বিশেষ লেভেল জয়!": "Special level won!", "বুস্টার": "Boosters", "বেগুনি গুহার আলো": "Purple cave light", "বেঞ্চ": "Bench", "বেলুন": "Balloon", "বোনাস কয়েন)": "bonus coins)", "বোমা": "Bomb", "ব্যবহার করো": "Use", "ব্যবহার হচ্ছে": "In use", "ভাইব্রেশন:": "Vibration:", "ভাগ্যচক্র": "Lucky Wheel", "ভাগ্যচক্র ঘোরাও": "Spin the Lucky Wheel", "ভাগ্যবান": "Lucky One", "ভাঙনের প্যাক": "Breaker Pack", "ভোরের গুনগুন": "Morning Hum", "মজার মিশন": "Fun Missions", "মজার মোড": "Fun Modes", "মধু-সংগ্রাহক": "Honey Collector", "মধুর কলস ভাঙা যায় না, নিচে নামাও": "Honey jars can't be broken, bring them down", "মধুর কলস মেলানো যায় না। মাটির দিকে ফল ভাঙো, কলস নিচের সারিতে নেমে এলেই পাওয়া হয়ে যাবে।": "Honey jars can't be matched. Break fruit below them; once a jar reaches the bottom row, it is collected.", "মরুর বালি": "Desert Sand", "মাঠের হাওয়া": "Meadow Breeze", "মাত্র": "only", "মানচিত্র": "Map", "মালি": "Gardener", "মাশরুম": "Mushroom", "মিশন শেষ:": "Mission done:", "মিশন, চ্যালেঞ্জ আর মজার মোড": "Missions, challenges and fun modes", "মিশন-বীর": "Mission Hero", "মিশিয়ে দাও": "Shuffle", "মিশিয়ে দিচ্ছি": "Shuffling", "মিষ্টি!": "Sweet!", "মেঘলা আকাশ": "Cloudy Sky", "মেঘের রাজ্য": "Cloud Kingdom", "মেনু": "Menu", "মেনুতে যাও": "Go to menu", "মেশাও": "Shuffle", "যত পারো পয়েন্ট": "Score as much as you can", "যে ফলটা ভাঙবে সেটায় ট্যাপ করো": "Tap the fruit you want to break", "যেখানে বোমা ফাটাবে সেখানে ট্যাপ করো": "Tap where you want the bomb to go off", "রসালো বাগিচা": "Juicy Orchard", "রাজকীয় প্যাক": "Royal Pack", "রাতের আকাশ": "Night Sky", "লেভেল": "Level", "লেভেল জেতো": "Win levels", "লেভেল মানচিত্র": "Level Map", "শব্দ চালু বা বন্ধ": "Sound on or off", "শান্ত রাত": "Calm Night", "শুরু করতে ট্যাপ করো": "Tap to start", "শুরু করো": "Start", "শুরুর প্যাক": "Starter Pack", "শুরুর সবুজ রাত": "Green Night", "শেষ বিকেলের লাল-সোনা": "Red-gold of late afternoon", "শেষ 10 সেকেন্ড!": "Last 10 seconds!", "শোনো": "Listen", "সঙ্গী": "Companion", "সবচেয়ে বড়": "Biggest", "সবার জন্য একই বোর্ড": "Same board for everyone", "সবুজ বন": "Green Forest", "সবুজ বন · শুরু": "Green Forest · Start", "সময়": "Time", "সময় ফুরিয়ে গেল। আরেকবার চেষ্টা করো, এবার পারবে।": "Time ran out. Try once more, you can do it this time.", "সময় শেষ!": "Time's up!", "সময়ের সঙ্গে দৌড়": "Race against the clock", "সময়ের সীমা বন্ধ": "Time limit off", "সময়ের সীমা:": "Time limit:", "সমুদ্র নীল": "Ocean Blue", "সরিয়ে দাও": "Remove", "সাগরের ঢেউ": "Ocean Waves", "সুর": "Tunes", "সুর বেছে নাও": "Choose a tune", "সূর্যমুখী": "Sunflower", "সেটিংস": "Settings", "সেভ কোড": "Save Code", "সেরা": "Best", "সেরা দাম": "Best value", "সেরা স্কোর:": "Best score:", "সোনালি পাখি · প্রতি লেভেলে +2 চাল উপহার": "Golden bird · +2 moves gift every level", "সোনালি পাখি তোমাকে নিয়ে গর্বিত!": "Your golden bird is proud of you!", "সোনালি মরুভূমি": "Golden Desert", "সোনালি সন্ধ্যা": "Golden Evening", "স্কোর": "Score", "স্পেশাল-স্রষ্টা": "Special Maker", "স্ফটিক": "Crystal", "স্বাগতম,": "Welcome,", "হাতুড়ি": "Hammer", "1টা লেভেল জেতো": "Win 1 level", "10টা কাদা সাফ করো": "Clear 10 mud tiles", "100 নম্বর লেভেল জেতো": "Win level 100", "15টা মধুর কলস নামাও": "Bring down 15 honey jars", "25টা স্পেশাল ফল বানাও": "Make 25 special fruits", "3 দিনের চ্যালেঞ্জ জেতো": "Win 3 daily challenges", "3 বা তার বেশি কম্বো করো": "Make combos of 3 or more", "3টা দিনের সব মিশন শেষ করো": "Finish all missions on 3 days", "4টি বা তার বেশি মিলিয়ে স্পেশাল ফল বানাও।": "Match 4 or more to make a special fruit.", "5 কম্বো করো": "Make a 5 combo", "5টা বাড়তি চাল দেয়": "Gives 5 extra moves", "5বার চক্র ঘোরাও": "Spin the wheel 5 times", "50 নম্বর লেভেল জেতো": "Win level 50", "500টা ফল ভাঙো": "Break 500 fruits", "60 সেকেন্ড": "60 Seconds", "60 সেকেন্ড!": "60 seconds!", "60টা তারা জমাও": "Collect 60 stars", "আমি আজ ফলের বাগানের দৈনিক চ্যালেঞ্জ জিতেছি! তুমি পারবে?": "I won today's Fruit Garden daily challenge! Can you?", "আজকেরটা নেওয়া হয়ে গেছে": "Already taken today", "দিনে একবার": "Once a day", "টা পেয়েছো": "earned", "টা মিশন বাকি": "missions left", "দিন!": "days in a row!", "7 দিন টানা খেললে বড় উপহার পাবে।": "Play 7 days in a row for a big gift."};
 var EN_RULES=[[new RegExp("স্বাগতম, (.+?)!",'g'),"Welcome, $1!"],[new RegExp("(\\d+)/3 শেষ · প্রতিটায় \\+(\\d+) কয়েন, সব শেষ হলে আরও \\+(\\d+)",'g'),"$1/3 done · +$2 coins each, +$3 more when all are done"],[new RegExp("দিন (\\d+)/7!",'g'),"Day $1/7!"],[new RegExp("টানা (\\d+) দিন!",'g'),"$1 days in a row!"],[new RegExp("আজ (\\d+)টা মিশন বাকি",'g'),"$1 mission(s) left today"],[new RegExp("(\\d+)/(\\d+) টা পেয়েছো",'g'),"$1/$2 earned"],[new RegExp("আরও (\\d+)টা",'g'),"and $1 more"],[new RegExp("(\\d+)টা ফল ভাঙো",'g'),"Break $1 fruits"],[new RegExp("(\\d+)টা লেভেল জেতো",'g'),"Win $1 levels"],[new RegExp("(\\d+)টা বিশেষ ফল বানাও",'g'),"Make $1 special fruits"],[new RegExp("(\\d+)টা 3 বা তার বেশি কম্বো করো",'g'),"Make $1 combos of 3 or more"],[new RegExp("(\\d+)টা বরফ ভাঙো",'g'),"Break $1 ice tiles"],[new RegExp("(\\d+)টা চাল দাও",'g'),"Make $1 moves"],[new RegExp("আমি ফলের বাগানের (.+?)-এ (\\d+) পয়েন্ট পেয়েছি! তুমি কত পারো\\?",'g'),"I scored $2 points in Fruit Garden's $1! How much can you get?"],[new RegExp("আমি ফলের বাগানে লেভেল (\\d+) জিতেছি! (.*?) স্কোর (\\d+)। তুমি কত দূর যেতে পারো\\?",'g'),"I beat level $1 in Fruit Garden! $2 Score $3. How far can you go?"],[new RegExp("জোন (\\d+) · ★ (\\d+)/(\\d+)",'g'),"Zone $1 · ★ $2/$3"]];
+
+/* ---------- bonus slice: English strings ---------- */
+Object.assign(EN_DICT,{
+"বোনাস লেভেল!": "Bonus Level!",
+"ফল কাটার 2টা মজার স্টেজ।\nআঙুল টেনে ফলগুলো কেটে বয়ামে রস জমাও।\nএখানে হার নেই, শুধু মজা আর তারা।": "Two fun fruit-slicing stages.\nSwipe to slice the fruit and fill the jar with juice.\nNo losing here, just fun and stars.",
+"পরে খেলব": "Maybe later",
+"বোনাস": "Bonus",
+"রস": "juice",
+"রস জমেছে:": "Juice collected:",
+"উপহার:": "Gift:",
+"আরেকবার চেষ্টা করলে আরও রস জমবে": "Try once more and you'll collect more juice",
+"পরের স্টেজ": "Next Stage",
+"বোনাস ছেড়ে পরের লেভেল": "Skip bonus, next level",
+"বোনাস লেভেল খেলো": "Play Bonus Level",
+"বোনাস লেভেল খুলে গেছে! ফল কাটার মজা": "Bonus level unlocked! Fruit-slicing fun",
+"ফল কাটো!": "Slice the fruit!",
+"আরও মজা!": "Even more fun!",
+"পাকা কম্বো!": "Ripe combo!",
+"রসের বন্যা!": "Juice flood!",
+"সোনালি ফল!": "Golden fruit!",
+"চমৎকার!": "Excellent!",
+"ভালো হয়েছে!": "Nicely done!",
+"মজা হলো তো!": "That was fun!",
+"আঙুল টেনে ফল কাটো": "Swipe to slice the fruit",
+"ফল কাটো": "Slice Fruit",
+"বোনাস · লেভেল 20 জিতলে খুলবে": "Bonus · unlocks after level 20",
+"রস জমাও, তারা পাও": "Collect juice, earn stars",
+"লেভেল 20 জিতলে এই বোনাস খুলবে": "This bonus unlocks when you win level 20",
+"ফল-কাটিয়ে": "Fruit Slicer",
+"100টা ফল কেটে ফেলো": "Slice 100 fruits",
+"ফল কাটার 2টা মজার স্টেজ।\nআঙুল টেনে ফল কেটে রসের জার ভরো।\nজার ভরলেই জিত! এখানে হার নেই।": "Two fun fruit-slicing stages.\nSwipe to slice fruit and fill the juice jar.\nFill the jar to win! No losing here.",
+"ফলের বৃষ্টি!": "Fruit shower!",
+"জার ভরে গেছে!": "The jar is full!",
+"দারুণ জিত!": "Great win!",
+"জিতেছ!": "You won!",
+"কাটা ফল:": "Fruits sliced:",
+"আরও কম ফল ফসকালে ৩ তারা পাবে": "Miss fewer fruits to earn 3 stars",
+"জার ভরো, তারা পাও": "Fill the jar, earn stars",
+"দুই স্টেজই জেতা": "Both stages won"
+});
+
+/* ---------- bonus catch: English strings ---------- */
+Object.assign(EN_DICT,{
+"ঝুড়ি ধরো": "Catch the Fruit",
+"বোনাস · লেভেল 40 জিতলে খুলবে": "Bonus · unlocks after level 40",
+"লেভেল 40 জিতলে এই বোনাস খুলবে": "This bonus unlocks when you win level 40",
+"ঝুড়ি ভরো, তারা পাও": "Fill the basket, earn stars",
+"বোনাস লেভেল খুলে গেছে! ঝুড়িতে ফল ধরার মজা": "Bonus level unlocked! Fruit-catching fun",
+"ঝুড়িতে ফল ধরার 2টা মজার স্টেজ।\nআঙুল টেনে ঝুড়ি সরিয়ে পড়ন্ত ফল ধরো।\nঝুড়ি ভরলেই জিত! এখানে হার নেই।": "Two fun fruit-catching stages.\nDrag your finger to move the basket and catch the falling fruit.\nFill the basket to win! No losing here.",
+"আঙুল টেনে ঝুড়ি সরাও": "Drag to move the basket",
+"ফল ধরো!": "Catch the fruit!",
+"হাওয়ার সকাল!": "Breezy morning!",
+"ঝুড়ি ভরে গেছে!": "The basket is full!",
+"ধরা ফল:": "Fruits caught:",
+"ঝুড়ি-ওস্তাদ": "Basket Master",
+"100টা ফল ঝুড়িতে ধরো": "Catch 100 fruits in the basket"
+});
+
+/* ---------- bonus pairs: English strings ---------- */
+Object.assign(EN_DICT,{
+"ফল জোড়া": "Fruit Pairs",
+"বোনাস · লেভেল 60 জিতলে খুলবে": "Bonus · unlocks after level 60",
+"লেভেল 60 জিতলে এই বোনাস খুলবে": "This bonus unlocks when you win level 60",
+"জোড়া মেলাও, তারা পাও": "Match pairs, earn stars",
+"বোনাস লেভেল খুলে গেছে! ফল জোড়া মেলানোর মজা": "Bonus level unlocked! Fruit-matching fun",
+"পিকনিক কাপড়ের ওপর ফল মেলানোর 2টা মজার স্টেজ।\nকার্ড উল্টে একই ফলের জোড়া খোঁজো।\nসব জোড়া মিললেই জিত! এখানে হার নেই।": "Two fun fruit-matching stages on a picnic cloth.\nFlip the cards and find the matching pairs.\nMatch them all to win! No losing here.",
+"কোথায় কী, দেখে নাও!": "Remember where they are!",
+"রাতের পিকনিক!": "Night picnic!",
+"অর্ধেক হয়ে গেছে!": "Halfway there!",
+"সব জোড়া মিলেছে!": "All pairs matched!",
+"চাল:": "Moves:",
+"আরও কম চালে 3 তারা পাবে": "Fewer moves earns 3 stars",
+"জোড়া-ওস্তাদ": "Pair Master",
+"40টা ফলের জোড়া মেলাও": "Match 40 fruit pairs"
+});
 
 var EN_PH=Object.keys(EN_DICT).filter(function(k){return k.length>=2;}).sort(function(a,b){return b.length-a.length;});
 var BNRE=/[ঀ-৿]/;
@@ -3042,15 +4364,19 @@ function trText(s){
   return r;
 }
 function noI18n(el){return !!(el&&el.closest&&el.closest('[data-noi18n]'));}
+var ORI=new Map(),ORIA=new Map(),i18nMo=null;
 function trTextNode(nd){
   var v=nd.nodeValue;if(!v||!BNRE.test(v))return;
   if(noI18n(nd.parentElement))return;
-  var t=trText(v);if(t!==v)nd.nodeValue=t;
+  var t=trText(v);if(t!==v){ORI.set(nd,[v,t]);nd.nodeValue=t;}
 }
 var TR_ATTR=['aria-label','placeholder','title'];
 function trAttrs(el){
   if(noI18n(el))return;
-  for(var i=0;i<TR_ATTR.length;i++){var a=TR_ATTR[i],v=el.getAttribute&&el.getAttribute(a);if(v&&BNRE.test(v)){var t=trText(v);if(t!==v)el.setAttribute(a,t);}}
+  for(var i=0;i<TR_ATTR.length;i++){
+    var a=TR_ATTR[i],v=el.getAttribute&&el.getAttribute(a);
+    if(v&&BNRE.test(v)){var t=trText(v);if(t!==v){var o=ORIA.get(el)||{};o[a]=[v,t];ORIA.set(el,o);el.setAttribute(a,t);}}
+  }
 }
 function trTree(root){
   if(!root)return;
@@ -3067,27 +4393,44 @@ function activateEn(){
   if(i18nOn)return;i18nOn=true;
   document.documentElement.lang='en';document.title='Fruit Garden';
   trTree(document.body);
-  new MutationObserver(function(ms){
+  i18nMo=new MutationObserver(function(ms){
     for(var i=0;i<ms.length;i++){
       var m=ms[i];
       if(m.type==='characterData')trTextNode(m.target);
       else if(m.type==='attributes')trAttrs(m.target);
       else for(var j=0;j<m.addedNodes.length;j++)trTree(m.addedNodes[j]);
     }
-  }).observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:TR_ATTR});
+  });
+  i18nMo.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:TR_ATTR});
 }
-function syncLangBtn(){
-  var b=$('#langBtn');if(b)b.textContent=save.lang==='en'?'Language: English (tap for বাংলা)':'ভাষা: বাংলা (English-এ বদলাও)';
+function deactivateEn(){
+  if(!i18nOn)return;i18nOn=false;
+  if(i18nMo){i18nMo.disconnect();i18nMo=null;}
+  ORI.forEach(function(p,nd){if(nd.isConnected&&nd.nodeValue===p[1])nd.nodeValue=p[0];});
+  ORIA.forEach(function(o,el){if(!el.isConnected)return;for(var a in o)if(el.getAttribute(a)===o[a][1])el.setAttribute(a,o[a][0]);});
+  ORI.clear();ORIA.clear();
+  document.documentElement.lang='bn';document.title='ফলের বাগান';
 }
-$('#langBtn').addEventListener('click',function(){
-  save.lang=save.lang==='en'?'bn':'en';persist();
-  try{location.reload();}catch(e){}
+function syncLangSw(){
+  var q=document.querySelectorAll('#langSw button');
+  for(var i=0;i<q.length;i++){var on=q[i].dataset.l===(save.lang==='en'?'en':'bn');q[i].classList.toggle('on',on);q[i].setAttribute('aria-pressed',on);}
+}
+function switchLang(l){
+  if(l!=='en'&&l!=='bn')return;
+  if(save.lang===l){syncLangSw();return;}
+  save.lang=l;persist();
+  if(l==='en')activateEn();else deactivateEn();
+  syncLangSw();
+}
+document.querySelector('#langSw').addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;
+  A.unlock();switchLang(b.dataset.l);
 });
 function chooseLang(l){
   save.lang=l;persist();A.unlock();
   $('#langsel').hidden=true;
   if(l==='en')activateEn();
-  syncLangBtn();
+  syncLangSw();
   showSplash();
 }
 $('#langEn').addEventListener('click',function(){chooseLang('en');});
@@ -3098,23 +4441,10 @@ function startFlow(){
   showSplash();
 }
 if(save.lang==='en')activateEn();
-syncLangBtn();
+syncLangSw();
 if(!TEST)startFlow();
 
 })();
-  // দুই আঙুল দিয়ে জুম বন্ধ করার কোড
-document.addEventListener('touchstart', function (e) {
-  if (e.touches.length > 1) {
-    e.preventDefault();
-  }
-}, { passive: false });
-
-// ডাবল ট্যাপ করে জুম বন্ধ করার কোড
-let lastTouchEnd = 0;
-document.addEventListener('touchend', function (e) {
-  const now = (new Date()).getTime();
-  if (now - lastTouchEnd <= 300) {
-    e.preventDefault();
-  }
-}, false);
 </script>
+
+</body></html>
