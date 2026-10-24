@@ -708,6 +708,18 @@ html,body{overscroll-behavior:none!important;overscroll-behavior-y:none!importan
 #prSay{position:absolute;left:50%;top:13%;z-index:7}
 .lowfx .pr-ff i,.slow .pr-ff i,.lowfx #pairsg .sl-bfly *{animation:none!important}
 @media (prefers-reduced-motion:reduce){.pr-ff i{animation:none!important}.pci{transition:none}}
+/* v32: bonus stops on the level map; the three bonuses no longer live in Fun Missions */
+.funmodal .modegrid .mode[hidden]{display:none}
+.node.bonus{width:62px;height:62px;font-size:11px;background:radial-gradient(circle at 35% 28%,#e9f7ff,#8fd0ff 75%);border-color:#2f6fb0;box-shadow:0 4px 0 #1f4a80,0 8px 10px rgba(0,0,0,.3)}
+.node.bonus svg{width:30px;height:30px;margin-top:-2px;filter:drop-shadow(0 2px 1px rgba(0,0,0,.3))}
+.node.bonus small{font:800 11px/1 var(--font-d);color:#1f4a80;letter-spacing:0;margin-top:1px}
+.node.bonus.cur{background:radial-gradient(circle at 35% 28%,#fff3ff,#c9a0ff 78%);border-color:#6a35b8;box-shadow:0 4px 0 #43217a,0 0 0 6px rgba(255,255,255,.6),0 0 22px 6px rgba(190,140,255,.75)}
+.node.bonus.cur small{color:#43217a}
+.node.bonus.done{background:radial-gradient(circle at 35% 28%,#efffc4,#7ed63a 78%);border-color:#226d12;box-shadow:0 4px 0 #1b560e,0 8px 10px rgba(0,0,0,.3)}
+.node.bonus.done small{color:#226d12}
+.node.bonus.lockd svg{opacity:.5;filter:grayscale(.7)}
+.node.bonus.lockd small{color:#6b6350}
+.node.bonus.lockd{background:radial-gradient(circle at 35% 28%,#d9d3c4,#9e9684 80%);border-color:#6f6652;box-shadow:0 4px 0 #4c4535}
 
 </style>
 
@@ -2813,6 +2825,24 @@ function buildMapNodes(){
     (function(num,lk){b.addEventListener('click',function(){A.unlock();if(lk){toast('আগের লেভেল জিতলে এটা খুলবে');A.sfx('bad');return;}startLevel(num);});})(n,locked);
     m.appendChild(b);
   }
+  /* bonus stops: they sit just off the trail between level 20/21, 40/41 and 60/61 */
+  Object.keys(BONUS_AT).forEach(function(k){
+    k=+k;var kind=BONUS_AT[k],i0=k-1,mx=(g.x[i0]+g.x[i0+1])/2,my=g.y[i0]+(g.y[i0+1]-g.y[i0])*.18,
+      bx=Math.max(44,Math.min(316,mx+(mx<180?74:-74))),open=(save.stars[k]|0)>0,
+      rec=kind==='slice'?save.sl:kind==='catch'?save.ct:save.pr,full=(rec.done[k]|0)>=2,
+      ico=kind==='slice'?'f1':kind==='catch'?'d-basket':'d-pback',bb=document.createElement('button');
+    bb.className='node bonus'+(open?'':' lockd')+(open&&!full?' cur':'')+(full?' done':'');
+    bb.innerHTML='<svg viewBox="0 0 100 100"><use href="#'+ico+'"/></svg><small>'+(full?'✓':'বোনাস')+'</small>';
+    bb.style.left=(bx/360*100)+'%';bb.style.top='calc(var(--u) * '+my.toFixed(1)+')';
+    bb.setAttribute('aria-label','বোনাস লেভেল'+(open?'':' আটকানো'));
+    bb.addEventListener('click',function(){
+      A.unlock();
+      if(!open){toast('লেভেল '+toBn(k)+' জিতলে বোনাস খুলবে');A.sfx('bad');return;}
+      $('#lvPick').hidden=true;
+      if(kind==='slice')slIntro(k);else if(kind==='catch')ctIntro(k);else prIntro(k);
+    });
+    m.appendChild(bb);
+  });
   var cur=Math.min(save.unlocked,MAXLV),hero=document.createElement('div');
   hero.className='hero';hero.innerHTML='<svg viewBox="0 0 100 100"><use href="#f'+((cur*2)%6)+'"/></svg>';
   hero.style.left=(g.x[cur-1]/360*100)+'%';hero.style.top='calc(var(--u) * '+(g.y[cur-1]-44).toFixed(1)+')';
@@ -3329,7 +3359,7 @@ function slOffer(n){return BONUS_AT[n]==='slice'&&(save.sl.done[n]|0)<2;}
 /* which bonus (if any) is offered after winning level n */
 function bonusKind(n){var k=BONUS_AT[n];if(k==='slice')return slOffer(n)?'slice':'';if(k==='catch')return (save.ct.done[n]|0)<2?'catch':'';if(k==='pairs')return (save.pr.done[n]|0)<2?'pairs':'';return '';}
 function slClamp(v,a,b){return v<a?a:v>b?b:v;}
-var SL_TESTOPEN=false;   /* set true to open the bonus for testing; false = unlocks after level 20 */
+var SL_TESTOPEN=true;   /* set true to open the bonus for testing; false = unlocks after level 20 */
 function slUnlocked(){return !!(SL_TESTOPEN||save.sl.open||(save.stars[20]|0)>0);}
 function slRnd(a,b){return a+Math.random()*(b-a);}
 
@@ -3771,7 +3801,7 @@ if(window.__dbg)window.__dbg.win=win;
 /* ---------- bonus level: fruit catch (sunny orchard, breezy morning) ---------- */
 save.ct=Object.assign({open:0,done:{},st:{}},save.ct||{});
 save.ct.done=save.ct.done||{};save.ct.st=save.ct.st||{};
-var CT_TESTOPEN=false;   /* TEMP: open for testing; set to false to unlock only after level 40 */
+var CT_TESTOPEN=true;   /* TEMP: open for testing; set to false to unlock only after level 40 */
 /* a stage is won when the basket has caught `target` fruits; fruits that fall are simply missed (no losing) */
 var CT_ST=[null,
   {target:25,gap:[1.0,1.4],v0:105,a:42,sway:[8,16],golds:[8,17],two:0},
@@ -4074,7 +4104,7 @@ if(window.__SPEED!==undefined||window.__TEST)window.__ct={CT:CT,start:ctStart,sp
 /* ---------- bonus level: fruit pairs (picnic cloth by day, lantern picnic by night) ---------- */
 save.pr=Object.assign({open:0,done:{},st:{}},save.pr||{});
 save.pr.done=save.pr.done||{};save.pr.st=save.pr.st||{};
-var PR_TESTOPEN=false;   /* TEMP: open for testing; set to false to unlock only after level 60 */
+var PR_TESTOPEN=true;   /* TEMP: open for testing; set to false to unlock only after level 60 */
 /* a stage is won when every pair is found; wrong guesses only cost stars, never the game */
 var PR_ST=[null,
   {cols:3,rows:4,n:6,peek:2.0,star3:10,star2:16,syms:['f0','f1','f2','f3','f4','f5']},
@@ -4334,6 +4364,10 @@ Object.assign(EN_DICT,{
 
 /* ---------- bonus pairs: English strings ---------- */
 Object.assign(EN_DICT,{
+"বোনাস": "Bonus",
+"লেভেল 20 জিতলে বোনাস খুলবে": "Win level 20 to unlock the bonus",
+"লেভেল 40 জিতলে বোনাস খুলবে": "Win level 40 to unlock the bonus",
+"লেভেল 60 জিতলে বোনাস খুলবে": "Win level 60 to unlock the bonus",
 "ফল জোড়া": "Fruit Pairs",
 "বোনাস · লেভেল 60 জিতলে খুলবে": "Bonus · unlocks after level 60",
 "লেভেল 60 জিতলে এই বোনাস খুলবে": "This bonus unlocks when you win level 60",
